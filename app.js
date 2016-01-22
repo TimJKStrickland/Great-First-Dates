@@ -1,8 +1,4 @@
-<!doctype HTML>
-<head>
-  <link rel="stylesheet" href="main.css">
-  <script>
-    var map;
+   var map;
     var infowindow;
         function initMap() {
     var sanFrancisco = {lat: 37.7664823, lng: -122.4194691};
@@ -44,11 +40,3 @@
         infowindow.open(map, this);
       });
     };
-  </script>
-</head>
-<body>
-    <div id="nav"></div>
-    <div id="map"></div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9IhKVLJktwgxz-ipHPyVrOxCFqv4nkh4&signed_in=false&libraries=places&callback=initMap" async defer></script>
-</body>
-</html>

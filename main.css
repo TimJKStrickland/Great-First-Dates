@@ -5,4 +5,11 @@ html, body {
 }
 #map {
 	height: 100%;
+	z-index: 0;
+}
+#nav {
+	z-index: 1000;
+	float: right;
+	width: 20em;
+
 }

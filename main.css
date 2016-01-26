@@ -2,6 +2,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	font-size: 62.5%;
 }
 #map {
 	height: 100%;
@@ -9,7 +10,11 @@ html, body {
 }
 #nav {
 	z-index: 1000;
-	float: right;
-	width: 20em;
-
+	float: clear;
+	width: 20rem;
+	background-color: #000;
+	opacity: 0.5;
+}
+#nav:hover{
+	opacity: 1;
 }

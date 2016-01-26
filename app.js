@@ -12,12 +12,12 @@ function initMap() {
 
     // Create the PlaceService and send the request.
     // Handle the callback with an anonymous function.
-  var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
-    location: sanFrancisco,
-    radius: 500,
-    types: ['stores'],
-  }, callback); 
+  // var service = new google.maps.places.PlacesService(map);
+  // service.nearbySearch({
+  //   location: sanFrancisco,
+  //   radius: 500,
+  //   types: ['stores'],
+  // }, callback); 
 
     };
   function callback(results, status){
@@ -27,15 +27,18 @@ function initMap() {
       }
     }
   }
-  function createMarker(place){
-    var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-      map : Map,
-      position : place.geometry.location
-    });
+  // function createMarker(place){
+  //   var placeLoc = place.geometry.location;
+  //   var marker = new google.maps.Marker({
+  //     map : Map,
+  //     position : place.geometry.location
+  //   });
       // Run the initialize function when the window has finished loading.
-  google.maps.event.addListener(marker, 'click', function(){
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
-    });
-  };
+  // google.maps.event.addListener(marker, 'click', function(){
+  //   infowindow.setContent(place.name);
+  //   infowindow.open(map, this);
+  //   });
+  // };
+
+  var flickr;
+  

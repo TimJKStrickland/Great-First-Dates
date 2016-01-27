@@ -8,16 +8,15 @@
 </head>
 <body>
     <div class="container">
-    </div>
   	<h1>How to plan a first date: Thrillist</h1>
 
-    </div>
-      <div>
+      <div class="inner-container">
         <input placeholder="Find somewhere new?..." type="search" autocomplete="off" data-bind="value: searchValue, valueUpdate: 'keyup'">
-        <div data-bind="foreach: pins">
+        <div data-bind="foreach: locations2">
         <a href="#" data-bind="text: name, click: $root.listClick"></a>
         </div>
       </div>
+    </div>
   <div id="map"></div>
   <script src="js/jquery-2.2.0.min.js"></script>
   <script src="js/knockout-3.4.0.min.js"></script>

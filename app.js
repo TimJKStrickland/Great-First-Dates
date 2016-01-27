@@ -48,7 +48,8 @@ popLocations2();
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: startCenter,
-    zoom: 13
+    zoom: 13,
+    scrollwheel: false
   });
   // map.fitBounds({ east: -122.596139,
   //                 west: -122.275215,

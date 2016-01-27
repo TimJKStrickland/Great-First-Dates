@@ -37,8 +37,8 @@ var locations = [
 // Made so that locations remains after it is cleared 
 var locations2 = [];
 var popLocations2 = function(){
-  for (var i in locations){
-    locations2.push(locations[i]);
+  for (var x in locations){
+    locations2.push(locations[x]);
   }
 };
 popLocations2();
@@ -50,6 +50,11 @@ function initMap(){
     center: startCenter,
     zoom: 13
   });
+  // map.fitBounds({ east: -122.596139,
+  //                 west: -122.275215,
+  //                 north: 37.816974,
+  //                 south: 37.675586,
+  // });
   // putting all pins on the map and create the infowindow for each marker:
 
   for(var i = 0; i < locations.length; i++){
@@ -157,3 +162,5 @@ var googleError = function() {
     alert("Sorry, Google Maps API can't be loaded now. Please try later.");
     alertCount = false;
 };  
+
+var alertCount = true;

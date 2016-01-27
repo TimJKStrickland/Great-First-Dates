@@ -2,7 +2,7 @@ var map;
 var pins = [];
 var infoWindows = [];
 // calling the center outside the function
-var startCenter = {lat: 37.7664823, lng: -122.42};
+var startCenter = {lat: 37.7864823, lng: -122.42};
 
 /** MODEL **/
 var locations = [
@@ -48,7 +48,7 @@ popLocations2();
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: startCenter,
-    zoom: 13,
+    zoom: 12,
     scrollwheel: false
   });
   // map.fitBounds({ east: -122.596139,

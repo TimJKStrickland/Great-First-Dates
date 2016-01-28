@@ -8,6 +8,7 @@ html, body {
 .places{
 	justify-content: space-between;
 	width: 21em;
+	overflow: hidden;
 	text-align: right;
 }
 .place{

@@ -2,7 +2,7 @@ var map;
 var pins = [];
 var infoWindows = [];
 // calling the center outside the function
-var startCenter = {lat: 37.7864823, lng: -122.42};
+var startCenter = {lat: 37.7764823, lng: -122.42};
 
 /** MODEL **/
 var locations = [
@@ -10,27 +10,37 @@ var locations = [
   {
     name: "Ryoko's",
     latlong: { lat: 37.7882006, lng:-122.4142544 },
-    yelpAPI: ""
+    fsID: "433c8000f964a52043281fe3"
   },
   {
     name: "Chamber Eat + Drink",
     latlong: { lat: 37.7830672, lng:-122.4203229 },
-    yelpAPI: ""
+    fsID: "50e63342b0ed7e4688ddb834"
   },
   {
     name: "Starbelly",
-      latlong: { lat: 37.7640966, lng:-122.4347866 },
-      yelpAPI: ""
+    latlong: { lat: 37.7640966, lng:-122.4347866 },
+    fsID: "4a789bbbf964a52004e61fe3"
   },
   {
     name: "Devil's Acre",
     latlong: { lat: 37.7976738, lng:-122.4083549 },
-    yelpAPI: ""
+    fsID: "5487a2cb498ea3c43c7cd3f4"
   },
   {
     name: "Elephant Sushi",
     latlong: { lat: 37.7986734, lng:-122.4209331 },
-    yelpAPI: ""
+    fsID: "55b42ca5498e4c7fcfdc6d3c"
+  },
+  {
+    name: "Benjamin Cooper",
+    latlong: { lat: 37.7873384, lng:-122.4118848 },
+    fsID: "54f132e7498e5d065370a6b1"
+  },
+  {
+    name: "Exploratorium",
+    latlong: { lat: 37.8008602, lng: -122.4008237  },
+    fsID: "55b42ca5498e4c7fcfdc6d3c"
   }
 ];
 
@@ -48,21 +58,18 @@ popLocations2();
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: startCenter,
-    zoom: 12,
+    zoom: 13,
     scrollwheel: false
   });
-  // map.fitBounds({ east: -122.596139,
-  //                 west: -122.275215,
-  //                 north: 37.816974,
-  //                 south: 37.675586,
-  // });
+  map.getBounds();
   // putting all pins on the map and create the infowindow for each marker:
 
   for(var i = 0; i < locations.length; i++){
     var marker = new google.maps.Marker({
       position: locations[i].latlong,
       map: map,
-      title: locations[i].name
+      title: locations[i].name,
+      animation: google.maps.Animation.DROP
     });
 
     // adding the Infowindow to populate and creating the error message if the
@@ -84,14 +91,13 @@ function initMap(){
         };
       })(marker, infoWindow));
 
-    // push each marker into marker's array to make them observable
-    pins.push(marker);
+      // push each marker into marker's array to make them observable
+      pins.push(marker);
 
-    // push infoWindow to the infoWindow's array to make them observable
-    infoWindows.push(infoWindow);
-  }
+      // push infoWindow to the infoWindow's array to make them observable
+      infoWindows.push(infoWindow);
+    }
 }
-
 var toggleOff = function(marker) {
     marker.setMap(null);
 };
@@ -125,6 +131,7 @@ var toggleBounceOn = function(marker) {
 /** VIEWMODEL **/
 
 var viewModel = {
+  // Google Maps API stuff
   // data
   pins: ko.observableArray(locations2),
   searchValue: ko.observable(''),
@@ -157,8 +164,50 @@ var viewModel = {
 };
 ko.applyBindings(viewModel);
 viewModel.searchValue.subscribe(viewModel.search);
-  
+for( var x in locations){
+  var url = "https://api.foursquare.com/v2/venues/" + 
+    locations[x].fsID + 
+    "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ"+
+    "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321"
 
+    $.getJSON(url, (function(xCopy){ // IIFE
+        return function(data) {
+            // use returned JSON here
+            locations[xCopy].foursquareData = data;
+            var venue = data.response.venue;
+
+            // create contentString
+            var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+            var contentString2;
+            if (venue.rating !== undefined) {
+                contentString2 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                    venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
+                    '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
+            } else {
+                contentString2 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                    venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
+            }
+            var contentString1 = '';
+            var categories = venue.categories;
+            for (var i=0; i < categories.length; i++) {
+                contentString1 += '<span>' + categories[i].name + '</span>, ';
+            }
+            // delete last two positions of contentString1
+            contentString1 = contentString1.slice(0, -2);
+
+            var contentString = contentString0 + contentString1 + contentString2;
+
+            // change info windows' content
+            infoWindows[xCopy].content = contentString;
+
+        };
+    })(x)).fail(function(){ // error handling
+        if (alertCount === true) {
+        alert("Sorry, some data can't be loaded now. Please try later.");
+        alertCount = false; // make sure it only alert once
+        }
+    });
+}
 var googleError = function() {
     alert("Sorry, Google Maps API can't be loaded now. Please try later.");
     alertCount = false;

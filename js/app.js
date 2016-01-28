@@ -178,24 +178,27 @@ for( var x in locations){
 
             // create contentString
             var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-            var contentString2;
+            var contentString3;
             if (venue.rating !== undefined) {
-                contentString2 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
                     venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
                     '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
             } else {
-                contentString2 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
                     venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
             }
-            var contentString1 = '';
+            var contentString2 = '';
             var categories = venue.categories;
+            var formattedPhone = venue.contact.formattedPhone;
+            var phone = venue.contact.phone;
             for (var i=0; i < categories.length; i++) {
-                contentString1 += '<span>' + categories[i].name + '</span>, ';
+                contentString1 += '<span>' + categories[i].name + '</span>';
             }
-            // delete last two positions of contentString1
-            contentString1 = contentString1.slice(0, -2);
+            var contentString1 = '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';  
+            // delete last two positions of contentString1. Only category wanted per hit
+            contentString2 = contentString2.slice(0, -2);
 
-            var contentString = contentString0 + contentString1 + contentString2;
+            var contentString = contentString0 + contentString1 + contentString2 + contentString3;
 
             // change info windows' content
             infoWindows[xCopy].content = contentString;

@@ -2,7 +2,7 @@
 ###Single Page web app with several APIs
 I built a SWA that uses the APIs from Google Maps and FourSquare
 
-Click [here](timjkstrickland.github.io/Great-First-Dates) to view the page.
+Click [here](http://timjkstrickland.github.io/Great-First-Dates) to view the page.
 
 
 ##Eventually

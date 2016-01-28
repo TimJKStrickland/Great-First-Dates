@@ -40,7 +40,7 @@ var locations = [
   {
     name: "Exploratorium",
     latlong: { lat: 37.8008602, lng: -122.4008237  },
-    fsID: "55b42ca5498e4c7fcfdc6d3c"
+    fsID: "4585a93ef964a520ac3f1fe3"
   }
 ];
 
@@ -62,6 +62,13 @@ function initMap(){
     scrollwheel: false
   });
   map.getBounds();
+
+   // Close infoWindow when map clicked
+        google.maps.event.addListener(map, 'click', function(e) {
+            closeInfoWindows();
+            toggleBounceOffAll();
+        });
+
   // putting all pins on the map and create the infowindow for each marker:
 
   for(var i = 0; i < locations.length; i++){
@@ -132,7 +139,6 @@ var toggleBounceOn = function(marker) {
 
 var viewModel = {
   // Google Maps API stuff
-  // data
   pins: ko.observableArray(locations2),
   searchValue: ko.observable(''),
 
@@ -148,13 +154,13 @@ var viewModel = {
       }
     }
   },
-  listValue: function(value){
+  listClick: function(value){
     // closes all info windows, toggles off all Bounce
     closeInfoWindows();
     toggleBounceOffAll();
 
     for(var x in locations){
-      if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
+      if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
         // open the clicked marker's infoWindow and trigger animation
         infoWindows[x].open(map, pins[x]);
         toggleBounceOn(pins[x]);
@@ -168,12 +174,12 @@ for( var x in locations){
   var url = "https://api.foursquare.com/v2/venues/" + 
     locations[x].fsID + 
     "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ"+
-    "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321"
+    "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
 
-    $.getJSON(url, (function(xCopy){ // IIFE
+    $.getJSON(url, (function(fsData){ // IIFE
         return function(data) {
             // use returned JSON here
-            locations[xCopy].foursquareData = data;
+            locations[fsData].foursquareData = data;
             var venue = data.response.venue;
 
             // create contentString
@@ -201,18 +207,18 @@ for( var x in locations){
             var contentString = contentString0 + contentString1 + contentString2 + contentString3;
 
             // change info windows' content
-            infoWindows[xCopy].content = contentString;
+            infoWindows[fsData].content = contentString;
 
         };
     })(x)).fail(function(){ // error handling
         if (alertCount === true) {
-        alert("Sorry, some data can't be loaded now. Please try later.");
+        alert("Shoot. We can't find anything. Please try later.");
         alertCount = false; // make sure it only alert once
         }
     });
 }
 var googleError = function() {
-    alert("Sorry, Google Maps API can't be loaded now. Please try later.");
+    alert("Snap, something busted on Google Maps. Quick! Say something funny.");
     alertCount = false;
 };  
 

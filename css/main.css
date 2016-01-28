@@ -23,13 +23,7 @@ img{
 	height: 4.5em;
 	margin: 0;
 }
-/*.inner-container-right {
-	width: 45%;
-	padding: 2em;
-	float: left;
-	height: 8em;
-	m
-}*/
+
 hr {
  	border:0.5em solid #ee8833;
  	position: relative;
@@ -47,13 +41,12 @@ hr {
 #search-btn {
 	background-color: #ee8833;
 	color: white;
-	border: 0em;	
+	border: 0;	
     width: 5em;
     border-bottom-right-radius: 0.5em;
     border-top-right-radius: 0.5em;
 }
 #searchbar {
-	background-color: rgba(0,0,0,0);
 	border: 0.15em solid #ee8833;
     width: 16em;
     border-bottom-left-radius: 0.5em;
@@ -64,6 +57,8 @@ hr {
 	width: 27%;
 	float: left;
 	position: relative;
+	overflow: scroll;
+	height: 81vh;
 }
 .place, .tel {
 	list-style: none;

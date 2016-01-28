@@ -76,7 +76,8 @@ function initMap(){
       position: locations[i].latlong,
       map: map,
       title: locations[i].name,
-      animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP,
+      icon: 'assets/heart_icon.svg'
     });
 
     // adding the Infowindow to populate and creating the error message if the

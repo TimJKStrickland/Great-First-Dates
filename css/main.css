@@ -76,7 +76,7 @@ hr {
 }
 
 #map {
-	height: 100%;
+	height: 81vh;
 	width: 73%;
 	float: left;
 	position: relative;

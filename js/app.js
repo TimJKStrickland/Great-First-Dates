@@ -108,7 +108,7 @@ var initMap = function(){
       // push infoWindow to the infoWindow's array to make them observable
       infoWindows.push(infoWindow);
     }
-    
+  ko.applyBindings(new viewModel());
 };
 var toggleOff = function(marker) {
     marker.setMap(null);
@@ -235,11 +235,4 @@ var googleError = function() {
 };  
 
 var alertCount = true;
-
-var app = function(){
-  initMap();
-  var vm = new viewModel;
-  ko.applyBindings(vm);
-};
-app();
 })();

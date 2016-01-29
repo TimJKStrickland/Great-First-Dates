@@ -153,7 +153,7 @@ var viewModel = {
   pins: ko.observableArray(locations2),
   searchValue: ko.observable(''),
 
-  // ops
+  // operations
   search: function(value){
     viewModel.pins.removeAll();
     toggleOffAll();
@@ -179,7 +179,6 @@ var viewModel = {
     }
   }
 };
-ko.applyBindings(new viewModel());
 viewModel.searchValue.subscribe(viewModel.search);
 for( var x in locations){
   if(locations !==undefined){

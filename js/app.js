@@ -64,7 +64,7 @@ popLocations2();
 
 /**  VIEW **/
 // init's Google Maps API
-function initMap(){
+var initMap = function(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: startCenter,
     zoom: 13,
@@ -108,9 +108,8 @@ function initMap(){
       // push infoWindow to the infoWindow's array to make them observable
       infoWindows.push(infoWindow);
     }
-    var vm = new viewModel();
-    ko.applyBindings(vm);
-}
+    
+};
 var toggleOff = function(marker) {
     marker.setMap(null);
 };
@@ -237,4 +236,11 @@ var googleError = function() {
 };  
 
 var alertCount = true;
+
+var app = function(){
+  initMap();
+  var vm = new viewModel();
+  ko.applyBindings(vm);
+};
+app();
 })();

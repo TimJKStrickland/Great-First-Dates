@@ -238,7 +238,7 @@ var alertCount = true;
 
 var app = function(){
   initMap();
-  var vm = new viewModel();
+  var vm = new viewModel;
   ko.applyBindings(vm);
 };
 app();

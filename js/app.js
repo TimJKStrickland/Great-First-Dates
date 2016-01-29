@@ -108,6 +108,8 @@ function initMap(){
       // push infoWindow to the infoWindow's array to make them observable
       infoWindows.push(infoWindow);
     }
+    var vm = new viewModel();
+    ko.applyBindings(vm);
 }
 var toggleOff = function(marker) {
     marker.setMap(null);
@@ -178,7 +180,7 @@ var viewModel = {
     }
   }
 };
-ko.applyBindings(new viewModel);
+ko.applyBindings(new viewModel());
 viewModel.searchValue.subscribe(viewModel.search);
 for( var x in locations){
   if(locations !==undefined){

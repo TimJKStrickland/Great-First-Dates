@@ -5,6 +5,10 @@ var pins = [];
 var infoWindows = [];
 // calling the center outside the function
 var startCenter = {lat: 37.7764823, lng: -122.42};
+/**
+* @function initMap 
+  @description Displays the initial map on application load
+*/
 
 /** MODEL **/
 var locations = [

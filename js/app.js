@@ -1,3 +1,5 @@
+( function() {
+  'use strict';
 var map;
 var pins = [];
 var infoWindows = [];
@@ -48,8 +50,11 @@ var locations = [
 var locations2 = [];
 var popLocations2 = function(){
   for (var x in locations){
-    locations2.push(locations[x]);
+    if(locations2 !==undefined ){
+    	locations2.push(locations[x]);
+    }
   }
+    
 };
 popLocations2();
 
@@ -62,12 +67,6 @@ function initMap(){
     scrollwheel: false
   });
   map.getBounds();
-
-   // Close infoWindow when map clicked
-        google.maps.event.addListener(map, 'click', function(e) {
-            closeInfoWindows();
-            toggleBounceOffAll();
-        });
 
   // putting all pins on the map and create the infowindow for each marker:
 
@@ -114,21 +113,27 @@ var toggleOn = function(marker) {
 };
 var toggleOffAll = function() {
     for (var x in pins) {
+      if(pins !== undefined){
         pins[x].setMap(null);
+    	}
     }
 };
 
 // function to close all info windows
 var closeInfoWindows = function() {
     for (var x in infoWindows) {
+      if( infoWindows !==undefined){
         infoWindows[x].close();
+      }
     }
 };
 
 // functions to toggle pin's BOUNCE animation
 var toggleBounceOffAll = function() {
     for (var x in pins) {
+      if(pins !== undefined){
         pins[x].setAnimation(null);
+      }
     }
 };
 
@@ -172,51 +177,53 @@ var viewModel = {
 ko.applyBindings(viewModel);
 viewModel.searchValue.subscribe(viewModel.search);
 for( var x in locations){
-  var url = "https://api.foursquare.com/v2/venues/" + 
-    locations[x].fsID + 
-    "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ"+
-    "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
-
-    $.getJSON(url, (function(fsData){ // IIFE
-        return function(data) {
-            // use returned JSON here
-            locations[fsData].foursquareData = data;
-            var venue = data.response.venue;
-
-            // create contentString
-            var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-            var contentString3;
-            if (venue.rating !== undefined) {
-                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-                    venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
-                    '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
-            } else {
-                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-                    venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
-            }
-            var contentString2 = '';
-            var categories = venue.categories;
-            var formattedPhone = venue.contact.formattedPhone;
-            var phone = venue.contact.phone;
-            for (var i=0; i < categories.length; i++) {
-                contentString1 += '<span>' + categories[i].name + '</span>';
-            }
-            var contentString1 = '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';  
-            // delete last two positions of contentString1. Only category wanted per hit
-            contentString2 = contentString2.slice(0, -2);
-
-            var contentString = contentString0 + contentString1 + contentString2 + contentString3;
-
-            // change info windows' content
-            infoWindows[fsData].content = contentString;
-
-        };
-    })(x)).fail(function(){ // error handling
-        if (alertCount === true) {
-        alert("Shoot. We can't find anything. Please try later.");
-        alertCount = false; // make sure it only alert once
-        }
-    });
+  if(locations !==undefined){
+    var url = "https://api.foursquare.com/v2/venues/" + 
+      locations[x].fsID + 
+      "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ"+
+      "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
+  
+      $.getJSON(url, (function(fsData){ // IIFE
+          return function(data) {
+              // use returned JSON here
+              locations[fsData].foursquareData = data;
+              var venue = data.response.venue;
+  
+              // create contentString
+              var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+              var contentString3;
+              if (venue.rating !== undefined) {
+                  contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                      venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
+                      '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
+              } else {
+                  contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                      venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
+              }
+              var contentString2 = '';
+              var categories = venue.categories;
+              var formattedPhone = venue.contact.formattedPhone;
+              var phone = venue.contact.phone;
+              for (var i=0; i < categories.length; i++) {
+                  contentString1 += '<span>' + categories[i].name + '</span>';
+              }
+              var contentString1 = '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';  
+              // delete last two positions of contentString1. Only category wanted per hit
+              contentString2 = contentString2.slice(0, -2);
+  
+              var contentString = contentString0 + contentString1 + contentString2 + contentString3;
+  
+              // change info windows' content
+              infoWindows[fsData].content = contentString;
+  
+          };
+      })(x)).fail(function(){ // error handling
+          if (alertCount === true) {
+          alert("Shoot. We can't find anything. Please try later.");
+          alertCount = false; // make sure it only alert once
+          }
+      });
+  }
 }
 var googleError = function() {
     alert("Snap, something busted on Google Maps. Quick! Say something funny.");
@@ -224,3 +231,4 @@ var googleError = function() {
 };  
 
 var alertCount = true;
+})();

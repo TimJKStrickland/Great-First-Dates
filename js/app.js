@@ -174,7 +174,7 @@ var viewModel = {
     }
   }
 };
-ko.applyBindings(viewModel);
+ko.applyBindings(new viewModel);
 viewModel.searchValue.subscribe(viewModel.search);
 for( var x in locations){
   if(locations !==undefined){

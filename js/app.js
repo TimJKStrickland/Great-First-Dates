@@ -73,7 +73,6 @@ var initMap = function(){
   map.getBounds();
 
   // putting all pins on the map and create the infowindow for each marker:
-
   for(var i = 0; i < locations.length; i++){
     var marker = new google.maps.Marker({
       position: locations[i].latlong,
@@ -108,6 +107,40 @@ var initMap = function(){
       // push infoWindow to the infoWindow's array to make them observable
       infoWindows.push(infoWindow);
     }
+  
+    /** VIEWMODEL **/
+  
+  var viewModel = {
+    // Google Maps API stuff
+    pins: ko.observableArray(locations2),
+    searchValue: ko.observable(''),
+  
+    // operations
+    search: function(value){
+      viewModel.pins.removeAll();
+      toggleOffAll();
+  
+      for (var x in locations){
+        if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
+        viewModel.pins.push(locations[x]);
+        toggleOn(pins[x]);
+        }
+      }
+    },
+    listClick: function(value){
+      // closes all info windows, toggles off all Bounce
+      closeInfoWindows();
+      toggleBounceOffAll();
+  
+      for(var x in locations){
+        if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
+          // open the clicked marker's infoWindow and trigger animation
+          infoWindows[x].open(map, pins[x]);
+          toggleBounceOn(pins[x]);
+        }
+      }
+    }
+  };
   ko.applyBindings(new viewModel());
 };
 var toggleOff = function(marker) {
@@ -146,39 +179,6 @@ var toggleBounceOn = function(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
 };
 
-/** VIEWMODEL **/
-
-var viewModel = {
-  // Google Maps API stuff
-  pins: ko.observableArray(locations2),
-  searchValue: ko.observable(''),
-
-  // operations
-  search: function(value){
-    viewModel.pins.removeAll();
-    toggleOffAll();
-
-    for (var x in locations){
-      if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-      viewModel.pins.push(locations[x]);
-      toggleOn(pins[x]);
-      }
-    }
-  },
-  listClick: function(value){
-    // closes all info windows, toggles off all Bounce
-    closeInfoWindows();
-    toggleBounceOffAll();
-
-    for(var x in locations){
-      if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
-        // open the clicked marker's infoWindow and trigger animation
-        infoWindows[x].open(map, pins[x]);
-        toggleBounceOn(pins[x]);
-      }
-    }
-  }
-};
 viewModel.searchValue.subscribe(viewModel.search);
 for( var x in locations){
   if(locations !==undefined){

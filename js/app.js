@@ -1,3 +1,4 @@
+'use strict';
 var map;
 var pins = [];
 var infoWindows = [];
@@ -39,12 +40,81 @@ var locations = [
   },
   {
     name: "Exploratorium",
-    latlong: { lat: 37.8008602, lng: -122.4008237  },
+    latlong: { lat: 37.8008602, lng: -122.4008237 },
     fsID: "4585a93ef964a520ac3f1fe3"
+  },
+  {
+    name: "Foreign Cinema",
+    latlong: { lat: 37.7564817, lng: -122.4213619 },
+    fsID: "3fd66200f964a520a0ec1ee3"
+  },
+  {
+    name: "Chubby Noodle",
+    latlong: { lat: 37.7994414, lng: -122.4400868 },
+    fsID: "5127a9e2183f56cf2d7bfe9a"
+  },
+  {
+    name: "Gracias Madre",
+    latlong: { lat: 37.7615745, lng: -122.4212534 },
+    fsID: "4b4955ccf964a520b86d26e3"
+  },
+  {
+    name: "Cliff House",
+    latlong: { lat: 37.7784894, lng: -122.516152 },
+    fsID: "4bf0588dd5bc0f470f366921"
+  },
+  {
+    name: "Green's Restaurant",
+    latlong: { lat: 37.8068007, lng: -122.4343576 },
+    fsID: "4a1c397bf964a520257b1fe3"
+  },
+  {
+    name: "Trick Dog",
+    latlong: { lat: 37.7593538, lng: -122.4133968 },
+    fsID: "5095da318302abffba3c23fd"
+  },
+  {
+    name: "Central Kitchen",
+    latlong: { lat: 37.7592602, lng: -122.4132552 },
+    fsID: "4faaba890cd6e74f6f96bab1"
+  },
+  {
+    name: "Cocotte",
+    latlong: { lat: 37.7948162, lng: -122.4206194 },
+    fsID: "5078e44ee4b0da2384e74824"
+  },
+  {
+    name: "Palmer's Tavern",
+    latlong: { lat: 37.7906335, lng: -122.4361915 },
+    fsID: "521ec12f11d2224d014b63f4"
+  },
+  {
+    name: "State Bird Provisions",
+    latlong: { lat: 37.7836666, lng: -122.4352882 },
+    fsID: "4ef52a378231b0d6238dd471"
+  },
+  {
+    name: "Nopa",
+    latlong: { lat:37.7748978, lng: -122.4396831  },
+    fsID: "44646408f964a52026331fe3"
+  },
+  {
+    name: "Tomasso's",
+    latlong: { lat: 37.7978025, lng: -122.4074324 },
+    fsID: "49e05c38f964a52052611fe3"
+  },
+  {
+    name: "The Ice Cream Bar Soda Foundation",
+    latlong: { lat:37.7664591, lng: -122.4524319  },
+    fsID: "4eac41a5dab40d132703fc44"
+  },{
+    name: "Biergarten",
+    latlong: { lat: 37.7760198, lng: -122.4261769 },
+    fsID: "4dd7e48fd22d38ef42f35bd8"
   }
 ];
 
-// Made so that locations remains after it is cleared 
+// Made so that locations remains after it is cleared
 var locations2 = [];
 var popLocations2 = function(){
   for (var x in locations){
@@ -89,7 +159,7 @@ function initMap(){
       content: errorAjax
     });
 
-    // IIFE to solve closure issue 
+    // IIFE to solve closure issue
     marker.addListener('click', (function(pinCopy, infoWindowCopy){
         return function(){
           closeInfoWindows();
@@ -172,9 +242,9 @@ var viewModel = {
 ko.applyBindings(viewModel);
 viewModel.searchValue.subscribe(viewModel.search);
 for( var x in locations){
-  var url = "https://api.foursquare.com/v2/venues/" + 
-    locations[x].fsID + 
-    "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ"+
+  var url = "https://api.foursquare.com/v2/venues/" +
+    locations[x].fsID +
+    "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
     "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
 
     $.getJSON(url, (function(fsData){ // IIFE
@@ -201,7 +271,11 @@ for( var x in locations){
             for (var i=0; i < categories.length; i++) {
                 contentString1 += '<span>' + categories[i].name + '</span>';
             }
-            var contentString1 = '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';  
+            if(phone || formattedPhone !== undefined){
+              var contentString1 = '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
+            } else {
+              var contentString1 = "<span>This place is so hip they don't even have a phone.</span>";
+            }
             // delete last two positions of contentString1. Only category wanted per hit
             contentString2 = contentString2.slice(0, -2);
 
@@ -221,6 +295,6 @@ for( var x in locations){
 var googleError = function() {
     alert("Snap, something busted on Google Maps. Quick! Say something funny.");
     alertCount = false;
-};  
+};
 
 var alertCount = true;

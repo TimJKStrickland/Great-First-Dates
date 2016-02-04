@@ -84,11 +84,11 @@ hr {
 
 @media all and (max-width: 960px){
 	html{
-		font-size: 90%;
+		font-size: 100%;
 	}
 	.inner-container{
 		float: left;
-		width: 44.5%;	
+		width: 40%;	
 	}
 		#map {
 		height: 89vh;

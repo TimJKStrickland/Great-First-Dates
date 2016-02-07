@@ -1,4 +1,4 @@
-html, body, .outer-container {
+html, body {
 	height: 100%;
 	width: 100%;
 	margin: 0;
@@ -6,6 +6,11 @@ html, body, .outer-container {
 	font-size: 100%;
 	font-family: "Varela Round", Arial, sans-serif;
 }
+
+.upper-container {
+	height: 12em;
+}
+
 img{
 	width: 24%;
 	vertical-align: middle;
@@ -46,6 +51,9 @@ hr {
     border-bottom-right-radius: 0.5em;
     border-top-right-radius: 0.5em;
 }
+#search-btn:before {
+	content: "Find it!";
+}
 #searchbar {
 	border: 0.15em solid #ee8833;
     width: 16em;
@@ -77,15 +85,30 @@ hr {
 	position: relative;
 }
 
-@media all and (max-width: 960px){
-	html{
-		font-size: 75%;
+@media screen and (max-width: 900px){
+	body{
+		font-size: 62.5%;
 	}
 	.inner-container{
 		float: left;
-		width: 44.5%;	
+		width: 39%;	
+		margin-right: 0.5em;
 	}
-		#map {
-		height: 89vh;
+	#map {
+		height: 81vh;
 	}
+	#searchbar {
+		width:6em;
+	}
+	#search-btn {
+		width: 3em;
+	}
+	#foursquare {
+		width: 75%;
+		margin-left: -11;
+	}
+	#search-btn:before {
+		content: url('../assets/Magnifying_glass.svg');
+	}
+
 }

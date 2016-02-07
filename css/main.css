@@ -8,13 +8,13 @@ html, body {
 }
 
 .upper-container {
-	height: 12em;
+	height: 8em;
 }
 
 img{
-	width: 24%;
-	vertical-align: middle;
+	width: 30%;
 	display: block;
+
 }
 
 .header{
@@ -39,7 +39,7 @@ hr {
 
 .search{
 	font-size: 0.85em;
-	height: 2.75em;
+	height: 3em;
 	float: right;
 	margin-top: 1.5em;
 }
@@ -98,10 +98,11 @@ hr {
 		height: 81vh;
 	}
 	#searchbar {
-		width:6em;
+		width:13em;
 	}
 	#search-btn {
 		width: 3em;
+		padding-top: 0.75em;
 	}
 	#foursquare {
 		width: 75%;
@@ -109,6 +110,11 @@ hr {
 	}
 	#search-btn:before {
 		content: url('../assets/Magnifying_glass.svg');
+		vertical-align: middle;
+
 	}
+	.upper-container {
+	height: 12em;
+}
 
 }

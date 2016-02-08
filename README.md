@@ -1,9 +1,10 @@
-# P5-Neighborhood Map Project
-###Single Page web app with several APIs
-I built a SWA that uses the APIs from Google Maps and FourSquare
+# Great First Dates
+##Daters gonna date
+###Single Page web app with info provided by Thrillist, Google Maps and Foursquare
 
-Click [here](http://timjkstrickland.github.io/Great-First-Dates) to view the page.
+Download, fork, or zip the files, and then open up index.html.
 
+Otherwise, [here](http://timjkstrickland.github.io/Great-First-Dates) is the Github hosted view of the page.
 
-##Eventually
-OpenTable(unofficial) plus the info provided by the Thrillist post 18 places in SF for a first date. I added the phone numbers of the establishments, but I think it'd be fun if you can reserve a place through the app.
+Have fun out there, daters.
+

@@ -1,5 +1,5 @@
-# Great First Dates ##Daters gonna date
-###Single Page web app with info provided by Thrillist, Google Maps and Foursquare
+# Great First Dates 
+#####Daters gonna date
 
 Download, fork, or zip the files, and then open up index.html.
 

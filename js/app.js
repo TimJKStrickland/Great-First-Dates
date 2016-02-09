@@ -135,10 +135,14 @@ function initMap(){
   map.getBounds();
 
    // Close infoWindow when map clicked
-        google.maps.event.addListener(map, 'click', function(e) {
-            closeInfoWindows();
-            toggleBounceOffAll();
-        });
+  google.maps.event.addListener(map, 'click', function(e) {
+    closeInfoWindows();
+    toggleBounceOffAll();
+  });
+  
+  google.maps.event.addListener(infoW, 'closeclick', function() {
+      // stop marker from bouncing here
+  });
 
   // putting all pins on the map and create the infowindow for each marker:
 

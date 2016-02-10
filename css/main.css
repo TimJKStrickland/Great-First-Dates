@@ -22,7 +22,7 @@ img{
 }
 
 .inner-container {
-	width: 45%;
+	width: 43%;
 	padding: 1.5em;
 	float: left;
 	height: 4.5em;
@@ -84,6 +84,7 @@ hr {
 	float: left;
 	position: relative;
 }
+
 @media screen and (max-width: 900px){
 	body{
 		font-size: 62.5%;
@@ -103,7 +104,7 @@ hr {
 		width: 3em;
 		padding-top: 0.75em;
 }
-@media all and (max-width: 960px){
+@media all and (max-width: 600px){
 	html{
 		font-size: 100%;
 	}
@@ -123,5 +124,25 @@ hr {
 	.upper-container {
 	height: 12em;
 }
+
+}
+
+@media all and (min-width: 601px) and (max-width: 980px) {
+	html{
+		font-size: 100%;
+	}
+	.inner-container{
+		float: left;
+		width: 38%;	
+	}
+	#foursquare {
+		width: 50%;
+		margin-left: -11;
+	}
+	#search-btn:before {
+		content: url('../assets/Magnifying_glass.svg');
+		vertical-align: middle;
+
+	}
 
 }

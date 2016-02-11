@@ -111,6 +111,7 @@ hr {
 	.inner-container{
 		float: left;
 		width: 40%;	
+		font-size: 2em;
 	}
 	#foursquare {
 		width: 75%;

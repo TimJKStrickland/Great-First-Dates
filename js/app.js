@@ -116,7 +116,7 @@ var locations = [
 // Made so that locations remains after it is cleared
 var locations2 = [];
 var popLocations2 = function(){
-  for (var x in locations){
+  forEach(x in locations){
     if(locations2 !==undefined){
       locations2.push(locations[x]);
     }
@@ -140,8 +140,9 @@ function initMap(){
     toggleBounceOffAll();
   });
   
-  google.maps.event.addListener(infoW, 'closeclick', function() {
+  google.maps.event.addListener(infoWindow, 'closeclick', function() {
       // stop marker from bouncing here
+      toggleBounceOffAll();
   });
 
   // putting all pins on the map and create the infowindow for each marker:

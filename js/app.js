@@ -115,12 +115,11 @@ var locations = [
 
 // Made so that locations remains after it is cleared
 var locations2 = [];
-var popLocations2 = locations.forEach(function(){
+locations.forEach(function(){
     if(locations2 !==undefined){
-      locations2.push(locations[x]);
+      locations2.push(locations[0]);
     }
   });
-popLocations2();
 
 /**  VIEW **/
 // init's Google Maps API

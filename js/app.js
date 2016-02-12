@@ -115,13 +115,11 @@ var locations = [
 
 // Made so that locations remains after it is cleared
 var locations2 = [];
-var popLocations2 = function(){
-  forEach(x in locations){
+var popLocations2 = locations.forEach(function(){
     if(locations2 !==undefined){
       locations2.push(locations[x]);
     }
-  }
-};
+  });
 popLocations2();
 
 /**  VIEW **/

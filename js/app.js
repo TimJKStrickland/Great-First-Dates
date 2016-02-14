@@ -115,9 +115,9 @@ var locations = [
 
 // Made so that locations remains after it is cleared
 var locations2 = [];
-locations.forEach(function(){
+var locations.forEach(function(){
     if(locations2 !==undefined){
-      locations2.push(locations[0]);
+      locations2.push(locations[]);
     }
   });
 

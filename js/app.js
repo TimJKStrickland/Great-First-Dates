@@ -115,14 +115,11 @@ var locations = [
 
 // Made so that locations remains after it is cleared
 var locations2 = [];
-var popLocations2 = function(){
-  for (var x in locations){
+var locations.forEach(function(){
     if(locations2 !==undefined){
-      locations2.push(locations[x]);
+      locations2.push(locations[]);
     }
-  }
-};
-popLocations2();
+  });
 
 /**  VIEW **/
 // init's Google Maps API
@@ -140,8 +137,9 @@ function initMap(){
     toggleBounceOffAll();
   });
   
-  google.maps.event.addListener(infoW, 'closeclick', function() {
+  google.maps.event.addListener(infoWindow, 'closeclick', function() {
       // stop marker from bouncing here
+      toggleBounceOffAll();
   });
 
   // putting all pins on the map and create the infowindow for each marker:

@@ -6,7 +6,7 @@ var startCenter = {lat: 37.7764823, lng: -122.42};
 
 /** MODEL **/
 var locations = [
-  // here are the 8 hard-coded locations for the requirements:
+  // The hard-coded locations for the requirements:
   {
     name: "Ryoko's",
     latlong: { lat: 37.7882006, lng:-122.4142544 },
@@ -115,11 +115,14 @@ var locations = [
 
 // Made so that locations remains after it is cleared
 var locations2 = [];
-var locations.forEach(function(){
+var popLocations2 = function(){
+  for (var x = 0; x < locations.length; x++){
     if(locations2 !==undefined){
-      locations2.push(locations[]);
+      locations2.push(locations[x]);
     }
-  });
+  }
+};
+popLocations2();
 
 /**  VIEW **/
 // init's Google Maps API
@@ -137,11 +140,21 @@ function initMap(){
     toggleBounceOffAll();
   });
   
-  google.maps.event.addListener(infoWindow, 'closeclick', function() {
-      // stop marker from bouncing here
-      toggleBounceOffAll();
-  });
 
+   // adding the Infowindow to populate and creating the error message if the
+    // net breaks. contentString is the error message for Ajax
+
+    var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: errorAjax
+    });
+
+    infoWindow.addListener('closeclick', function(e) {
+      // stop marker from bouncing here
+      toggleBounceOffAll(); 
+    });
+  
   // putting all pins on the map and create the infowindow for each marker:
 
   for(var i = 0; i < locations.length; i++){
@@ -153,17 +166,6 @@ function initMap(){
         animation: google.maps.Animation.DROP,
         icon: 'assets/heart_icon.svg'
         });
-      
-  
-
-    // adding the Infowindow to populate and creating the error message if the
-    // net breaks. contentString is the error message for Ajax
-
-    var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
-
-    var infoWindow = new google.maps.InfoWindow({
-      content: errorAjax
-    });
 
     // IIFE to solve closure issue
     marker.addListener('click', (function(pinCopy, infoWindowCopy){

@@ -1,11 +1,9 @@
 var map;
 var pins = [];
 var infoWindows = [];
-// calling the center outside the function
-var startCenter = {lat: 37.7764823, lng: -122.42};
 
 /** MODEL **/
-var locations = [
+var locationsData = [
   // The hard-coded locations for the requirements:
   {
     name: "Ryoko's",
@@ -113,41 +111,71 @@ var locations = [
   }
 ];
 
-// Made so that locations remains after it is cleared
-var locations2 = [];
-var popLocations2 = function(){
-  for (var x = 0; x < locations.length; x++){
-    if(locations2 !==undefined){
-      locations2.push(locations[x]);
-    }
-  }
-};
-popLocations2();
 
-/**  VIEW **/
-// init's Google Maps API
-function initMap(){
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: startCenter,
-    zoom: 13,
+/**  VIEWMODEL **/
+var KOViewModel = function(){
+  var self = this;
+
+
+// builds Google Maps object. centers the  
+  self.googleMap = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 37.7764823, lng: -122.42 },
+    zoom: 12,
     scrollwheel: false
   });
-  map.getBounds();
 
-   // Close infoWindow when map clicked
-  google.maps.event.addListener(map, 'click', function(e) {
-    closeInfoWindows();
-    toggleBounceOffAll();
+  // store all places into an array within the ViewModel
+  self.allPlaces = [];
+  locationsData.forEach(function(place){
+    self.allPlaces.push(new Place(place));
   });
-  
 
+  // builds all the markers and places them on the map. Adds listeners to click
+  // on and off the markers to trigger animations
+  self.allPlaces.forEach(function(place){
+    var markerOptions = {
+      map: self.googleMap,
+      position: place.latLong,
+      icon: 'assets/heart_icon.svg',
+      title: locationsData.name,
+      animation: google.maps.Animation.DROP
+    };
+
+    place.marker = new google.maps.Marker(markerOptions);
+    
+     // Close infoWindow when map clicked
+    self.google.maps.event.addListener(map, 'click', function(e) {
+      closeInfoWindows();
+      toggleBounceOffAll();
+    });
+
+  });
+
+  self.visiblePlaces = ko.observableArray();
+
+
+  function Place(dataObj) {
+    this.locationName = dataObj.name;
+    this.latLng = dataObj.latLong;
+    
+    // You will save a reference to the Places' map marker after you build the
+    // marker:
+    this.marker = null;
+  }
+  
+    
    // adding the Infowindow to populate and creating the error message if the
     // net breaks. contentString is the error message for Ajax
 
     var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
 
     var infoWindow = new google.maps.InfoWindow({
-      content: errorAjax
+      content: errorAjax,
+      closeclick: function(e){
+        toggleBounceOffAll();
+        },
+
+
     });
 
     infoWindow.addListener('closeclick', function(e) {
@@ -155,17 +183,6 @@ function initMap(){
       toggleBounceOffAll(); 
     });
   
-  // putting all pins on the map and create the infowindow for each marker:
-
-  for(var i = 0; i < locations.length; i++){
-      if(locations !== undefined){
-        var marker = new google.maps.Marker({
-        position: locations[i].latlong,
-        map: map,
-        title: locations[i].name,
-        animation: google.maps.Animation.DROP,
-        icon: 'assets/heart_icon.svg'
-        });
 
     // IIFE to solve closure issue
     marker.addListener('click', (function(pinCopy, infoWindowCopy){
@@ -182,26 +199,25 @@ function initMap(){
 
       // push infoWindow to the infoWindow's array to make them observable
       infoWindows.push(infoWindow);
-    }
-}
-}
+
+
 var toggleOff = function(marker) {
-    marker.setMap(null);
+    marker.setVisible(false);
 };
 var toggleOn = function(marker) {
-    marker.setMap(map);
+    marker.setVisible(true);
 };
 var toggleOffAll = function() {
     for (var x in pins) {
       if(pins !== undefined){
-        pins[x].setMap(null);
+        pins[x].setVisible(false);
       }
     }
 };
 
 // function to close all info windows
 var closeInfoWindows = function() {
-    for (var x in infoWindows) {
+    for (var x = 0; x < infoWindows.length; x++) {
       if(infoWindows !==undefined){
         infoWindows[x].close();
       }
@@ -210,7 +226,7 @@ var closeInfoWindows = function() {
 
 // functions to toggle pin's BOUNCE animation
 var toggleBounceOffAll = function() {
-    for (var x in pins) {
+    for (var x = 0; x < pins.length; x++) {
       if(pins !== undefined){
         pins[x].setAnimation(null);
       }
@@ -225,7 +241,7 @@ var toggleBounceOn = function(marker) {
 
 var viewModel = {
   // Google Maps API stuff
-  pins: ko.observableArray(locations2),
+  pins: ko.observableArray(locationsData),
   searchValue: ko.observable(''),
 
   // ops
@@ -233,7 +249,7 @@ var viewModel = {
     viewModel.pins.removeAll();
     toggleOffAll();
 
-    for (var x in locations){
+    for (var x=0; x<locations.length; x++){
       if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
       viewModel.pins.push(locations[x]);
       toggleOn(pins[x]);
@@ -245,7 +261,7 @@ var viewModel = {
     closeInfoWindows();
     toggleBounceOffAll();
 
-    for(var x in locations){
+    for(var x=0; x<locations.length; x++){
       if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
         // open the clicked marker's infoWindow and trigger animation
         infoWindows[x].open(map, pins[x]);
@@ -254,19 +270,20 @@ var viewModel = {
     }
   }
 };
+};
 ko.applyBindings(viewModel);
 viewModel.searchValue.subscribe(viewModel.search);
-for( var x in locations){
-  if(locations !== undefined){
+for( var x=0; x<locationsData.length; x++){
+  if(locationsData[x] !== undefined){
     var url = "https://api.foursquare.com/v2/venues/" +
-      locations[x].fsID +
+      locationsData[x].fsID +
       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
 
       $.getJSON(url, (function(fsData){ // IIFE
           return function(data) {
               // use returned JSON here
-              locations[fsData].foursquareData = data;
+              locationsData[fsData].foursquareData = data;
               var venue = data.response.venue;
 
               // create contentString

@@ -1,5 +1,4 @@
 var map;
-var pins = ko.observableArray([]);
 
 /** MODEL **/
 var locationsData = [
@@ -115,7 +114,6 @@ var locationsData = [
 var ViewModel = function(){
   var self = this;
 
-
 // builds Google Maps object. centers the  
   self.googleMap = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 37.7764823, lng: -122.42 },
@@ -139,10 +137,12 @@ var ViewModel = function(){
       title: self.locationsData.name,
       animation: google.maps.Animation.DROP
     };
-
+    
     place.marker = new google.maps.Marker(markerOptions);
+    
   });
-
+	
+  
   self.visiblePlaces = ko.observableArray([]);
 
 
@@ -155,6 +155,26 @@ var ViewModel = function(){
     this.marker = null;
   }
   
+  
+  self.searchValue = ko.observable('');
+  self.pins = ko.observableArray([]);
+  self.search = function(value){
+    ViewModel.pins.removeAll();
+    toggleOffAll();
+    
+      for (var x = 0; x < pins.length; x++){
+      	if(pins[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
+      	ViewModel.pins.push(pins[x]);
+      	toggleOn(pins[x]);
+	    	}
+  		}
+  };
+  self.listClick = function(){
+  	closeInfoWindows();
+    toggleBounceOffAll();
+
+  };
+  
    // adding the Infowindow to populate and creating the error message if the
     // net breaks. contentString is the error message for Ajax
 
@@ -162,10 +182,7 @@ var ViewModel = function(){
 
     var infoWindow = new google.maps.InfoWindow({
       content: errorAjax
-        },
-
-
-    });
+        });
 
     infoWindow.addListener('closeclick', function(e) {
       // stop marker from bouncing here
@@ -192,15 +209,16 @@ var toggleOff = function(marker) {
 var toggleOn = function(marker) {
     marker.setVisible(true);
 };
+  
 var toggleOffAll = function() {
     for (var x in pins) {
       if(pins !== undefined){
         pins[x].setVisible(false);
       }
     }
-};
 
-// function to close all info windows
+  
+  // function to close all info windows
 var closeInfoWindows = function() {
     for (var x = 0; x < infoWindows.length; x++) {
       if(infoWindows !==undefined){
@@ -221,47 +239,18 @@ var toggleBounceOffAll = function() {
 var toggleBounceOn = function(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
 };
+  
+};
+};
 
 /** VIEWMODEL **/
 
-var viewModel = {
-  // Google Maps API stuff
-  pins: ko.observableArray(locationsData),
-  searchValue: ko.observable(''),
-
-  // ops
-  search: function(value){
-    viewModel.pins.removeAll();
-    toggleOffAll();
-
-    for (var x=0; x<locations.length; x++){
-      if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-      viewModel.pins.push(locations[x]);
-      toggleOn(pins[x]);
-      }
-    }
-  },
-  listClick: function(value){
-    // closes all info windows, toggles off all Bounce
-    closeInfoWindows();
-    toggleBounceOffAll();
-
-    for(var x=0; x<locations.length; x++){
-      if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
-        // open the clicked marker's infoWindow and trigger animation
-        infoWindows[x].open(map, pins[x]);
-        toggleBounceOn(pins[x]);
-      }
-    }
-  }
-};
-};
 ko.applyBindings(ViewModel);
-viewModel.searchValue.subscribe(viewModel.search);
-for( var x=0; x<locationsData.length; x++){
-  if(locationsData[x] !== undefined){
+ViewModel.searchValue.subscribe(ViewModel.search);
+for( var e=0; e<locationsData.length; e++){
+  if(locationsData[e] !== undefined){
     var url = "https://api.foursquare.com/v2/venues/" +
-      locationsData[x].fsID +
+      locationsData[e].fsID +
       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
 

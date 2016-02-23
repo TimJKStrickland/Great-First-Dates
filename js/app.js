@@ -1,6 +1,5 @@
 var map;
-var pins = [];
-var infoWindows = [];
+var pins = ko.observableArray([]);
 
 /** MODEL **/
 var locationsData = [
@@ -135,44 +134,34 @@ var KOViewModel = function(){
   self.allPlaces.forEach(function(place){
     var markerOptions = {
       map: self.googleMap,
-      position: place.latLong,
+      position: self.locationsData.latLong,
       icon: 'assets/heart_icon.svg',
-      title: locationsData.name,
+      title: self.locationsData.name,
       animation: google.maps.Animation.DROP
     };
 
     place.marker = new google.maps.Marker(markerOptions);
-    
-     // Close infoWindow when map clicked
-    self.google.maps.event.addListener(map, 'click', function(e) {
-      closeInfoWindows();
-      toggleBounceOffAll();
-    });
-
   });
 
-  self.visiblePlaces = ko.observableArray();
+  self.visiblePlaces = ko.observableArray([]);
 
 
   function Place(dataObj) {
     this.locationName = dataObj.name;
     this.latLng = dataObj.latLong;
     
-    // You will save a reference to the Places' map marker after you build the
-    // marker:
+    // This will save a reference to the Places' map marker after the marker
+    // is built:
     this.marker = null;
   }
   
-    
    // adding the Infowindow to populate and creating the error message if the
     // net breaks. contentString is the error message for Ajax
 
     var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
 
     var infoWindow = new google.maps.InfoWindow({
-      content: errorAjax,
-      closeclick: function(e){
-        toggleBounceOffAll();
+      content: errorAjax
         },
 
 
@@ -182,17 +171,13 @@ var KOViewModel = function(){
       // stop marker from bouncing here
       toggleBounceOffAll(); 
     });
-  
 
-    // IIFE to solve closure issue
     marker.addListener('click', (function(pinCopy, infoWindowCopy){
-        return function(){
           closeInfoWindows();
           infoWindowCopy.open(map, pinCopy);
           toggleBounceOffAll();
           toggleBounceOn(pinCopy);
-        };
-      })(marker, infoWindow));
+        }));
 
       // push each marker into marker's array to make them observable
       pins.push(marker);

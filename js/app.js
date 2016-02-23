@@ -112,7 +112,7 @@ var locationsData = [
 
 
 /**  VIEWMODEL **/
-var KOViewModel = function(){
+var ViewModel = function(){
   var self = this;
 
 
@@ -256,7 +256,7 @@ var viewModel = {
   }
 };
 };
-ko.applyBindings(viewModel);
+ko.applyBindings(ViewModel);
 viewModel.searchValue.subscribe(viewModel.search);
 for( var x=0; x<locationsData.length; x++){
   if(locationsData[x] !== undefined){

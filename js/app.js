@@ -112,17 +112,17 @@ var locationsData = [
 
 /**  VIEWMODEL **/
 var ViewModel = function(){
-  var self = this;
-
+	var self = this;
+	function initMap(){
 // builds Google Maps object. centers the  
-  self.googleMap = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 37.7764823, lng: -122.42 },
-    zoom: 12,
-    scrollwheel: false
-  });
-
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: { lat: 37.7764823, lng: -122.42 },
+			zoom: 12,
+			scrollwheel: false
+		});
+	}
   // store all places into an array within the ViewModel
-  self.allPlaces = [];
+  this.allPlaces = [];
   locationsData.forEach(function(place){
     self.allPlaces.push(new Place(place));
   });
@@ -245,7 +245,7 @@ var toggleBounceOn = function(marker) {
 
 /** VIEWMODEL **/
 
-ko.applyBindings(ViewModel);
+ko.applyBindings(new ViewModel);
 ViewModel.searchValue.subscribe(ViewModel.search);
 for( var e=0; e<locationsData.length; e++){
   if(locationsData[e] !== undefined){

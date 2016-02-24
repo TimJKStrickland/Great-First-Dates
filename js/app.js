@@ -1,110 +1,108 @@
-var map;
-
 /** MODEL **/
 var locationsData = [
   // The hard-coded locations for the requirements:
   {
     name: "Ryoko's",
-    latlong: { lat: 37.7882006, lng:-122.4142544 },
+    latLng: { lat: 37.7882006, lng:-122.4142544 },
     fsID: "433c8000f964a52043281fe3"
   },
   {
     name: "Chamber Eat + Drink",
-    latlong: { lat: 37.7830672, lng:-122.4203229 },
+    latLng: { lat: 37.7830672, lng:-122.4203229 },
     fsID: "50e63342b0ed7e4688ddb834"
   },
   {
     name: "Starbelly",
-    latlong: { lat: 37.7640966, lng:-122.4347866 },
+    latLng: { lat: 37.7640966, lng:-122.4347866 },
     fsID: "4a789bbbf964a52004e61fe3"
   },
   {
     name: "Devil's Acre",
-    latlong: { lat: 37.7976738, lng:-122.4083549 },
+    latLng: { lat: 37.7976738, lng:-122.4083549 },
     fsID: "5487a2cb498ea3c43c7cd3f4"
   },
   {
     name: "Elephant Sushi",
-    latlong: { lat: 37.7986734, lng:-122.4209331 },
+    latLng: { lat: 37.7986734, lng:-122.4209331 },
     fsID: "55b42ca5498e4c7fcfdc6d3c"
   },
   {
     name: "Benjamin Cooper",
-    latlong: { lat: 37.7873384, lng:-122.4118848 },
+    latLng: { lat: 37.7873384, lng:-122.4118848 },
     fsID: "54f132e7498e5d065370a6b1"
   },
   {
     name: "Exploratorium",
-    latlong: { lat: 37.8008602, lng: -122.4008237 },
+    latLng: { lat: 37.8008602, lng: -122.4008237 },
     fsID: "4585a93ef964a520ac3f1fe3"
   },
   {
     name: "Foreign Cinema",
-    latlong: { lat: 37.7564817, lng: -122.4213619 },
+    latLng: { lat: 37.7564817, lng: -122.4213619 },
     fsID: "3fd66200f964a520a0ec1ee3"
   },
   {
     name: "Chubby Noodle",
-    latlong: { lat: 37.7994414, lng: -122.4400868 },
+    latLng: { lat: 37.7994414, lng: -122.4400868 },
     fsID: "5127a9e2183f56cf2d7bfe9a"
   },
   {
     name: "Gracias Madre",
-    latlong: { lat: 37.7615745, lng: -122.4212534 },
+    latLng: { lat: 37.7615745, lng: -122.4212534 },
     fsID: "4b4955ccf964a520b86d26e3"
   },
   {
     name: "Cliff House",
-    latlong: { lat: 37.7784894, lng: -122.516152 },
+    latLng: { lat: 37.7784894, lng: -122.516152 },
     fsID: "4bf0588dd5bc0f470f366921"
   },
   {
     name: "Green's Restaurant",
-    latlong: { lat: 37.8068007, lng: -122.4343576 },
+    latLng: { lat: 37.8068007, lng: -122.4343576 },
     fsID: "4a1c397bf964a520257b1fe3"
   },
   {
     name: "Trick Dog",
-    latlong: { lat: 37.7593538, lng: -122.4133968 },
+    latLng: { lat: 37.7593538, lng: -122.4133968 },
     fsID: "5095da318302abffba3c23fd"
   },
   {
     name: "Central Kitchen",
-    latlong: { lat: 37.7592602, lng: -122.4132552 },
+    latLng: { lat: 37.7592602, lng: -122.4132552 },
     fsID: "4faaba890cd6e74f6f96bab1"
   },
   {
     name: "Cocotte",
-    latlong: { lat: 37.7948162, lng: -122.4206194 },
+    latLng: { lat: 37.7948162, lng: -122.4206194 },
     fsID: "5078e44ee4b0da2384e74824"
   },
   {
     name: "Palmer's Tavern",
-    latlong: { lat: 37.7906335, lng: -122.4361915 },
+    latLng: { lat: 37.7906335, lng: -122.4361915 },
     fsID: "521ec12f11d2224d014b63f4"
   },
   {
     name: "State Bird Provisions",
-    latlong: { lat: 37.7836666, lng: -122.4352882 },
+    latLng: { lat: 37.7836666, lng: -122.4352882 },
     fsID: "4ef52a378231b0d6238dd471"
   },
   {
     name: "Nopa",
-    latlong: { lat:37.7748978, lng: -122.4396831  },
+    latLng: { lat:37.7748978, lng: -122.4396831  },
     fsID: "44646408f964a52026331fe3"
   },
   {
     name: "Tomasso's",
-    latlong: { lat: 37.7978025, lng: -122.4074324 },
+    latLng: { lat: 37.7978025, lng: -122.4074324 },
     fsID: "49e05c38f964a52052611fe3"
   },
   {
     name: "The Ice Cream Bar Soda Foundation",
-    latlong: { lat:37.7664591, lng: -122.4524319  },
+    latLng: { lat:37.7664591, lng: -122.4524319  },
     fsID: "4eac41a5dab40d132703fc44"
   },{
     name: "Biergarten",
-    latlong: { lat: 37.7760198, lng: -122.4261769 },
+    latLng: { lat: 37.7760198, lng: -122.4261769 },
     fsID: "4dd7e48fd22d38ef42f35bd8"
   }
 ];
@@ -113,38 +111,35 @@ var locationsData = [
 /**  VIEWMODEL **/
 var ViewModel = function(){
 	var self = this;
-	function initMap(){
-// builds Google Maps object. centers the  
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: { lat: 37.7764823, lng: -122.42 },
-			zoom: 12,
-			scrollwheel: false
-		});
-	}
+
+	self.googleMap = new google.maps.Map(document.getElementById('map'), {
+		center: { lat: 37.7764823, lng: -122.42 },
+		zoom: 12,
+		scrollwheel: false
+	});
   // store all places into an array within the ViewModel
-  this.allPlaces = [];
+  self.allPlaces = [];
   locationsData.forEach(function(place){
     self.allPlaces.push(new Place(place));
   });
 
   // builds all the markers and places them on the map. Adds listeners to click
   // on and off the markers to trigger animations
-  self.allPlaces.forEach(function(place){
-    var markerOptions = {
-      map: self.googleMap,
-      position: self.locationsData.latLong,
-      icon: 'assets/heart_icon.svg',
-      title: self.locationsData.name,
-      animation: google.maps.Animation.DROP
-    };
-    
-    place.marker = new google.maps.Marker(markerOptions);
-    
-  });
+  	self.allPlaces.forEach(function(place){
+	  	var markerOptions = {
+	  	map: self.googleMap,
+	  	position: place.latLng,
+	  	icon: 'assets/heart_icon.svg',
+	  	animation: google.maps.Animation.DROP
+	  	};
+  		place.marker = new google.maps.Marker(markerOptions);
+	});
+	self.visiblePlaces = ko.observableArray();
+	self.allPlaces.forEach(function(place) {
+		self.visiblePlaces.push(place);
+	});
 	
-  
-  self.visiblePlaces = ko.observableArray([]);
-
+	self.userInput = ko.observable('');
 
   function Place(dataObj) {
     this.locationName = dataObj.name;
@@ -245,7 +240,7 @@ var toggleBounceOn = function(marker) {
 
 /** VIEWMODEL **/
 
-ko.applyBindings(new ViewModel);
+ko.applyBindings(new ViewModel());
 ViewModel.searchValue.subscribe(ViewModel.search);
 for( var e=0; e<locationsData.length; e++){
   if(locationsData[e] !== undefined){

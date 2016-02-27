@@ -107,197 +107,198 @@ var locationsData = [
   }
 ];
 
+function initMap(){
+   var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: {lat: 37.7764823, lng: -122.42},
+    zoomControl: false
+  });
+}
 
 /**  VIEWMODEL **/
 var ViewModel = function(){
 	var self = this;
-
-	self.googleMap = new google.maps.Map(document.getElementById('map'), {
-		center: { lat: 37.7764823, lng: -122.42 },
-		zoom: 12,
-		scrollwheel: false
-	});
   // store all places into an array within the ViewModel
   self.allPlaces = [];
   locationsData.forEach(function(place){
     self.allPlaces.push(new Place(place));
   });
 
-  // builds all the markers and places them on the map. Adds listeners to click
-  // on and off the markers to trigger animations
-  	self.allPlaces.forEach(function(place){
-	  	var markerOptions = {
-	  	map: self.googleMap,
-	  	position: place.latLng,
-	  	icon: 'assets/heart_icon.svg',
-	  	animation: google.maps.Animation.DROP
-	  	};
-  		place.marker = new google.maps.Marker(markerOptions);
-	});
-	self.visiblePlaces = ko.observableArray();
-	self.allPlaces.forEach(function(place) {
-		self.visiblePlaces.push(place);
-	});
+ //  // builds all the markers and places them on the map. Adds listeners to click
+ //  // on and off the markers to trigger animations
+ //  	self.allPlaces.forEach(function(place){
+	//   	var markerOptions = {
+	//   	map: self.googleMap,
+	//   	position: place.latLng,
+	//   	icon: 'assets/heart_icon.svg',
+	//   	animation: google.maps.Animation.DROP
+	//   	};
+ //  		place.marker = new google.maps.Marker(markerOptions);
+	// });
+	// self.visiblePlaces = ko.observableArray();
+	// self.allPlaces.forEach(function(place) {
+	// 	self.visiblePlaces.push(place);
+	// });
 	
-	self.userInput = ko.observable('');
+	// self.userInput = ko.observable('');
 
-  function Place(dataObj) {
-    this.locationName = dataObj.name;
-    this.latLng = dataObj.latLong;
+ //  function Place(dataObj) {
+ //    this.locationName = dataObj.name;
+ //    this.latLng = dataObj.latLong;
     
-    // This will save a reference to the Places' map marker after the marker
-    // is built:
-    this.marker = null;
-  }
+ //    // This will save a reference to the Places' map marker after the marker
+ //    // is built:
+ //    this.marker = null;
+ //  }
   
   
-  self.searchValue = ko.observable('');
-  self.pins = ko.observableArray([]);
-  self.search = function(value){
-    ViewModel.pins.removeAll();
-    toggleOffAll();
+  // self.searchValue = ko.observable('');
+  // self.pins = ko.observableArray([]);
+  // self.search = function(value){
+  //   ViewModel.pins.removeAll();
+  //   toggleOffAll();
     
-      for (var x = 0; x < pins.length; x++){
-      	if(pins[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-      	ViewModel.pins.push(pins[x]);
-      	toggleOn(pins[x]);
-	    	}
-  		}
-  };
-  self.listClick = function(){
-  	closeInfoWindows();
-    toggleBounceOffAll();
+  //     for (var x = 0; x < pins.length; x++){
+  //     	if(pins[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
+  //     	ViewModel.pins.push(pins[x]);
+  //     	toggleOn(pins[x]);
+	 //    	}
+  // 		}
+  // };
+  // self.listClick = function(){
+  // 	closeInfoWindows();
+  //   toggleBounceOffAll();
 
-  };
+  // };
   
-   // adding the Infowindow to populate and creating the error message if the
-    // net breaks. contentString is the error message for Ajax
+   // // adding the Infowindow to populate and creating the error message if the
+   //  // net breaks. contentString is the error message for Ajax
 
-    var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
+   //  var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
 
-    var infoWindow = new google.maps.InfoWindow({
-      content: errorAjax
-        });
+   //  var infoWindow = new google.maps.InfoWindow({
+   //    content: errorAjax
+   //      });
 
-    infoWindow.addListener('closeclick', function(e) {
-      // stop marker from bouncing here
-      toggleBounceOffAll(); 
-    });
+   //  infoWindow.addListener('closeclick', function(e) {
+   //    // stop marker from bouncing here
+   //    toggleBounceOffAll(); 
+   //  });
 
-    marker.addListener('click', (function(pinCopy, infoWindowCopy){
-          closeInfoWindows();
-          infoWindowCopy.open(map, pinCopy);
-          toggleBounceOffAll();
-          toggleBounceOn(pinCopy);
-        }));
+   //  marker.addListener('click', (function(pinCopy, infoWindowCopy){
+   //        closeInfoWindows();
+   //        infoWindowCopy.open(map, pinCopy);
+   //        toggleBounceOffAll();
+   //        toggleBounceOn(pinCopy);
+   //      }));
 
-      // push each marker into marker's array to make them observable
-      pins.push(marker);
+   //    // push each marker into marker's array to make them observable
+   //    pins.push(marker);
 
-      // push infoWindow to the infoWindow's array to make them observable
-      infoWindows.push(infoWindow);
+   //    // push infoWindow to the infoWindow's array to make them observable
+   //    infoWindows.push(infoWindow);
 
 
-var toggleOff = function(marker) {
-    marker.setVisible(false);
-};
-var toggleOn = function(marker) {
-    marker.setVisible(true);
-};
-  
-var toggleOffAll = function() {
-    for (var x in pins) {
-      if(pins !== undefined){
-        pins[x].setVisible(false);
-      }
-    }
+      // var toggleOff = function(marker) {
+      //     marker.setVisible(false);
+      // };
+      // var toggleOn = function(marker) {
+      //     marker.setVisible(true);
+      // };
+        
+      // var toggleOffAll = function() {
+      //     for (var x in pins) {
+      //       if(pins !== undefined){
+      //         pins[x].setVisible(false);
+      //       }
+      //     }
 
-  
-  // function to close all info windows
-var closeInfoWindows = function() {
-    for (var x = 0; x < infoWindows.length; x++) {
-      if(infoWindows !==undefined){
-        infoWindows[x].close();
-      }
-    }
-};
+        
+      //   // function to close all info windows
+      // var closeInfoWindows = function() {
+      //     for (var x = 0; x < infoWindows.length; x++) {
+      //       if(infoWindows !==undefined){
+      //         infoWindows[x].close();
+      //       }
+      //     }
+      // };
 
-// functions to toggle pin's BOUNCE animation
-var toggleBounceOffAll = function() {
-    for (var x = 0; x < pins.length; x++) {
-      if(pins !== undefined){
-        pins[x].setAnimation(null);
-      }
-    }
-};
+      // // functions to toggle pin's BOUNCE animation
+      // var toggleBounceOffAll = function() {
+      //     for (var x = 0; x < pins.length; x++) {
+      //       if(pins !== undefined){
+      //         pins[x].setAnimation(null);
+      //       }
+      //     }
+      // };
 
-var toggleBounceOn = function(marker) {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-};
-  
-};
+      //   var toggleBounceOn = function(marker) {
+      //     marker.setAnimation(google.maps.Animation.BOUNCE);
+      //   };
+        
+  // };
 };
 
 /** VIEWMODEL **/
 
-ko.applyBindings(new ViewModel());
-ViewModel.searchValue.subscribe(ViewModel.search);
-for( var e=0; e<locationsData.length; e++){
-  if(locationsData[e] !== undefined){
-    var url = "https://api.foursquare.com/v2/venues/" +
-      locationsData[e].fsID +
-      "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
-      "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
+// ko.applyBindings(new ViewModel());
+// ViewModel.searchValue.subscribe(ViewModel.search);
+// for( var e=0; e<locationsData.length; e++){
+//   if(locationsData[e] !== undefined){
+//     var url = "https://api.foursquare.com/v2/venues/" +
+//       locationsData[e].fsID +
+//       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
+//       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
 
-      $.getJSON(url, (function(fsData){ // IIFE
-          return function(data) {
-              // use returned JSON here
-              locationsData[fsData].foursquareData = data;
-              var venue = data.response.venue;
+//       $.getJSON(url, (function(fsData){ // IIFE
+//           return function(data) {
+//               // use returned JSON here
+//               locationsData[fsData].foursquareData = data;
+//               var venue = data.response.venue;
 
-              // create contentString
-              var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-              var contentString3;
-              if (venue.rating !== undefined) {
-                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-                    venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
-                    '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
-              } else {
-                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-                venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
-              }
-              var contentString2 = '';
-              var categories = venue.categories;
-              var formattedPhone = venue.contact.formattedPhone;
-              var phone = venue.contact.phone;
-              var contentString1 = '';
-              if(phone || formattedPhone !== undefined){
-                contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
-              } else {
-                contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
-              }  
-            for (var i=0; i < categories.length; i++) {
-                contentString1 += '<p>' + categories[i].name + ' </p>';
-              }
-              // delete last two positions of contentString2. Only category wanted per hit
-              contentString2 = contentString2.slice(0, -1);
-              var contentString = contentString0 + contentString1 + contentString2 + contentString3;
+//               // create contentString
+//               var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+//               var contentString3;
+//               if (venue.rating !== undefined) {
+//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+//                     venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
+//                     '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
+//               } else {
+//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+//                 venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
+//               }
+//               var contentString2 = '';
+//               var categories = venue.categories;
+//               var formattedPhone = venue.contact.formattedPhone;
+//               var phone = venue.contact.phone;
+//               var contentString1 = '';
+//               if(phone || formattedPhone !== undefined){
+//                 contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
+//               } else {
+//                 contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
+//               }  
+//             for (var i=0; i < categories.length; i++) {
+//                 contentString1 += '<p>' + categories[i].name + ' </p>';
+//               }
+//               // delete last two positions of contentString2. Only category wanted per hit
+//               contentString2 = contentString2.slice(0, -1);
+//               var contentString = contentString0 + contentString1 + contentString2 + contentString3;
 
-              // change info windows' content
-              infoWindows[fsData].content = contentString;
+//               // change info windows' content
+//               infoWindows[fsData].content = contentString;
 
-          };
-    })(x)).fail(function(){ // error handling
-        if (alertCount === true) {
-        alert("Shoot. We can't find anything. Please try later.");
-        alertCount = false; // make sure it only alert once
-        }
-    });
-  }
-}
-var googleError = function() {
-    alert("Snap, something busted on Google Maps. Quick! Say something funny.");
-    alertCount = false;
-};
+//           };
+//     })(x)).fail(function(){ // error handling
+//         if (alertCount === true) {
+//         alert("Shoot. We can't find anything. Please try later.");
+//         alertCount = false; // make sure it only alert once
+//         }
+//     });
+//   }
+// }
+// var googleError = function() {
+//     alert("Snap, something busted on Google Maps. Quick! Say something funny.");
+//     alertCount = false;
+// };
 
-var alertCount = true;
+// var alertCount = true;

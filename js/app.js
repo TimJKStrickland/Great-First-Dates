@@ -124,79 +124,79 @@ var ViewModel = function(){
     self.allPlaces.push(new Place(place));
   });
 
- //  // builds all the markers and places them on the map. Adds listeners to click
- //  // on and off the markers to trigger animations
- //  	self.allPlaces.forEach(function(place){
-	//   	var markerOptions = {
-	//   	map: self.googleMap,
-	//   	position: place.latLng,
-	//   	icon: 'assets/heart_icon.svg',
-	//   	animation: google.maps.Animation.DROP
-	//   	};
- //  		place.marker = new google.maps.Marker(markerOptions);
-	// });
-	// self.visiblePlaces = ko.observableArray();
-	// self.allPlaces.forEach(function(place) {
-	// 	self.visiblePlaces.push(place);
-	// });
+   // builds all the markers and places them on the map. Adds listeners to click
+   // on and off the markers to trigger animations
+   	self.allPlaces.forEach(function(place){
+	  	var markerOptions = {
+	  	map: self.googleMap,
+	  	position: place.latLng,
+	  	icon: 'assets/heart_icon.svg',
+	  	animation: google.maps.Animation.DROP
+	  	};
+   		place.marker = new google.maps.Marker(markerOptions);
+	});
+	self.visiblePlaces = ko.observableArray();
+	self.allPlaces.forEach(function(place) {
+		self.visiblePlaces.push(place);
+	});
 	
-	// self.userInput = ko.observable('');
+	self.userInput = ko.observable('');
 
- //  function Place(dataObj) {
- //    this.locationName = dataObj.name;
- //    this.latLng = dataObj.latLong;
+   function Place(dataObj) {
+     this.locationName = dataObj.name;
+     this.latLng = dataObj.latLong;
     
- //    // This will save a reference to the Places' map marker after the marker
- //    // is built:
- //    this.marker = null;
- //  }
+     // This will save a reference to the Places' map marker after the marker
+     // is built:
+     this.marker = null;
+   }
   
   
-  // self.searchValue = ko.observable('');
-  // self.pins = ko.observableArray([]);
-  // self.search = function(value){
-  //   ViewModel.pins.removeAll();
-  //   toggleOffAll();
+   self.searchValue = ko.observable('');
+   self.pins = ko.observableArray([]);
+   self.search = function(value){
+     ViewModel.pins.removeAll();
+     toggleOffAll();
     
-  //     for (var x = 0; x < pins.length; x++){
-  //     	if(pins[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-  //     	ViewModel.pins.push(pins[x]);
-  //     	toggleOn(pins[x]);
-	 //    	}
-  // 		}
-  // };
-  // self.listClick = function(){
-  // 	closeInfoWindows();
-  //   toggleBounceOffAll();
+       for (var x = 0; x < pins.length; x++){
+       	if(pins[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
+       	ViewModel.pins.push(pins[x]);
+       	toggleOn(pins[x]);
+	     	}
+   		}
+   };
+   self.listClick = function(){
+   	closeInfoWindows();
+     toggleBounceOffAll();
 
-  // };
+   };
   
    // // adding the Infowindow to populate and creating the error message if the
    //  // net breaks. contentString is the error message for Ajax
 
-   //  var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
+     var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
 
-   //  var infoWindow = new google.maps.InfoWindow({
-   //    content: errorAjax
-   //      });
+     var infoWindow = new google.maps.InfoWindow({
+       content: errorAjax
+         });
 
-   //  infoWindow.addListener('closeclick', function(e) {
-   //    // stop marker from bouncing here
-   //    toggleBounceOffAll(); 
-   //  });
+     infoWindow.addListener('closeclick', function(e) {
+       // stop marker from bouncing here
+       toggleBounceOffAll(); 
+     });
 
-   //  marker.addListener('click', (function(pinCopy, infoWindowCopy){
-   //        closeInfoWindows();
-   //        infoWindowCopy.open(map, pinCopy);
-   //        toggleBounceOffAll();
-   //        toggleBounceOn(pinCopy);
-   //      }));
+     marker.addListener('click', (function(pinCopy, infoWindowCopy){
+           closeInfoWindows();
+           infoWindowCopy.open(map, pinCopy);
+           toggleBounceOffAll();
+           toggleBounceOn(pinCopy);
+         }));
 
-   //    // push each marker into marker's array to make them observable
-   //    pins.push(marker);
+       // push each marker into marker's array to make them observable
+       pins.push(marker);
 
-   //    // push infoWindow to the infoWindow's array to make them observable
-   //    infoWindows.push(infoWindow);
+       // push infoWindow to the infoWindow's array to make them observable
+       infoWindows.push(infoWindow);
 
 
       // var toggleOff = function(marker) {

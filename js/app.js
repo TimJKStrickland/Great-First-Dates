@@ -199,49 +199,49 @@ var ViewModel = function(){
        infoWindows.push(infoWindow);
 
 
-      // var toggleOff = function(marker) {
-      //     marker.setVisible(false);
-      // };
-      // var toggleOn = function(marker) {
-      //     marker.setVisible(true);
-      // };
+       var toggleOff = function(marker) {
+           marker.setVisible(false);
+       };
+       var toggleOn = function(marker) {
+           marker.setVisible(true);
+       };
         
-      // var toggleOffAll = function() {
-      //     for (var x in pins) {
-      //       if(pins !== undefined){
-      //         pins[x].setVisible(false);
-      //       }
-      //     }
+       var toggleOffAll = function() {
+           for (var x in pins) {
+             if(pins !== undefined){
+               pins[x].setVisible(false);
+             }
+           }
 
         
-      //   // function to close all info windows
-      // var closeInfoWindows = function() {
-      //     for (var x = 0; x < infoWindows.length; x++) {
-      //       if(infoWindows !==undefined){
-      //         infoWindows[x].close();
-      //       }
-      //     }
-      // };
+         // function to close all info windows
+       var closeInfoWindows = function() {
+           for (var x = 0; x < infoWindows.length; x++) {
+             if(infoWindows !==undefined){
+               infoWindows[x].close();
+             }
+           }
+       };
 
-      // // functions to toggle pin's BOUNCE animation
-      // var toggleBounceOffAll = function() {
-      //     for (var x = 0; x < pins.length; x++) {
-      //       if(pins !== undefined){
-      //         pins[x].setAnimation(null);
-      //       }
-      //     }
-      // };
+       // functions to toggle pin's BOUNCE animation
+       var toggleBounceOffAll = function() {
+           for (var x = 0; x < pins.length; x++) {
+             if(pins !== undefined){
+               pins[x].setAnimation(null);
+             }
+           }
+       };
 
-      //   var toggleBounceOn = function(marker) {
-      //     marker.setAnimation(google.maps.Animation.BOUNCE);
-      //   };
+         var toggleBounceOn = function(marker) {
+           marker.setAnimation(google.maps.Animation.BOUNCE);
+         };
         
-  // };
+   };
 };
 
 /** VIEWMODEL **/
 
-// ko.applyBindings(new ViewModel());
+ko.applyBindings(new ViewModel());
 // ViewModel.searchValue.subscribe(ViewModel.search);
 // for( var e=0; e<locationsData.length; e++){
 //   if(locationsData[e] !== undefined){

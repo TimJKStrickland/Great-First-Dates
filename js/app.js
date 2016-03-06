@@ -242,63 +242,63 @@ var ViewModel = function(){
 /** VIEWMODEL **/
 
 ko.applyBindings(new ViewModel());
-// ViewModel.searchValue.subscribe(ViewModel.search);
-// for( var e=0; e<locationsData.length; e++){
-//   if(locationsData[e] !== undefined){
-//     var url = "https://api.foursquare.com/v2/venues/" +
-//       locationsData[e].fsID +
-//       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
-//       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
+ViewModel.searchValue.subscribe(ViewModel.search);
+for( var e=0; e<locationsData.length; e++){
+  if(locationsData[e] !== undefined){
+    var url = "https://api.foursquare.com/v2/venues/" +
+      locationsData[e].fsID +
+      "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
+      "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
 
-//       $.getJSON(url, (function(fsData){ // IIFE
-//           return function(data) {
-//               // use returned JSON here
-//               locationsData[fsData].foursquareData = data;
-//               var venue = data.response.venue;
+      $.getJSON(url, (function(fsData){ // IIFE
+          return function(data) {
+              // use returned JSON here
+              locationsData[fsData].foursquareData = data;
+              var venue = data.response.venue;
 
-//               // create contentString
-//               var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-//               var contentString3;
-//               if (venue.rating !== undefined) {
-//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-//                     venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
-//                     '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
-//               } else {
-//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-//                 venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
-//               }
-//               var contentString2 = '';
-//               var categories = venue.categories;
-//               var formattedPhone = venue.contact.formattedPhone;
-//               var phone = venue.contact.phone;
-//               var contentString1 = '';
-//               if(phone || formattedPhone !== undefined){
-//                 contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
-//               } else {
-//                 contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
-//               }  
-//             for (var i=0; i < categories.length; i++) {
-//                 contentString1 += '<p>' + categories[i].name + ' </p>';
-//               }
-//               // delete last two positions of contentString2. Only category wanted per hit
-//               contentString2 = contentString2.slice(0, -1);
-//               var contentString = contentString0 + contentString1 + contentString2 + contentString3;
+              // create contentString
+              var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+              var contentString3;
+              if (venue.rating !== undefined) {
+                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                    venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
+                    '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
+              } else {
+                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+                venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
+              }
+              var contentString2 = '';
+              var categories = venue.categories;
+              var formattedPhone = venue.contact.formattedPhone;
+              var phone = venue.contact.phone;
+              var contentString1 = '';
+              if(phone || formattedPhone !== undefined){
+                contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
+              } else {
+                contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
+              }  
+            for (var i=0; i < categories.length; i++) {
+                contentString1 += '<p>' + categories[i].name + ' </p>';
+              }
+              // delete last two positions of contentString2. Only category wanted per hit
+              contentString2 = contentString2.slice(0, -1);
+              var contentString = contentString0 + contentString1 + contentString2 + contentString3;
 
-//               // change info windows' content
-//               infoWindows[fsData].content = contentString;
+              // change info windows' content
+              infoWindows[fsData].content = contentString;
 
-//           };
-//     })(x)).fail(function(){ // error handling
-//         if (alertCount === true) {
-//         alert("Shoot. We can't find anything. Please try later.");
-//         alertCount = false; // make sure it only alert once
-//         }
-//     });
-//   }
-// }
-// var googleError = function() {
-//     alert("Snap, something busted on Google Maps. Quick! Say something funny.");
-//     alertCount = false;
-// };
+          };
+    })(x)).fail(function(){ // error handling
+        if (alertCount === true) {
+        alert("Shoot. We can't find anything. Please try later.");
+        alertCount = false; // make sure it only alert once
+        }
+    });
+  }
+}
+var googleError = function() {
+    alert("Snap, something busted on Google Maps. Quick! Say something funny.");
+    alertCount = false;
+};
 
-// var alertCount = true;
+var alertCount = true;

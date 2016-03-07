@@ -107,14 +107,6 @@ var locationsData = [
   }
 ];
 
-function initMap(){
-   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: {lat: 37.7764823, lng: -122.42},
-    zoomControl: false
-  });
-}
-
 /**  VIEWMODEL **/
 var ViewModel = function(){
 	var self = this;
@@ -124,16 +116,27 @@ var ViewModel = function(){
     self.allPlaces.push(new Place(place));
   });
 
+  function initMap(){
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: {lat: 37.7764823, lng: -122.42},
+      zoomControl: false
+    });
+
+    var markerOptions = {
+      map: self.map,
+      position: self.latLng,
+      icon: 'assets/heart_icon.svg',
+      animation: google.maps.Animation.DROP
+    };
+   self.marker = new google.maps.Marker(markerOptions);
+   function setMarkers(map){}
+  }
+
    // builds all the markers and places them on the map. Adds listeners to click
    // on and off the markers to trigger animations
    	self.allPlaces.forEach(function(place){
-	  	var markerOptions = {
-	  	map: self.googleMap,
-	  	position: place.latLng,
-	  	icon: 'assets/heart_icon.svg',
-	  	animation: google.maps.Animation.DROP
-	  	};
-   		place.marker = new google.maps.Marker(markerOptions);
+
 	});
 	self.visiblePlaces = ko.observableArray();
 	self.allPlaces.forEach(function(place) {
@@ -239,9 +242,10 @@ var ViewModel = function(){
    };
 };
 
-/** VIEWMODEL **/
-
 ko.applyBindings(new ViewModel());
+
+// API for Foursquare
+
 ViewModel.searchValue.subscribe(ViewModel.search);
 for( var e=0; e<locationsData.length; e++){
   if(locationsData[e] !== undefined){

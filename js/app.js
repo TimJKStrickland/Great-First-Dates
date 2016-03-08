@@ -107,6 +107,13 @@ var locationsData = [
   }
 ];
 
+  function initMap(){
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: {lat: 37.7764823, lng: -122.42},
+      zoomControl: false
+    });
+
 /**  VIEWMODEL **/
 var ViewModel = function(){
 	var self = this;
@@ -116,12 +123,7 @@ var ViewModel = function(){
     self.allPlaces.push(new Place(place));
   });
 
-  function initMap(){
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: {lat: 37.7764823, lng: -122.42},
-      zoomControl: false
-    });
+
 
     var markerOptions = {
       map: self.map,
@@ -131,16 +133,15 @@ var ViewModel = function(){
     };
    self.marker = new google.maps.Marker(markerOptions);
    function setMarkers(map){}
-  }
-
+  self.visiblePlaces = ko.observableArray();
    // builds all the markers and places them on the map. Adds listeners to click
    // on and off the markers to trigger animations
    	self.allPlaces.forEach(function(place){
-
-	});
-	self.visiblePlaces = ko.observableArray();
-	self.allPlaces.forEach(function(place) {
 		self.visiblePlaces.push(place);
+	});
+	
+	self.allPlaces.forEach(function(place) {
+		
 	});
 	
 	self.userInput = ko.observable('');
@@ -156,9 +157,8 @@ var ViewModel = function(){
   
   
    self.searchValue = ko.observable('');
-   self.pins = ko.observableArray([]);
    self.search = function(value){
-     ViewModel.pins.removeAll();
+     self.allPlaces.removeAll();
      toggleOffAll();
     
        for (var x = 0; x < pins.length; x++){

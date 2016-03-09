@@ -241,7 +241,7 @@ var ViewModel = function(){
         
    };
 };
-
+}
 ko.applyBindings(new ViewModel());
 
 // API for Foursquare

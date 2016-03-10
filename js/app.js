@@ -113,11 +113,10 @@ var locations = [
   }
 ];
 
-<<<<<<< HEAD
 // Made so that locations remains after it is cleared
 var locations2 = [];
 var popLocations2 = function(){
-  for (var x = 0; x < locations.length; x++){
+  for (var x in locations){
         if(locations2 !==undefined){
       locations2.push(locations[x]);
     }
@@ -152,72 +151,6 @@ function initMap(){
         animation: google.maps.Animation.DROP,
         icon: 'assets/heart_icon.svg'
         });
-=======
-  function initMap(){
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: {lat: 37.7764823, lng: -122.42},
-      zoomControl: false
-    });
-
-/**  VIEWMODEL **/
-var ViewModel = function(){
-	var self = this;
-  // store all places into an array within the ViewModel
-  self.allPlaces = [];
-  locationsData.forEach(function(place){
-    self.allPlaces.push(new Place(place));
-  });
-
-
-
-    var markerOptions = {
-      map: self.map,
-      position: self.latLng,
-      icon: 'assets/heart_icon.svg',
-      animation: google.maps.Animation.DROP
-    };
-   self.marker = new google.maps.Marker(markerOptions);
-   function setMarkers(map){}
-  self.visiblePlaces = ko.observableArray();
-   // builds all the markers and places them on the map. Adds listeners to click
-   // on and off the markers to trigger animations
-   	self.allPlaces.forEach(function(place){
-		self.visiblePlaces.push(place);
-	});
-	
-	self.allPlaces.forEach(function(place) {
-		
-	});
-	
-	self.userInput = ko.observable('');
-
-   function Place(dataObj) {
-     this.locationName = dataObj.name;
-     this.latLng = dataObj.latLong;
-    
-     // This will save a reference to the Places' map marker after the marker
-     // is built:
-     this.marker = null;
-   }
-  
-  
-   self.searchValue = ko.observable('');
-   self.search = function(value){
-     self.allPlaces.removeAll();
-     toggleOffAll();
-    
-       for (var x = 0; x < pins.length; x++){
-       	if(pins[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-       	ViewModel.pins.push(pins[x]);
-       	toggleOn(pins[x]);
-	     	}
-   		}
-   };
-   self.listClick = function(){
-   	closeInfoWindows();
-     toggleBounceOffAll();
->>>>>>> 1a1b25520455b52deef7ae7fa1ee2971dcc9845b
 
   
 
@@ -286,7 +219,6 @@ var toggleBounceOn = function(marker) {
 
 /** VIEWMODEL **/
 
-<<<<<<< HEAD
 var viewModel = {
   // Google Maps API stuff
   pins: ko.observableArray(locations2),
@@ -296,16 +228,6 @@ var viewModel = {
   search: function(value){
        viewModel.pins.removeAll();
     toggleOffAll();
-=======
-         var toggleBounceOn = function(marker) {
-           marker.setAnimation(google.maps.Animation.BOUNCE);
-         };
-        
-   };
-};
-}
-ko.applyBindings(new ViewModel());
->>>>>>> 1a1b25520455b52deef7ae7fa1ee2971dcc9845b
 
     for (var x in locations){
       if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){

@@ -1,6 +1,7 @@
 var map;
 var pins = [];
-var infoWindows = [];
+var infoWindow;
+var currentinfoWindow = null;
 // calling the center outside the function
 var startCenter = {lat: 37.7764823, lng: -122.42};
 
@@ -139,85 +140,140 @@ function initMap(){
             closeInfoWindows();
             toggleBounceOffAll();
             });
-
   // putting all pins on the map and create the infowindow for each marker:
 
   for(var i = 0; i < locations.length; i++){
       if(locations !== undefined){
         var marker = new google.maps.Marker({
-        position: locations[i].latlong,
-        map: map,
-        title: locations[i].name,
-        animation: google.maps.Animation.DROP,
-        icon: 'assets/heart_icon.svg'
+          position: locations[i].latlong,
+          map: map,
+          title: locations[i].name,
+          animation: google.maps.Animation.DROP,
+          icon: 'assets/heart_icon.svg'
         });
 
-  
+      // adding the Infowindow to populate and creating the error message if the
+      // net breaks. contentString is the error message for Ajax
 
-    // adding the Infowindow to populate and creating the error message if the
-    // net breaks. contentString is the error message for Ajax
+        var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
+        var infoWindow = new google.maps.InfoWindow({
+          content: errorAjax
+        });
+        infoWindow.addListener('closeclick', function(){
+          infoWindow.close();
+          toggleBounceOffAll();
+        });
+        // IIFE to solve closure issue
+        marker.addListener('click', (function(pinCopy, infoWindowCopy){
+          return function(){
+            map.panTo(marker.getPosition());
+            closeInfoWindows();
+            infoWindowCopy.open(map, pinCopy);
+            toggleBounceOffAll();
+            toggleBounceOn(pinCopy);
+          };
+        })(marker, infoWindow));
 
-    var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
+        // push each marker into marker's array to make them observable
+        pins.push(marker);
 
-    var infoWindow = new google.maps.InfoWindow({
-      content: errorAjax
+        // push infoWindow to the infoWindow's array to make them observable
+        infoWindows.push(infoWindow);
+      }
+    }
+    var toggleOff = function(marker) {
+      marker.setVisible(false);
+    };
+    var toggleOn = function(marker) {
+      marker.setVisible(true);
+    };
+    var toggleOffAll = function() {
+      for (var x in pins) {
+        if(pins !== undefined){
+          pins[x].setVisible(false);
+        }
+      }
+    };
+    // function to close all info windows
+    var closeInfoWindows = function() {
+        for (var x in infoWindows) {
+          if(infoWindows !==undefined){
+            infoWindows[x].close();
+          }
+        }
+    };
+    // functions to toggle pin's BOUNCE animation
+    var toggleBounceOffAll = function() {
+        for (var x in pins) {
+          if(pins !== undefined){
+            pins[x].setAnimation(null);
+          }
+        }
+    };
+
+    var toggleBounceOn = function(marker) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    };
+}
+/** VIEWMODEL **/
+
+function ViewModel(){
+  var self = this;
+
+  // Place constructor
+  function Place(data) {
+    var marker = new google.maps.Marker({
+    this.name = data.name;
+    this.lat = data.lat;
+    this.lng = data.lng;
+    this.fsID = data.fsID;
+  }
+
+  Place.prototype.openWindow = function(){
+    map.panTo((this.marker.position);
+    google.maps.event.trigger(this.marker, 'click');
+    if(currentInfoWindow !== null){
+      currentInfoWindow.close(map, this):;
+    } else {
+      fourSquareGet(this.marker);
+      currentInfoWindow = this.marker.infoWindow;
+    }
+  };
+
+  // pushes each of the locations
+  self.allLocations = [];
+  self.locations.forEach(function(location){
+    self.allLocations.push(new Place(location));
+  });
+  self.allLocations.forEach(function (location){
+
+    location.marker = new google.maps.Marker({
+      map: map,
+      lat: latlong[0],
+      lng: latlong[1],
+      animation: google.maps.Animation.DROP,
+      icon: 'assets/heart_icon.svg',
+      name: location.name,
+      fsID: location.fsID
     });
 
-    // IIFE to solve closure issue
-    marker.addListener('click', (function(pinCopy, infoWindowCopy){
-            return function(){
-          closeInfoWindows();
-          infoWindowCopy.open(map, pinCopy);
-          toggleBounceOffAll();
-          toggleBounceOn(pinCopy);
-        };
-      })(marker, infoWindow));
-
-      // push each marker into marker's array to make them observable
-      pins.push(marker);
-
-      // push infoWindow to the infoWindow's array to make them observable
-      infoWindows.push(infoWindow);
-  }
-}
-}
-var toggleOff = function(marker) {
-    marker.setMap(null);
-};
-var toggleOn = function(marker) {
-    marker.setMap(map);
-};
-var toggleOffAll = function() {
-    for (var x in pins) {
-      if(pins !== undefined){
-        pins[x].setMap(null);
-              }
-    }
-};
-
-// function to close all info windows
-var closeInfoWindows = function() {
-    for (var x in infoWindows) {
-      if(infoWindows !==undefined){
-        infoWindows[x].close();
+    location.marker.infoWindow = new google.maps.InfoWindow({
+      position: { lat: location.lat, lng: location.lng },
+    });
+    location.marker.addListener('click', function toggleBounce(){
+      map.panTo(location.marker.position);
+      if (currentinfoWindow !== null){
+        currentinfoWindow.close(map, this);
+      } else {
+        fourSquareGet(location.marker);
+        currentinfoWindow = location.marker.infoWindow;
+        location.marker.setAnimation()
       }
-    }
-};
+    });
 
-// functions to toggle pin's BOUNCE animation
-var toggleBounceOffAll = function() {
-    for (var x in pins) {
-      if(pins !== undefined){
-        pins[x].setAnimation(null);
-      }
-    }
-};
+  });
 
-var toggleBounceOn = function(marker) {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-};
-
-/** VIEWMODEL **/
+}
 
 var viewModel = {
   // Google Maps API stuff
@@ -226,14 +282,13 @@ var viewModel = {
 
   // ops
   search: function(value){
-       viewModel.pins.removeAll();
+    viewModel.pins.removeAll();
     toggleOffAll();
-
-    for (var x in locations){
+    for (var x=0; x < locations.length; x++){
       if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-      viewModel.pins.push(locations[x]);
-      toggleOn(pins[x]);
-          }
+        viewModel.pins.push(locations[x]);
+        toggleOn(pins[x]);
+      }
     }
   },
   listClick: function(value){

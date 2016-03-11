@@ -223,10 +223,10 @@ function ViewModel(){
   // Place constructor
   function Place(data) {
     var marker = new google.maps.Marker({
-    this.name = data.name;
-    this.lat = data.lat;
-    this.lng = data.lng;
-    this.fsID = data.fsID;
+    name : data.name,
+    lat : data.lat,
+    lng : data.lng,
+    fsID : data.fsID
   }
 
   Place.prototype.openWindow = function(){

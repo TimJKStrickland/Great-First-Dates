@@ -106,12 +106,20 @@ hr {
 }
 @media all and (max-width: 600px){
 	html{
-		font-size: 100%;
+		font-size: 62.5%;
+	}
+	.upper-container {
+		height: 18em;
 	}
 	.inner-container{
 		float: left;
-		width: 40%;	
+		width: 50%;	
 		font-size: 2em;
+		margin: 0;
+		padding: 0;
+	}
+	#searchbar {
+		width: 7em;
 	}
 	#foursquare {
 		width: 75%;
@@ -122,10 +130,6 @@ hr {
 		vertical-align: middle;
 
 	}
-	.upper-container {
-	height: 12em;
-}
-
 }
 
 @media all and (min-width: 601px) and (max-width: 980px) {

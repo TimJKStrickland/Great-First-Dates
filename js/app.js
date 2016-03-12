@@ -115,15 +115,15 @@ var locations = [
 ];
 
 // Made so that locations remains after it is cleared
-var locations2 = [];
-var popLocations2 = function(){
-  for (var x in locations){
-        if(locations2 !==undefined){
-      locations2.push(locations[x]);
-    }
-  }
-};
-popLocations2();
+// var allPlaces = [];
+// var allPlacesPop = function(){
+//   for (var x = 0; x > locations.length; x++){
+//         if(locations !==undefined){
+//       allPlaces.push(locations[x]);
+//     }
+//   }
+// };
+// allPlacesPop();
 
 /**  VIEW **/
 // init's Google Maps API
@@ -135,81 +135,81 @@ function initMap(){
   });
   map.getBounds();
 
-   // Close infoWindow when map clicked
-        google.maps.event.addListener(map, 'click', function(e) {
-            closeInfoWindows();
-            toggleBounceOffAll();
-            });
-  // putting all pins on the map and create the infowindow for each marker:
+  //  // Close infoWindow when map clicked
+  //       google.maps.event.addListener(map, 'click', function(e) {
+  //           closeInfoWindows();
+  //           toggleBounceOffAll();
+  //           });
+  // // putting all pins on the map and create the infowindow for each marker:
 
-  for(var i = 0; i < locations.length; i++){
-      if(locations !== undefined){
-        var marker = new google.maps.Marker({
-          position: locations[i].latlong,
-          map: map,
-          title: locations[i].name,
-          animation: google.maps.Animation.DROP,
-          icon: 'assets/heart_icon.svg'
-        });
+  // for(var i = 0; i < locations.length; i++){
+  //     if(locations !== undefined){
+  //       var marker = new google.maps.Marker({
+  //         position: locations[i].latlong,
+  //         map: map,
+  //         title: locations[i].name,
+  //         animation: google.maps.Animation.DROP,
+  //         icon: 'assets/heart_icon.svg'
+  //       });
 
-      // adding the Infowindow to populate and creating the error message if the
-      // net breaks. contentString is the error message for Ajax
+  //     // adding the Infowindow to populate and creating the error message if the
+  //     // net breaks. contentString is the error message for Ajax
 
-        var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
-        var infoWindow = new google.maps.InfoWindow({
-          content: errorAjax
-        });
-        infoWindow.addListener('closeclick', function(){
-          infoWindow.close();
-          toggleBounceOffAll();
-        });
-        // IIFE to solve closure issue
-        marker.addListener('click', (function(pinCopy, infoWindowCopy){
-          return function(){
-            map.panTo(marker.getPosition());
-            closeInfoWindows();
-            infoWindowCopy.open(map, pinCopy);
-            toggleBounceOffAll();
-            toggleBounceOn(pinCopy);
-          };
-        })(marker, infoWindow));
+  //       var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
+  //       var infoWindow = new google.maps.InfoWindow({
+  //         content: errorAjax
+  //       });
+  //       infoWindow.addListener('closeclick', function(){
+  //         infoWindow.close();
+  //         toggleBounceOffAll();
+  //       });
+  //       // IIFE to solve closure issue
+  //       marker.addListener('click', (function(pinCopy, infoWindowCopy){
+  //         return function(){
+  //           map.panTo(marker.getPosition());
+  //           closeInfoWindows();
+  //           infoWindowCopy.open(map, pinCopy);
+  //           toggleBounceOffAll();
+  //           toggleBounceOn(pinCopy);
+  //         };
+  //       })(marker, infoWindow));
 
-        // push each marker into marker's array to make them observable
-        pins.push(marker);
+  //       // push each marker into marker's array to make them observable
+  //       pins.push(marker);
 
-        // push infoWindow to the infoWindow's array to make them observable
-        infoWindows.push(infoWindow);
-      }
-    }
-    var toggleOff = function(marker) {
-      marker.setVisible(false);
-    };
-    var toggleOn = function(marker) {
-      marker.setVisible(true);
-    };
-    var toggleOffAll = function() {
-      for (var x in pins) {
-        if(pins !== undefined){
-          pins[x].setVisible(false);
-        }
-      }
-    };
-    // function to close all info windows
-    var closeInfoWindows = function() {
-        for (var x in infoWindows) {
-          if(infoWindows !==undefined){
-            infoWindows[x].close();
-          }
-        }
-    };
+  //       // push infoWindow to the infoWindow's array to make them observable
+  //       infoWindows.push(infoWindow);
+  //     }
+  //   }
+    // var toggleOff = function(marker) {
+    //   marker.setVisible(false);
+    // };
+    // var toggleOn = function(marker) {
+    //   marker.setVisible(true);
+    // };
+    // var toggleOffAll = function() {
+    //   for (var x in pins) {
+    //     if(pins !== undefined){
+    //       pins[x].setVisible(false);
+    //     }
+    //   }
+    // };
+    // // function to close all info windows
+    // var closeInfoWindows = function() {
+    //     for (var x in infoWindows) {
+    //       if(infoWindows !==undefined){
+    //         infoWindows[x].close();
+    //       }
+    //     }
+    // };
     // functions to toggle pin's BOUNCE animation
-    var toggleBounceOffAll = function() {
-        for (var x in pins) {
-          if(pins !== undefined){
-            pins[x].setAnimation(null);
-          }
-        }
-    };
+    // var toggleBounceOffAll = function() {
+    //     for (var x in pins) {
+    //       if(pins !== undefined){
+    //         pins[x].setAnimation(null);
+    //       }
+    //     }
+    // };
 
     var toggleBounceOn = function(marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -227,13 +227,13 @@ function ViewModel(){
     lat : data.lat,
     lng : data.lng,
     fsID : data.fsID
-  }
+  });
 
   Place.prototype.openWindow = function(){
-    map.panTo((this.marker.position);
+    map.panTo(this.marker.position);
     google.maps.event.trigger(this.marker, 'click');
     if(currentInfoWindow !== null){
-      currentInfoWindow.close(map, this):;
+      currentInfoWindow.close(map, this);
     } else {
       fourSquareGet(this.marker);
       currentInfoWindow = this.marker.infoWindow;
@@ -249,8 +249,8 @@ function ViewModel(){
 
     location.marker = new google.maps.Marker({
       map: map,
-      lat: latlong[0],
-      lng: latlong[1],
+      lat: latlong,
+      lng: latlong,
       animation: google.maps.Animation.DROP,
       icon: 'assets/heart_icon.svg',
       name: location.name,
@@ -267,18 +267,19 @@ function ViewModel(){
       } else {
         fourSquareGet(location.marker);
         currentinfoWindow = location.marker.infoWindow;
-        location.marker.setAnimation()
+        location.marker.setAnimation();
       }
     });
 
   });
+}
 
 }
 
 var viewModel = {
   // Google Maps API stuff
-  pins: ko.observableArray(locations2),
-  searchValue: ko.observable(''),
+  pins: ko.observableArray(),
+  searchValue: ko.observable(),
 
   // ops
   search: function(value){
@@ -296,70 +297,70 @@ var viewModel = {
     closeInfoWindows();
     toggleBounceOffAll();
 
-    for(var x in locations){
+    for(var x = 0; x < locations.length; x++){
       if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
         // open the clicked marker's infoWindow and trigger animation
-        infoWindows[x].open(map, pins[x]);
+        currentinfoWindow[x].open(map, pins[x]);
         toggleBounceOn(pins[x]);
       }
     }
   }
 };
 ko.applyBindings(viewModel);
-viewModel.searchValue.subscribe(viewModel.search);
-for( var x in locations){
-  if(locations !== undefined){
-    var url = "https://api.foursquare.com/v2/venues/" +
-      locations[x].fsID +
-      "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
-      "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
+// viewModel.searchValue.subscribe(viewModel.search);
+// for( var x in locations){
+//   if(locations !== undefined){
+//     var url = "https://api.foursquare.com/v2/venues/" +
+//       locations[x].fsID +
+//       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
+//       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
 
-      $.getJSON(url, (function(fsData){ // IIFE
-          return function(data) {
-              // use returned JSON here
-              locations[fsData].foursquareData = data;
-              var venue = data.response.venue;
+//       $.getJSON(url, (function(fsData){ // IIFE
+//           return function(data) {
+//               // use returned JSON here
+//               locations[fsData].foursquareData = data;
+//               var venue = data.response.venue;
 
-              // create contentString
-              var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-              var contentString3;
-              if (venue.rating !== undefined) {
-                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-                    venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
-                    '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
-              } else {
-                contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-                venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
-              }
-              var contentString2 = '';
-              var categories = venue.categories;
-              var formattedPhone = venue.contact.formattedPhone;
-              var phone = venue.contact.phone;
-              var contentString1 = '';
-              if(phone || formattedPhone !== undefined){
-                contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
-              } else {
-                contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
-              }  
-            for (var i=0; i < categories.length; i++) {
-                contentString1 += '<p>' + categories[i].name + ' </p>';
-              }
-              // delete last two positions of contentString2. Only category wanted per hit
-              contentString2 = contentString2.slice(0, -1);
-              var contentString = contentString0 + contentString1 + contentString2 + contentString3;
+//               // create contentString
+//               var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+//               var contentString3;
+//               if (venue.rating !== undefined) {
+//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+//                     venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
+//                     '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
+//               } else {
+//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+//                 venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
+//               }
+//               var contentString2 = '';
+//               var categories = venue.categories;
+//               var formattedPhone = venue.contact.formattedPhone;
+//               var phone = venue.contact.phone;
+//               var contentString1 = '';
+//               if(phone || formattedPhone !== undefined){
+//                 contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
+//               } else {
+//                 contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
+//               }  
+//             for (var i=0; i < categories.length; i++) {
+//                 contentString1 += '<p>' + categories[i].name + ' </p>';
+//               }
+//               // delete last two positions of contentString2. Only category wanted per hit
+//               contentString2 = contentString2.slice(0, -1);
+//               var contentString = contentString0 + contentString1 + contentString2 + contentString3;
 
-              // change info windows' content
-              infoWindows[fsData].content = contentString;
+//               // change info windows' content
+//               infoWindows[fsData].content = contentString;
 
-          };
-    })(x)).fail(function(){ // error handling
-        if (alertCount === true) {
-        alert("Shoot. We can't find anything. Please try later.");
-        alertCount = false; // make sure it only alert once
-        }
-    });
-  }
-}
+//           };
+//     })(x)).fail(function(){ // error handling
+//         if (alertCount === true) {
+//         alert("Shoot. We can't find anything. Please try later.");
+//         alertCount = false; // make sure it only alert once
+//         }
+//     });
+//   }
+// }
 var googleError = function() {
     alert("Snap, something busted on Google Maps. Quick! Say something funny.");
     alertCount = false;

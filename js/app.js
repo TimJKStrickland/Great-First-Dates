@@ -276,37 +276,40 @@ function ViewModel(){
 
 }
 
-var viewModel = {
-  // Google Maps API stuff
-  pins: ko.observableArray(),
-  searchValue: ko.observable(),
+ko.applyBindings(new ViewModel());
+initMap();
+
+// var viewModel = {
+//   // Google Maps API stuff
+//   pins: ko.observableArray(),
+//   searchValue: ko.observable(),
 
   // ops
-  search: function(value){
-    viewModel.pins.removeAll();
-    toggleOffAll();
-    for (var x=0; x < locations.length; x++){
-      if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-        viewModel.pins.push(locations[x]);
-        toggleOn(pins[x]);
-      }
-    }
-  },
-  listClick: function(value){
-        // closes all info windows, toggles off all Bounce
-    closeInfoWindows();
-    toggleBounceOffAll();
+  // search: function(value){
+  //   viewModel.pins.removeAll();
+  //   toggleOffAll();
+  //   for (var x=0; x < locations.length; x++){
+  //     if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
+  //       viewModel.pins.push(locations[x]);
+  //       toggleOn(pins[x]);
+  //     }
+  //   }
+  // },
+//   listClick: function(value){
+//         // closes all info windows, toggles off all Bounce
+//     closeInfoWindows();
+//     toggleBounceOffAll();
 
-    for(var x = 0; x < locations.length; x++){
-      if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
-        // open the clicked marker's infoWindow and trigger animation
-        currentinfoWindow[x].open(map, pins[x]);
-        toggleBounceOn(pins[x]);
-      }
-    }
-  }
-};
-ko.applyBindings(viewModel);
+//     for(var x = 0; x < locations.length; x++){
+//       if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
+//         // open the clicked marker's infoWindow and trigger animation
+//         currentinfoWindow[x].open(map, pins[x]);
+//         toggleBounceOn(pins[x]);
+//       }
+//     }
+//   }
+// };
+// ko.applyBindings(viewModel);
 // viewModel.searchValue.subscribe(viewModel.search);
 // for( var x in locations){
 //   if(locations !== undefined){

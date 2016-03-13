@@ -133,8 +133,8 @@ function initMap(){
     zoom: 13,
     scrollwheel: false
   });
-  map.getBounds();
-
+}
+initMap();
   //  // Close infoWindow when map clicked
   //       google.maps.event.addListener(map, 'click', function(e) {
   //           closeInfoWindows();
@@ -214,7 +214,6 @@ function initMap(){
     var toggleBounceOn = function(marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     };
-}
 /** VIEWMODEL **/
 
 function ViewModel(){
@@ -245,8 +244,8 @@ function ViewModel(){
   self.locations.forEach(function(location){
     self.allLocations.push(new Place(location));
   });
+  
   self.allLocations.forEach(function (location){
-
     location.marker = new google.maps.Marker({
       map: map,
       lat: latlong,
@@ -272,12 +271,14 @@ function ViewModel(){
     });
 
   });
+  self.searchValue = ko.observable();
 }
+  
+  ko.applyBindings(new ViewModel());
 
 }
 
-ko.applyBindings(new ViewModel());
-initMap();
+
 
 // var viewModel = {
 //   // Google Maps API stuff

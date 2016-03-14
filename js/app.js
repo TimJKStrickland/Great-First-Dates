@@ -1,8 +1,5 @@
 var map;
-var pins = [];
-var infoWindow;
 var currentinfoWindow = null;
-// calling the center outside the function
 var startCenter = {lat: 37.7764823, lng: -122.42};
 
 /** MODEL **/
@@ -10,275 +7,179 @@ var locations = [
   // here are the 8 hard-coded locations for the requirements:
   {
     name: "Ryoko's",
-    latlong: { lat: 37.7882006, lng:-122.4142544 },
+    pos: { lat: 37.7882006, lng:-122.4142544 },
     fsID: "433c8000f964a52043281fe3"
   },
   {
     name: "Chamber Eat + Drink",
-    latlong: { lat: 37.7830672, lng:-122.4203229 },
+    pos: { lat: 37.7830672, lng:-122.4203229 },
     fsID: "50e63342b0ed7e4688ddb834"
   },
   {
     name: "Starbelly",
-    latlong: { lat: 37.7640966, lng:-122.4347866 },
+    pos: { lat: 37.7640966, lng:-122.4347866 },
     fsID: "4a789bbbf964a52004e61fe3"
   },
   {
     name: "Devil's Acre",
-    latlong: { lat: 37.7976738, lng:-122.4083549 },
+    pos: { lat: 37.7976738, lng:-122.4083549 },
     fsID: "5487a2cb498ea3c43c7cd3f4"
   },
   {
     name: "Elephant Sushi",
-    latlong: { lat: 37.7986734, lng:-122.4209331 },
+    pos: { lat: 37.7986734, lng:-122.4209331 },
     fsID: "55b42ca5498e4c7fcfdc6d3c"
   },
   {
     name: "Benjamin Cooper",
-    latlong: { lat: 37.7873384, lng:-122.4118848 },
+    pos: { lat: 37.7873384,lng:-122.4118848 },
     fsID: "54f132e7498e5d065370a6b1"
   },
   {
     name: "Exploratorium",
-    latlong: { lat: 37.8008602, lng: -122.4008237 },
+    pos: { lat: 37.8008602, lng: -122.4008237 },
     fsID: "4585a93ef964a520ac3f1fe3"
   },
   {
     name: "Foreign Cinema",
-    latlong: { lat: 37.7564817, lng: -122.4213619 },
+    pos: { lat: 37.7564817, lng: -122.4213619 },
     fsID: "3fd66200f964a520a0ec1ee3"
   },
   {
     name: "Chubby Noodle",
-    latlong: { lat: 37.7994414, lng: -122.4400868 },
+    pos: { lat: 37.7994414, lng: -122.4400868 },
     fsID: "5127a9e2183f56cf2d7bfe9a"
   },
   {
     name: "Gracias Madre",
-    latlong: { lat: 37.7615745, lng: -122.4212534 },
+    pos: { lat: 37.7615745,lng: -122.4212534 },
     fsID: "4b4955ccf964a520b86d26e3"
   },
   {
     name: "Cliff House",
-    latlong: { lat: 37.7784894, lng: -122.516152 },
+    pos: { lat: 37.7784894, lng: -122.516152 },
     fsID: "4bf0588dd5bc0f470f366921"
   },
   {
     name: "Green's Restaurant",
-    latlong: { lat: 37.8068007, lng: -122.4343576 },
+    pos: { lat: 37.8068007, lng: -122.4343576 },
     fsID: "4a1c397bf964a520257b1fe3"
   },
   {
     name: "Trick Dog",
-    latlong: { lat: 37.7593538, lng: -122.4133968 },
+    pos: { lat: 37.7593538, lng: -122.4133968 },
     fsID: "5095da318302abffba3c23fd"
   },
   {
     name: "Central Kitchen",
-    latlong: { lat: 37.7592602, lng: -122.4132552 },
+    pos: { lat: 37.7592602, lng: -122.4132552 },
     fsID: "4faaba890cd6e74f6f96bab1"
   },
   {
     name: "Cocotte",
-    latlong: { lat: 37.7948162, lng: -122.4206194 },
+    pos: { lat: 37.7948162, lng: -122.4206194 },
     fsID: "5078e44ee4b0da2384e74824"
   },
   {
     name: "Palmer's Tavern",
-    latlong: { lat: 37.7906335, lng: -122.4361915 },
+    pos: { lat: 37.7906335, lng: -122.4361915 },
     fsID: "521ec12f11d2224d014b63f4"
   },
   {
     name: "State Bird Provisions",
-    latlong: { lat: 37.7836666, lng: -122.4352882 },
+    pos: { lat: 37.7836666, lng: -122.4352882 },
     fsID: "4ef52a378231b0d6238dd471"
   },
   {
     name: "Nopa",
-    latlong: { lat:37.7748978, lng: -122.4396831  },
+    pos: { lat:37.7748978, lng: -122.4396831 },
     fsID: "44646408f964a52026331fe3"
   },
   {
     name: "Tomasso's",
-    latlong: { lat: 37.7978025, lng: -122.4074324 },
+    pos: { lat: 37.7978025, lng: -122.4074324 },
     fsID: "49e05c38f964a52052611fe3"
   },
   {
     name: "The Ice Cream Bar Soda Foundation",
-    latlong: { lat:37.7664591, lng: -122.4524319  },
+    pos: { lat:37.7664591, lng: -122.4524319 },
     fsID: "4eac41a5dab40d132703fc44"
   },{
     name: "Biergarten",
-    latlong: { lat: 37.7760198, lng: -122.4261769 },
+    pos: { lat: 37.7760198, lng: -122.4261769 },
     fsID: "4dd7e48fd22d38ef42f35bd8"
   }
 ];
 
-// Made so that locations remains after it is cleared
-// var allPlaces = [];
-// var allPlacesPop = function(){
-//   for (var x = 0; x > locations.length; x++){
-//         if(locations !==undefined){
-//       allPlaces.push(locations[x]);
-//     }
-//   }
-// };
-// allPlacesPop();
+ // init's Google Maps API
+    function initMap(){
+      // calling the center outside the function
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: startCenter,
+        zoom: 12,
+        scrollwheel: false
+      });
+      ko.applyBindings(new ViewModel());
+    }
 
-/**  VIEW **/
-// init's Google Maps API
-function initMap(){
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: startCenter,
-    zoom: 13,
-    scrollwheel: false
-  });
-}
-initMap();
-  //  // Close infoWindow when map clicked
-  //       google.maps.event.addListener(map, 'click', function(e) {
-  //           closeInfoWindows();
-  //           toggleBounceOffAll();
-  //           });
-  // // putting all pins on the map and create the infowindow for each marker:
-
-  // for(var i = 0; i < locations.length; i++){
-  //     if(locations !== undefined){
-  //       var marker = new google.maps.Marker({
-  //         position: locations[i].latlong,
-  //         map: map,
-  //         title: locations[i].name,
-  //         animation: google.maps.Animation.DROP,
-  //         icon: 'assets/heart_icon.svg'
-  //       });
-
-  //     // adding the Infowindow to populate and creating the error message if the
-  //     // net breaks. contentString is the error message for Ajax
-
-  //       var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
-  //       var infoWindow = new google.maps.InfoWindow({
-  //         content: errorAjax
-  //       });
-  //       infoWindow.addListener('closeclick', function(){
-  //         infoWindow.close();
-  //         toggleBounceOffAll();
-  //       });
-  //       // IIFE to solve closure issue
-  //       marker.addListener('click', (function(pinCopy, infoWindowCopy){
-  //         return function(){
-  //           map.panTo(marker.getPosition());
-  //           closeInfoWindows();
-  //           infoWindowCopy.open(map, pinCopy);
-  //           toggleBounceOffAll();
-  //           toggleBounceOn(pinCopy);
-  //         };
-  //       })(marker, infoWindow));
-
-  //       // push each marker into marker's array to make them observable
-  //       pins.push(marker);
-
-  //       // push infoWindow to the infoWindow's array to make them observable
-  //       infoWindows.push(infoWindow);
-  //     }
-  //   }
-    // var toggleOff = function(marker) {
-    //   marker.setVisible(false);
-    // };
-    // var toggleOn = function(marker) {
-    //   marker.setVisible(true);
-    // };
-    // var toggleOffAll = function() {
-    //   for (var x in pins) {
-    //     if(pins !== undefined){
-    //       pins[x].setVisible(false);
-    //     }
-    //   }
-    // };
-    // // function to close all info windows
-    // var closeInfoWindows = function() {
-    //     for (var x in infoWindows) {
-    //       if(infoWindows !==undefined){
-    //         infoWindows[x].close();
-    //       }
-    //     }
-    // };
-    // functions to toggle pin's BOUNCE animation
-    // var toggleBounceOffAll = function() {
-    //     for (var x in pins) {
-    //       if(pins !== undefined){
-    //         pins[x].setAnimation(null);
-    //       }
-    //     }
-    // };
-
-    var toggleBounceOn = function(marker) {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-    };
 /** VIEWMODEL **/
 
-function ViewModel(){
+var ViewModel = function(){
   var self = this;
+  var marker;
 
-  // Place constructor
+// Place constructor
   function Place(data) {
-    var marker = new google.maps.Marker({
-    name : data.name,
-    lat : data.lat,
-    lng : data.lng,
-    fsID : data.fsID
-  });
+    this.name = data.name;
+    this.pos = data.pos;
+    this.fsID = data.fsID;
+    this.marker = null;
+  }
 
-  Place.prototype.openWindow = function(){
-    map.panTo(this.marker.position);
-    google.maps.event.trigger(this.marker, 'click');
-    if(currentInfoWindow !== null){
-      currentInfoWindow.close(map, this);
-    } else {
-      fourSquareGet(this.marker);
-      currentInfoWindow = this.marker.infoWindow;
-    }
-  };
+
+  // Place.prototype.openWindow = function(){
+  //   map.panTo(this.marker.position);
+  //   google.maps.event.trigger(this.marker, 'click');
+  //   if(currentInfoWindow !== null){
+  //     currentInfoWindow.close(map, this);
+  //   } else {
+  //     fourSquareGet(this.marker);
+  //     currentInfoWindow = this.marker.infoWindow;
+  //   }
+  // };
 
   // pushes each of the locations
   self.allLocations = [];
-  self.locations.forEach(function(location){
+  locations.forEach(function(location){
     self.allLocations.push(new Place(location));
   });
-  
-  self.allLocations.forEach(function (location){
-    location.marker = new google.maps.Marker({
+
+  self.allLocations.forEach(function(place){
+    var markerOptions = {
       map: map,
-      lat: latlong,
-      lng: latlong,
+      position: place.pos,
       animation: google.maps.Animation.DROP,
-      icon: 'assets/heart_icon.svg',
-      name: location.name,
-      fsID: location.fsID
+      icon: 'assets/heart_icon.svg'
+    };
+    place.marker = new google.maps.Marker(markerOptions);
+
+    // currentinfoWindow = new google.maps.InfoWindow({
     });
 
-    location.marker.infoWindow = new google.maps.InfoWindow({
-      position: { lat: location.lat, lng: location.lng },
-    });
-    location.marker.addListener('click', function toggleBounce(){
-      map.panTo(location.marker.position);
-      if (currentinfoWindow !== null){
-        currentinfoWindow.close(map, this);
-      } else {
-        fourSquareGet(location.marker);
-        currentinfoWindow = location.marker.infoWindow;
-        location.marker.setAnimation();
-      }
-    });
+  //   location.marker.addListener('click', function toggleBounce(){
+  //     map.panTo(location.marker.position);
+  //     if (currentinfoWindow !== null){
+  //       currentinfoWindow.close(map, this);
+  //     } else {
+  //       fourSquareGet(location.marker);
+  //       currentinfoWindow = location.marker.infoWindow;
+  //       location.marker.setAnimation();
+  //     }
+  //   });
+  // });
 
-  });
   self.searchValue = ko.observable();
-}
-  
-  ko.applyBindings(new ViewModel());
-
-}
-
-
+};
 
 // var viewModel = {
 //   // Google Maps API stuff

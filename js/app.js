@@ -136,7 +136,6 @@ var ViewModel = function(){
     this.marker = null;
   }
 
-
   // Place.prototype.openWindow = function(){
   //   map.panTo(this.marker.position);
   //   google.maps.event.trigger(this.marker, 'click');
@@ -163,28 +162,30 @@ var ViewModel = function(){
     };
     place.marker = new google.maps.Marker(markerOptions);
 
-    // currentinfoWindow = new google.maps.InfoWindow({
-    });
+    currentinfoWindow = new google.maps.InfoWindow({});
 
-  //   location.marker.addListener('click', function toggleBounce(){
-  //     map.panTo(location.marker.position);
-  //     if (currentinfoWindow !== null){
-  //       currentinfoWindow.close(map, this);
-  //     } else {
-  //       fourSquareGet(location.marker);
-  //       currentinfoWindow = location.marker.infoWindow;
-  //       location.marker.setAnimation();
-  //     }
-  //   });
-  // });
+    place.marker.addListener('click', function toggleBounce(){
+      map.panTo(location.marker.position);
+      if (currentinfoWindow !== null){
+        currentinfoWindow.close(map, this);
+      } else {
+        fourSquareGet(location.marker);
+        currentinfoWindow = location.marker.infoWindow;
+        location.marker.setAnimation();
+      }
+  });
 
   self.searchValue = ko.observable();
+  
+  self.search = function(value){
+    // value.setVisible(false);
+    // toggleOffAll();
+    // self.allLocations.forEach(function(location){
+    //   if(location.name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
+    //     location.marker.setVisible(true);
+  };
+});
 };
-
-// var viewModel = {
-//   // Google Maps API stuff
-//   pins: ko.observableArray(),
-//   searchValue: ko.observable(),
 
   // ops
   // search: function(value){

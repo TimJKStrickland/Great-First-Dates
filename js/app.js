@@ -170,7 +170,7 @@ var ViewModel = function(){
 function attachInfoWindow (marker, markerID) {
   marker.infowindow = "";
   marker.addListener('click', function toggleBounce(){
-      map.panTo(location.marker.position);
+      map.panTo(location.marker.pos);
       if (currentinfoWindow !== null){
         currentinfoWindow.close(map, this);
       } else {

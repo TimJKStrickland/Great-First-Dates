@@ -162,19 +162,27 @@ var ViewModel = function(){
     };
     place.marker = new google.maps.Marker(markerOptions);
 
-    currentinfoWindow = new google.maps.InfoWindow({});
-
-    place.marker.addListener('click', function toggleBounce(){
+    var infoWindow = new google.maps.InfoWindow({
+      content: place.name
+    });
+    attachInfoWindow(marker, markerID);
+  });
+function attachInfoWindow (marker, markerID) {
+  marker.infowindow = "";
+  marker.addListener('click', function toggleBounce(){
       map.panTo(location.marker.position);
       if (currentinfoWindow !== null){
         currentinfoWindow.close(map, this);
       } else {
         fourSquareGet(location.marker);
-        currentinfoWindow = location.marker.infoWindow;
+        currentinfoWindow = marker.infoWindow;
         location.marker.setAnimation();
       }
+    });
+  marker.addListener('click', function(){
+    infowindow.open(map, marker);
   });
-
+}
   self.searchValue = ko.observable();
   
   self.search = function(value){
@@ -184,7 +192,7 @@ var ViewModel = function(){
     //   if(location.name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
     //     location.marker.setVisible(true);
   };
-});
+
 };
 
   // ops

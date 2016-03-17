@@ -136,16 +136,22 @@ var ViewModel = function(){
     this.marker = null;
   }
 
-  // Place.prototype.openWindow = function(){
-  //   map.panTo(this.marker.position);
-  //   google.maps.event.trigger(this.marker, 'click');
-  //   if(currentInfoWindow !== null){
-  //     currentInfoWindow.close(map, this);
-  //   } else {
-  //     fourSquareGet(this.marker);
-  //     currentInfoWindow = this.marker.infoWindow;
-  //   }
-  // };
+  Place.prototype.openWindow = function(){
+    map.panTo(this.marker.position);
+    currentinfoWindow = infoWindow;
+    google.maps.event.trigger(this.marker, 'click');
+    if(currentInfoWindow !== null){
+      currentInfoWindow.close(map, this);
+    } else {
+      // fourSquareGet(this.marker);
+      // currentInfoWindow = this.marker.infoWindow;
+      currentinfoWindow.open(this.marker);
+    }
+  };
+  var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data";
+  var infoWindow = new google.maps.InfoWindow({
+    content: errorAjax
+  });
 
   // pushes each of the locations
   self.allLocations = [];
@@ -160,31 +166,66 @@ var ViewModel = function(){
       animation: google.maps.Animation.DROP,
       icon: 'assets/heart_icon.svg'
     };
+
     place.marker = new google.maps.Marker(markerOptions);
 
-    var infoWindow = new google.maps.InfoWindow({
-      content: place.name
-    });
-    attachInfoWindow(marker, markerID);
-  });
-function attachInfoWindow (marker, markerID) {
-  marker.infowindow = "";
-  marker.addListener('click', function toggleBounce(){
-      map.panTo(location.marker.pos);
-      if (currentinfoWindow !== null){
-        currentinfoWindow.close(map, this);
+  // Call that ajax
+  // Credit: https://github.com/lacyjpr/neighborhood/blob/master/src/js/app.js
+  $.ajax({
+    url: 'https://api.foursquare.com/v2/venues/' + location.fsID +
+        "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
+        "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321",
+
+    success: function (data){
+      // use returned JSON here
+      var venue = data.response.venue;
+      // create contentString
+      var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+      var contentString3;
+      if (venue.rating !== undefined) {
+        contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+            venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
+            '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
       } else {
-        fourSquareGet(location.marker);
-        currentinfoWindow = marker.infoWindow;
-        location.marker.setAnimation();
+        contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+        venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
       }
-    });
-  marker.addListener('click', function(){
-    infowindow.open(map, marker);
+      var contentString2 = '';
+      var categories = venue.categories;
+      var formattedPhone = venue.contact.formattedPhone;
+      var phone = venue.contact.phone;
+      var contentString1 = '';
+      if(phone || formattedPhone !== undefined){
+        contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
+      } else {
+        contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
+      }  
+      for (var i = 0; i < categories.length; i++) {
+        contentString1 += '<p>' + categories[i].name + ' </p>';
+      }
+      // delete last two positions of contentString2. Only category wanted per hit
+      contentString2 = contentString2.slice(0, -1);
+      var contentString = contentString0 + contentString1 + contentString2 + contentString3;
+
+      // Add infowindows credit http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
+      google.maps.event.addListener(place.marker, 'click', function () {
+          infowindow.open(map, this);
+          // Bounce animation credit https://github.com/Pooja0131/FEND-Neighbourhood-Project5a/blob/master/js/app.js
+          placeItem.marker.setAnimation(google.maps.Animation.BOUNCE);
+          infowindow.setContent(contentString);
+
+      });
+    },
+    fail : function(infow){ // error handling
+        if (alertCount === true) {
+        alert("Shoot. We can't find anything. Please try later.");
+        alertCount = false; // make sure it only alert once
+        }
+    }
   });
-}
-  self.searchValue = ko.observable();
-  
+});
+
+  self.searchValue = ko.observable();  
   self.search = function(value){
     // value.setVisible(false);
     // toggleOffAll();
@@ -220,61 +261,6 @@ function attachInfoWindow (marker, markerID) {
 //     }
 //   }
 // };
-// ko.applyBindings(viewModel);
-// viewModel.searchValue.subscribe(viewModel.search);
-// for( var x in locations){
-//   if(locations !== undefined){
-//     var url = "https://api.foursquare.com/v2/venues/" +
-//       locations[x].fsID +
-//       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
-//       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
-
-//       $.getJSON(url, (function(fsData){ // IIFE
-//           return function(data) {
-//               // use returned JSON here
-//               locations[fsData].foursquareData = data;
-//               var venue = data.response.venue;
-
-//               // create contentString
-//               var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-//               var contentString3;
-//               if (venue.rating !== undefined) {
-//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-//                     venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
-//                     '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
-//               } else {
-//                 contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-//                 venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
-//               }
-//               var contentString2 = '';
-//               var categories = venue.categories;
-//               var formattedPhone = venue.contact.formattedPhone;
-//               var phone = venue.contact.phone;
-//               var contentString1 = '';
-//               if(phone || formattedPhone !== undefined){
-//                 contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
-//               } else {
-//                 contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
-//               }  
-//             for (var i=0; i < categories.length; i++) {
-//                 contentString1 += '<p>' + categories[i].name + ' </p>';
-//               }
-//               // delete last two positions of contentString2. Only category wanted per hit
-//               contentString2 = contentString2.slice(0, -1);
-//               var contentString = contentString0 + contentString1 + contentString2 + contentString3;
-
-//               // change info windows' content
-//               infoWindows[fsData].content = contentString;
-
-//           };
-//     })(x)).fail(function(){ // error handling
-//         if (alertCount === true) {
-//         alert("Shoot. We can't find anything. Please try later.");
-//         alertCount = false; // make sure it only alert once
-//         }
-//     });
-//   }
-// }
 var googleError = function() {
     alert("Snap, something busted on Google Maps. Quick! Say something funny.");
     alertCount = false;

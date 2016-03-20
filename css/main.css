@@ -22,11 +22,11 @@ img{
 }
 
 .inner-container {
-	width: 43%;
-	padding: 1.5em;
+	width: 50%;
+	padding: 0;
 	float: left;
 	height: 4.5em;
-	margin: 0;
+	margin: 0em;
 }
 
 hr {
@@ -75,7 +75,7 @@ hr {
 }
 .place {
     display: block;
-    padding: 1em 0 0 2em;
+    padding: 0;
 }
 
 #map {

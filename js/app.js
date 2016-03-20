@@ -161,12 +161,8 @@ var ViewModel = function(){
     google.maps.event.addListener(place.marker, 'click', function(){
       if(infoWindow !==null) {
         infoWindow.open(map, this);
-      } else {
-        infoWindow.setContent(this.name);
-        infoWindow.open(map, this);
-      }
+      } 
       place.marker.setAnimation(google.maps.Animation.BOUNCE);
-    });
     google.maps.event.addListener(infoWindow, 'closeclick', function(){
       infoWindow.close();
       place.marker.setAnimation(null);
@@ -176,105 +172,86 @@ var ViewModel = function(){
       infoWindow.close();
       place.marker.setAnimation(null);
     });
-  });
+    console.log(place.name);
 
-self.locations.forEach(function(place){
-  console.log(place.name);
+    // Call that ajax
+    // Credit: https://github.com/lacyjpr/neighborhood/blob/master/src/js/app.js
+    $.getJSON({
+      url: 'https://api.foursquare.com/v2/venues/' + place.fsID +
+          "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
+          "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321",
+      success: function (data){
+        locationList.fsID.forEach(function(fsID){
+          // use returned JSON here
+          var venue = data.response.venue;
+          // create contentString
+          var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+          var contentString3;
+          if (venue.rating !== undefined) {
+            contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
+              venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
+              '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
+          } else {
+            contentString3 = '</h5><div><span>' + venue.place.formattedAddress[0] + '</span>, <span>' +
+            venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
+          }
+
+          var contentString2 = '';
+          var categories = venue.categories;
+          var formattedPhone = venue.contact.formattedPhone;
+          var phone = venue.contact.phone;
+          var contentString1 = '';
+
+          if(phone || formattedPhone !== undefined) {
+            contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
+          } else {
+            contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
+          }  
+          for (var i = 0; i < categories.length; i++) {
+            contentString1 += '<p>' + categories[i].name + ' </p>';
+          }
+          // delete last two positions of contentString2. Only category wanted per hit
+          contentString2 = contentString2.slice(0, -1);
+          var contentString = contentString0 + contentString1 + contentString2 + contentString3;
+
+          // Add infowindows credit http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
+          google.maps.event.addListener(place.marker, 'click', function () {
+              infoWindow.open(map, this);
+              // Bounce animation credit https://github.com/Pooja0131/FEND-Neighbourhood-Project5a/blob/master/js/app.js
+              place.marker.setAnimation(google.maps.Animation.BOUNCE);
+              infoWindow.content(contentString);
+          });
+        });
+      // },
+      // fail : function(){ // error handling
+      //   if (alertCount === true) {
+      //     alert("Shoot. We can't find anything. Please try later.");
+      //     alertCount = false; // make sure it only alert once
+      //   }
+      }
+    });
+    // self.search = function(value){
+    //   value.setVisible(false);
+    //   self.locationList.forEach(function(location){
+    //     if(location.name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
+    //       location.marker.setVisible(true);
+    //     }
+    //   });
+    // };
+    // self.listClick = function(value){
+    //   infoWindow.close(); 
+    //   place.marker.setAnimation(null);
+    //   self.locationList.forEach(function(location){
+    //     if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
+    //       // open the clicked marker's infoWindow and trigger animation
+    //       place.infoWindow[x].open(map, locationList[x]);
+    //       place.marker[x].setAnimation(BOUNCE);  
+    //     }
+    //   });
+    // };
+  });
 });
 };
-
-  // Call that ajax
-  // Credit: https://github.com/lacyjpr/neighborhood/blob/master/src/js/app.js
-  // $.ajax({
-    // url: 'https://api.foursquare.com/v2/venues/' + location.fsID +
-        // "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
-        // "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321",
-
-  //   success: function (data){
-  //     // use returned JSON here
-  //     var venue = data.response.venue;
-  //     // create contentString
-  //     var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-  //     var contentString3;
-  //     if (venue.rating !== undefined) {
-  //       contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-  //           venue.location.formattedAddress[1] + '</span></div><br><div>Rating: <span>' + venue.rating +
-  //           '</span>/10 Based on <span>' + venue.ratingSignals + '</span> votes</div></div>';
-  //     } else {
-  //       contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] + '</span>, <span>' +
-  //       venue.location.formattedAddress[1] + '</span></div><br><div>Rating not available</div></div>';
-  //     }
-  //     var contentString2 = '';
-  //     var categories = venue.categories;
-  //     var formattedPhone = venue.contact.formattedPhone;
-  //     var phone = venue.contact.phone;
-  //     var contentString1 = '';
-  //     if(phone || formattedPhone !== undefined){
-  //       contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
-  //     } else {
-  //       contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
-  //     }  
-  //     for (var i = 0; i < categories.length; i++) {
-  //       contentString1 += '<p>' + categories[i].name + ' </p>';
-  //     }
-  //     // delete last two positions of contentString2. Only category wanted per hit
-  //     contentString2 = contentString2.slice(0, -1);
-  //     var contentString = contentString0 + contentString1 + contentString2 + contentString3;
-
-  //     // Add infowindows credit http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
-  //     google.maps.event.addListener(place.marker, 'click', function () {
-  //         infowindow.open(map, this);
-  //         // Bounce animation credit https://github.com/Pooja0131/FEND-Neighbourhood-Project5a/blob/master/js/app.js
-  //         placeItem.marker.setAnimation(google.maps.Animation.BOUNCE);
-  //         infowindow.setContent(contentString);
-
-  //     });
-  //   },
-  //   fail : function(){ // error handling
-  //       if (alertCount === true) {
-  //       alert("Shoot. We can't find anything. Please try later.");
-  //       alertCount = false; // make sure it only alert once
-  //       }
-  //   }
-  // });
-// });
-
-  
-  // self.search = function(value){
-    // value.setVisible(false);
-    // toggleOffAll();
-    // self.allLocations.forEach(function(location){
-    //   if(location.name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
-    //     location.marker.setVisible(true);
-  // };
-
-// };
-
-  // ops
-  // search: function(value){
-  //   viewModel.pins.removeAll();
-  //   toggleOffAll();
-  //   for (var x=0; x < locations.length; x++){
-  //     if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-  //       viewModel.pins.push(locations[x]);
-  //       toggleOn(pins[x]);
-  //     }
-  //   }
-  // },
-//   listClick: function(value){
-//         // closes all info windows, toggles off all Bounce
-//     closeInfoWindows();
-//     toggleBounceOffAll();
-
-//     for(var x = 0; x < locations.length; x++){
-//       if(locations[x].name.toLowerCase().indexOf(value.name.toLowerCase()) >= 0 ){
-//         // open the clicked marker's infoWindow and trigger animation
-//         currentinfoWindow[x].open(map, pins[x]);
-//         toggleBounceOn(pins[x]);
-//       }
-//     }
-//   }
-// };
 var googleError = function() {
     alert("Snap, something busted on Google Maps. Quick! Say something funny.");
     alertCount = false;

@@ -175,7 +175,11 @@ var ViewModel = function(){
     var fourSquareUrl = 'https://api.foursquare.com/v2/venues/' + place.fsID +
       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
-
+    self.listClick = function(){
+     value.forEach(function(value){
+      google.maps.event.trigger(value, 'click');
+     });
+    };
     // Call that ajax
     // Credit: https://github.com/lacyjpr/neighborhood/blob/master/src/js/app.js
     $.ajax(fourSquareUrl, {

@@ -152,7 +152,7 @@ var ViewModel = function(){
       position: place.pos,
       name: place.name,
       animation: google.maps.Animation.DROP,
-      icon: 'assets/heart_icon.svg'
+      icon: 'assets/heart_icon.svg',
     };
 
     place.marker = new google.maps.Marker(markerOptions);
@@ -221,7 +221,6 @@ var ViewModel = function(){
     });
   }); 
   self.userInput = ko.observable('');
-  self.filteredMarkers = 
   self.search = ko.computed(function(){});
 };
         

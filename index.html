@@ -21,7 +21,7 @@
     <hr>
     <div class= "lower-container"> 
       <ul class="places" data-bind="foreach:locations">
-          <li data-bind="text: name, click: $parent.showInfo"></li>
+          <li data-bind="text: name, click: listClick().showInfo"></li>
       </ul>
       <div id="map"></div>
     </div>

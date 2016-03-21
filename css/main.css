@@ -14,7 +14,6 @@ html, body {
 img{
 	width: 30%;
 	display: block;
-
 }
 
 .header{
@@ -26,7 +25,7 @@ img{
 	padding: 0;
 	float: left;
 	height: 4.5em;
-	margin: 0em;
+	margin: 0;
 }
 
 hr {
@@ -34,12 +33,10 @@ hr {
  	position: relative;
  	clear: both;
  	margin: 0;
-
  }
 
 .search{
-	font-size: 0.85em;
-	height: 3em;
+	height: 6em;
 	float: right;
 	margin-top: 1.5em;
 }
@@ -50,10 +47,13 @@ hr {
     width: 5em;
     border-bottom-right-radius: 0.5em;
     border-top-right-radius: 0.5em;
+    margin-right: 4em;
 }
+
 #search-btn:before {
 	content: "Find it!";
 }
+
 #searchbar {
 	border: 0.15em solid #ee8833;
     width: 16em;
@@ -62,92 +62,119 @@ hr {
 }
 
 .places{
-	width: 27%;
+	width: 20%;
 	float: left;
+	padding: 1em 0 0 1em;
+	margin: 0;
 	position: relative;
 	overflow: scroll;
-	height: 81vh;
-}
-.place, .tel {
+	visibility: visible;
+	}
+.tel, .places {
 	list-style: none;
     text-decoration: none;
     color: #ee8833;
 }
-.place {
-    display: block;
-    padding: 0;
-}
 
 #map {
 	height: 81vh;
-	width: 73%;
+	width: 78.4%;
 	float: left;
 	position: relative;
 }
 
-@media screen and (max-width: 900px){
-	body{
-		font-size: 62.5%;
-	}
-	.inner-container{
-		float: left;
-		width: 39%;	
-		margin-right: 0.5em;
-	}
-	#map {
-		height: 81vh;
-	}
-	#searchbar {
-		width:13em;
-	}
-	#search-btn {
-		width: 3em;
-		padding-top: 0.75em;
+.header {
+	margin-left: 4rem;
 }
+
 @media all and (max-width: 600px){
 	html{
-		font-size: 62.5%;
+		font-size: 100%;
 	}
 	.upper-container {
 		height: 9em;
 	}
-	.inner-container{
+	.inner-container {
 		float: left;
 		width: 50%;	
-		font-size: 2em;
+		font-size: 1em;
 		margin: 0;
 		padding: 0;
 	}
+	#map{
+		width: 100%;
+	}
 	#searchbar {
-		width: 7em;
+		width: 10em;
+	}
+
+	#search-btn {
+		width: 3em;
+		margin-right: 0em;
+	}
+	.search {
+		height: 3em;
+		width: 2em;
+		margin: 0;
 	}
 	#foursquare {
 		width: 75%;
-		margin-left: -11;
 	}
 	#search-btn:before {
 		content: url('../assets/Magnifying_glass.svg');
 		vertical-align: middle;
-
+	}
+	.places {
+		visibility: hidden;
+		position: absolute;
+		z-index: 100;
+		top: -10000px;
+	}
+	.header {
+		font-size: 1.25em;
+		margin: 0;
+	}
+	input[type ="text"] {
+		font-size: 4em;
 	}
 }
 
 @media all and (min-width: 601px) and (max-width: 980px) {
-	html{
+	html {
 		font-size: 100%;
 	}
-	.inner-container{
+	.upper-container {
 		float: left;
-		width: 38%;	
+		width: 100%;	
+	}
+	.search {
+		height: 3em;
+	}
+	#map {
+		width: 77%;
 	}
 	#foursquare {
 		width: 50%;
 		margin-left: -11;
 	}
+	#search-btn {
+		width: 3em;
+	}
 	#search-btn:before {
 		content: url('../assets/Magnifying_glass.svg');
 		vertical-align: middle;
-
+	}
+	.header {
+    	margin: 0.5rem 0 0 0.5rem;
+	}
+	.places {
+		width: 20%;
+		color: #ee8833;
+	    margin: 1em 0;
+	    font-size: 1.25em;
+	}
+	.places li {
+		padding: 0.25em 0 0.25em;
 	}
 
 }

@@ -1,6 +1,5 @@
 var map;
 var startCenter = {lat: 37.7764823, lng: -122.42};
-var locations = [];
 contentString = "";
  // init's Google Maps API
 function initMap(){
@@ -176,8 +175,9 @@ var ViewModel = function(){
       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
     self.listClick = function(){
-     value.forEach(function(value){
-      google.maps.event.trigger(value, 'click');
+     for (var x=0; x < locationList.length; x++){
+      if(locationList[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
+      infoWindow.open(map, locationList[x]);
      });
     };
     // Call that ajax

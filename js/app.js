@@ -128,6 +128,14 @@ var ViewModel = function(){
     this.fsID = data.fsID;
     this.marker = null;
   }
+  
+      var toggleBounceOn = function(marker){
+      if(marker.getAnimation() !== null ){
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    };
 
   var infoWindow = new google.maps.InfoWindow({
     content: errorAjax,
@@ -150,14 +158,6 @@ var ViewModel = function(){
     };
 
     location.marker = new google.maps.Marker(markerOptions);
-
-    var toggleBounceOn = function(){
-      if(location.marker.getAnimation() !== null ){
-        location.marker.setAnimation(null);
-      } else {
-        location.marker.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    };
 
     google.maps.event.addListener(location.marker, 'click', (function(markerCopy, infoWindowCopy){
       return function(){

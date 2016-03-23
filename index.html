@@ -15,13 +15,13 @@
     </div>
       <div class="inner-container">
         <button class="search" id="search-btn" type="submit"></button>
-        <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput">
+        <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
       </div>
     </div>
     <hr>
     <div class= "lower-container"> 
-      <ul class="places" data-bind="foreach:locations">
-          <li data-bind="text: name, click: $root.listClick"></li>
+      <ul class="places" data-bind="foreach: visibleLocations">
+          <li data-bind="text: name"></li>
       </ul>
       <div id="map"></div>
     </div>

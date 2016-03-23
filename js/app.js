@@ -128,14 +128,22 @@ var ViewModel = function(){
     this.fsID = data.fsID;
     this.marker = null;
   }
+    
+  var toggleBounceOn = function(marker){
+    if(marker.getAnimation() !== null ){
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  };
   
-      var toggleBounceOn = function(marker){
-      if(marker.getAnimation() !== null ){
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
+  var toggleBounceOffAll = function(){
+    self.allLocations.forEach(location){
+      if(location.marker.getAnimation() !== null){
+        location.marker.setAnimation(null);
       }
     };
+  };
 
   var infoWindow = new google.maps.InfoWindow({
     content: errorAjax,
@@ -163,6 +171,7 @@ var ViewModel = function(){
       return function(){
         infoWindowCopy.open(map, markerCopy);
         foursquareGet(location.marker);
+        toggleBounceOffAll();
         toggleBounceOn(markerCopy);
       };
     })(location.marker, infoWindow));

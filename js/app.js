@@ -151,7 +151,7 @@ var ViewModel = function(){
       position: place.pos,
       name: place.name,
       animation: google.maps.Animation.DROP,
-      icon: 'assets/heart_icon.svg',
+      icon: 'assets/heart_icon.svg'
     };
 
     place.marker = new google.maps.Marker(markerOptions);
@@ -178,8 +178,9 @@ var ViewModel = function(){
      for (var x=0; x < locationList.length; x++){
       if(locationList[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
       infoWindow.open(map, locationList[x]);
-     };
-    };
+     }
+    }
+  };
     // Call that ajax
     // Credit: https://github.com/lacyjpr/neighborhood/blob/master/src/js/app.js
     $.ajax(fourSquareUrl, {

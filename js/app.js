@@ -151,14 +151,21 @@ var ViewModel = function(){
 
     location.marker = new google.maps.Marker(markerOptions);
 
-    google.maps.event.addListener(location.marker, 'click', function(){
-      infoWindow.open(map, this);
-      if(location.marker.animation !== null){
-        location.marker.animation(null);
+    var toggleBounceOn = function(){
+      if(location.marker.getAnimation() !== null ){
+        location.marker.setAnimation(null);
       } else {
-      location.marker.setAnimation(google.maps.Animation.BOUNCE);
+        location.marker.setAnimation(google.maps.Animation.BOUNCE);
       }
-    });
+    };
+
+    google.maps.event.addListener(location.marker, 'click', (function(markerCopy, infoWindowCopy){
+      return function(){
+        infoWindowCopy.open(map, markerCopy);
+        foursquareGet(location.marker);
+        toggleBounceOn(markerCopy);
+      };
+    })(location.marker, infoWindow));
       google.maps.event.addListener(infoWindow, 'closeclick', function(){
       infoWindow.close();
       location.marker.setAnimation(null);
@@ -179,48 +186,49 @@ var ViewModel = function(){
      }
     }
   };
-    // Call that ajax
-    // Credit: https://github.com/lacyjpr/neighborhood/blob/master/src/js/app.js
-  $.ajax(fourSquareUrl, {
-    datatype:"json",
-    success: function (data){
-      return (function(fsdata){
-        // use returned JSON here
-        var venue = data.response.venue;
-        // create contentString
-        var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
-        if (venue.rating !== undefined) {
-          contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] +
-          '</span>, <span>' + venue.location.formattedAddress[1] + 
-          '</span></div><br><div>Rating: <span>' + venue.rating + '</span>/10 Based on <span>' +
-          venue.ratingSignals + '</span> votes</div></div>';
-        } else {
-          contentString3 = '</h5><div><span>' + venue.place.formattedAddress[0] +
-           '</span>, <span>' + venue.location.formattedAddress[1] + 
-           '</span></div><br><div>Rating not available</div></div>';
-        }
+  var foursquareGet = function(marker){
+    infoWindow.setContent(errorAjax);
+    $.ajax(fourSquareUrl, {
+      datatype:"json",
+      success: function (data){
+        return (function(fsdata){ // calling an IIFE to ensure callback success
+          // use returned JSON here
+          var venue = data.response.venue;
+          // create contentString
+          var contentString0 = '<div><h4>' + venue.name + '</h4><h5>';
+          if (venue.rating !== undefined) {
+            contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] +
+            '</span>, <span>' + venue.location.formattedAddress[1] + 
+            '</span></div><br><div>Rating: <span>' + venue.rating + '</span>/10 Based on <span>' +
+            venue.ratingSignals + '</span> votes</div></div>';
+          } else {
+            contentString3 = '</h5><div><span>' + venue.place.formattedAddress[0] +
+             '</span>, <span>' + venue.location.formattedAddress[1] + 
+             '</span></div><br><div>Rating not available</div></div>';
+          }
 
-        var contentString2 = '';
-        var categories = venue.categories;
-        var formattedPhone = venue.contact.formattedPhone;
-        var phone = venue.contact.phone;
-        var contentString1 = '';
+          var contentString2 = '';
+          var categories = venue.categories;
+          var formattedPhone = venue.contact.formattedPhone;
+          var phone = venue.contact.phone;
+          var contentString1 = '';
 
-        if(phone || formattedPhone !== undefined) {
-          contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
-        } else {
-          contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
-        }  
-        for (var i = 0; i < categories.length; i++) {
-          contentString1 += '<p>' + categories[i].name + ' </p>';
+          if(phone || formattedPhone !== undefined) {
+            contentString1 += '<a class="tel" href="tel:' + phone + '">' + formattedPhone +'</a>';
+          } else {
+            contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
+          }  
+          for (var i = 0; i < categories.length; i++) {
+            contentString1 += '<p>' + categories[i].name + ' </p>';
+          }
+          // delete last two positions of contentString2. Only category wanted per hit
+          contentString2 = contentString2.slice(0, -1);
+          var contentString = contentString0 + contentString1 + contentString2 + contentString3;
+          infoWindow.setContent(contentString);
+          })(data);
         }
-        // delete last two positions of contentString2. Only category wanted per hit
-        contentString2 = contentString2.slice(0, -1);
-        var contentString = contentString0 + contentString1 + contentString2 + contentString3;
-        infoWindow.setContent(contentString);
-        })(data);
-      }
-    });
+      });
+    };
   });
   self.visibleLocations = ko.observableArray();
 

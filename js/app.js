@@ -189,13 +189,11 @@ var ViewModel = function(){
       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
     
     self.listClick = function(place){
-     for (var x = 0; x < self.locationList.length; x++){
-       console.log(self.locationList[x].name);
-      if(self.locationList[x].name.toLowerCase().indexOf(place.toLowerCase()) >= 0 ){
-      infoWindow.open(map, self.locationList[x]);
-     }
-    }
-  };
+      google.maps.event.trigger(place.marker, function(){
+        toggleBounceOn();
+        toggleBounceOffAll();
+      });
+    };
   var foursquareGet = function(marker){
     infoWindow.setContent(errorAjax);
     $.ajax(fourSquareUrl, {

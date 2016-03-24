@@ -188,10 +188,11 @@ var ViewModel = function(){
       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +
       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
     
-    self.listClick = function(){
+    self.listClick = function(place){
      for (var x = 0; x < self.locationList.length; x++){
-      if(self.locationList[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0 ){
-      infoWindow.open(map, self.locationList.infoWindow[x]);
+       console.log(self.locationList[x].name);
+      if(self.locationList[x].name.toLowerCase().indexOf(place.toLowerCase()) >= 0 ){
+      infoWindow.open(map, self.locationList[x]);
      }
     }
   };

@@ -25,7 +25,7 @@ img{
 	padding: 0;
 	float: left;
 	height: 4.5em;
-	margin: 0;
+	margin: 1.5em 0;
 }
 
 hr {
@@ -36,18 +36,17 @@ hr {
  }
 
 .search{
-	height: 6em;
+	height: 4em;
 	float: right;
-	margin-top: 1.5em;
 }
 #search-btn {
 	background-color: #ee8833;
 	color: white;
 	border: 0;	
-    width: 5em;
-    border-bottom-right-radius: 0.5em;
-    border-top-right-radius: 0.5em;
-    margin-right: 4em;
+    	width: 5em;
+    	border-bottom-right-radius: 0.5em;
+    	border-top-right-radius: 0.5em;
+	margin-right: 4em;
 }
 
 #search-btn:before {
@@ -56,9 +55,9 @@ hr {
 
 #searchbar {
 	border: 0.15em solid #ee8833;
-    width: 16em;
-    border-bottom-left-radius: 0.5em;
-    border-top-left-radius: 0.5em;
+	width: 16em;
+	border-bottom-left-radius: 0.5em;
+	border-top-left-radius: 0.5em;
 }
 
 .places{
@@ -69,11 +68,12 @@ hr {
 	position: relative;
 	overflow: scroll;
 	visibility: visible;
+	height: 81vh;
 	}
 .tel, .places {
 	list-style: none;
-    text-decoration: none;
-    color: #ee8833;
+	text-decoration: none;
+	color: #ee8833;
 }
 
 #map {
@@ -165,13 +165,13 @@ hr {
 		vertical-align: middle;
 	}
 	.header {
-    	margin: 0.5rem 0 0 0.5rem;
+    		margin: 0.5rem 0 0 0.5rem;
 	}
 	.places {
 		width: 20%;
 		color: #ee8833;
-	    margin: 1em 0;
-	    font-size: 1.25em;
+		margin: 1em 0;
+		font-size: 1.25em;
 	}
 	.places li {
 		padding: 0.25em 0 0.25em;

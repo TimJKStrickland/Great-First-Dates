@@ -6,7 +6,7 @@ var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any d
 /** VIEWMODEL **/
 var ViewModel = function(){
   var self = this;
-  var marker;
+  //var marker;
   self.allLocations = [];
   self.locationList = ko.observableArray();
   self.searchValue = ko.observable();  

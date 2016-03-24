@@ -189,7 +189,7 @@ var ViewModel = function(){
       "&client_secret=XVFP3G1ZTANLVEZFMVDXUC3502R2C3YXQXKH0XD0N354NKZA&v=20150321";
     
     self.listClick = function(place){
-      google.maps.event.trigger(place[data], 'click');
+      google.maps.event.trigger(place.marker, 'click');
     };
   var foursquareGet = function(marker){
     infoWindow.setContent(errorAjax);

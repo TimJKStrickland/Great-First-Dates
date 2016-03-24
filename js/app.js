@@ -169,6 +169,7 @@ var ViewModel = function(){
 
     google.maps.event.addListener(location.marker, 'click', (function(markerCopy, infoWindowCopy){
       return function(){
+        map.panTo(markerCopy.getPosition());
         infoWindowCopy.open(map, markerCopy);
         foursquareGet(location.marker);
         toggleBounceOffAll();

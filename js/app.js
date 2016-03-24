@@ -138,11 +138,11 @@ var ViewModel = function(){
   };
   
   var toggleBounceOffAll = function(){
-    self.allLocations.forEach(location){
+    self.allLocations.forEach(function(location){
       if(location.marker.getAnimation() !== null){
         location.marker.setAnimation(null);
       }
-    };
+    });
   };
 
   var infoWindow = new google.maps.InfoWindow({

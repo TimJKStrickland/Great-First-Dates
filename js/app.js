@@ -270,8 +270,7 @@ var ViewModel = function(){
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: startCenter,
-    zoom: 12,
-    scrollwheel: false
+    zoom: 12
   });
   ko.applyBindings(new ViewModel());
 }

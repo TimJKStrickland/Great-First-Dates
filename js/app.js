@@ -230,9 +230,7 @@ var ViewModel = function(){
           } else {
             contentString1 += "<span>This place is so hip they don't even have a phone.</span>";
           }  
-          for (var i = 0; i < categories.length; i++) {
-            contentString1 += '<p>' + categories[i].name + ' </p>';
-          }
+          contentString1 += '<p>' + categories[0].name + ' </p>';
           // delete last two positions of contentString2. Only category wanted per hit
           contentString2 = contentString2.slice(0, -1);
           var contentString = contentString0 + contentString1 + contentString2 + contentString3;

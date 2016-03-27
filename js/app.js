@@ -136,7 +136,7 @@ var ViewModel = function(){
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   };
-  var resetMap = functin(marker){
+  var resetMap = function(marker){
     map.panTo(startCenter);
     map.setZoom(10);
   }

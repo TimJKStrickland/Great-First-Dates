@@ -136,7 +136,10 @@ var ViewModel = function(){
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   };
-  
+  var resetMap = functin(marker){
+    map.panTo(startCenter);
+    map.setZoom(10);
+  }
   var toggleBounceOffAll = function(){
     self.allLocations.forEach(function(location){
       if(location.marker.getAnimation() !== null){
@@ -170,6 +173,7 @@ var ViewModel = function(){
     google.maps.event.addListener(location.marker, 'click', (function(markerCopy, infoWindowCopy){
       return function(){
         map.panTo(markerCopy.getPosition());
+        map.setZoom(14);
         infoWindowCopy.open(map, markerCopy);
         foursquareGet(location.marker);
         toggleBounceOffAll();
@@ -178,12 +182,14 @@ var ViewModel = function(){
     })(location.marker, infoWindow));
       google.maps.event.addListener(infoWindow, 'closeclick', function(){
       infoWindow.close();
+      resetMap();
       location.marker.setAnimation(null);
     });
 
     google.maps.event.addListener(map, 'click', function(e) {
       infoWindow.close();
       location.marker.setAnimation(null);
+      resetMap();
     });
     var fourSquareUrl = 'https://api.foursquare.com/v2/venues/' + location.fsID +
       "?client_id=QGVCFTGB1GBUX5KJII1OMKU14YO3JTD34OHVNUZ4NFATZKWJ" +

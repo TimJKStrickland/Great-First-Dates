@@ -138,7 +138,7 @@ var ViewModel = function(){
   };
   var resetMap = function(marker){
     map.panTo(startCenter);
-    map.setZoom(10);
+    map.setZoom(12);
   }
   var toggleBounceOffAll = function(){
     self.allLocations.forEach(function(location){
@@ -173,7 +173,7 @@ var ViewModel = function(){
     google.maps.event.addListener(location.marker, 'click', (function(markerCopy, infoWindowCopy){
       return function(){
         map.panTo(markerCopy.getPosition());
-        map.setZoom(14);
+        map.setZoom(15);
         infoWindowCopy.open(map, markerCopy);
         foursquareGet(location.marker);
         toggleBounceOffAll();

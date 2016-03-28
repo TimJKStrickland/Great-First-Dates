@@ -2,12 +2,7 @@ var map;
 var startCenter = {lat: 37.7764823, lng: -122.42};
 contentString = "";
 var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data.";
-$(document).keyup(function(e){
-  if(e.keyCode == 27){ 
-    google.maps.event.trigger(e.location.marker, 'closeclick');
-    console.log('escape pushed');
-  }
-});
+
 /** VIEWMODEL **/
 var ViewModel = function(){
   var self = this;

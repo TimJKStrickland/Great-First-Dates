@@ -2,7 +2,9 @@ var map;
 var startCenter = {lat: 37.7764823, lng: -122.42};
 contentString = "";
 var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data.";
-
+$(document).keyup(function(e){
+  if(e.keyCode == 27) google.maps.event.trigger('closeclick');
+});
 /** VIEWMODEL **/
 var ViewModel = function(){
   var self = this;
@@ -167,7 +169,7 @@ var ViewModel = function(){
       animation: google.maps.Animation.DROP,
       icon: 'assets/heart_icon.svg'
     };
-
+  
     location.marker = new google.maps.Marker(markerOptions);
 
     google.maps.event.addListener(location.marker, 'click', (function(markerCopy, infoWindowCopy){

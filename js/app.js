@@ -4,7 +4,7 @@ contentString = "";
 var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data.";
 $(document).keyup(function(e){
   if(e.keyCode == 27){ 
-    google.maps.event.trigger('closeclick');
+    google.maps.event.trigger(e.marker, 'closeclick');
     console.log('escape pushed');
   }
 });

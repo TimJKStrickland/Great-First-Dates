@@ -24,7 +24,7 @@
         <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
       </div>
       <div>
-        <ul class="places" data-bind="foreach: visibleLocations">
+        <ul class="places dropdown" data-bind="foreach: visibleLocations">
             <li data-bind="text: name, click: $root.listClick"></li>
         </ul>
       </div>
@@ -36,7 +36,7 @@
     <script>
       document.querySelector( "#hamburger" ).addEventListener( "click", function() {
         this.classList.toggle( "active" );
-        $(".dropdown").removeClass( "hidden" );
+        $(".dropdown").toggleClass( "hidden" );
       });
     </script>
 </body>

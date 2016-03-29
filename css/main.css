@@ -53,6 +53,10 @@ hr {
 	content: "Find it!";
 }
 
+.hidden {
+	visibility: hidden;
+}
+
 #searchbar {
 	border: 0.15em solid #ee8833;
 	width: 10em;

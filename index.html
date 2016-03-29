@@ -13,17 +13,21 @@
       <h3 class='header'>provided by Thrillist</h3>
         <img class="header" id="foursquare" src="https://ss0.4sqi.net/img/poweredByFoursquare/poweredby-full-color-bf549c16c0ab3e1b04706ab5fcb422f1.png" size="50%">
     </div>
-      <div class="inner-container">
-        <button class="search" id="search-btn" type="submit"></button>
-        <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
-      </div>
+    <div>
+      <a href="#" id="hamburger"><span></span></a>
     </div>
     <hr>
     <div class= "lower-container"> 
       <div id="map"></div>
-      <ul class="places" data-bind="foreach: visibleLocations">
-          <li data-bind="text: name, click: $root.listClick"></li>
-      </ul>
+      <div>
+        <button class="search" id="search-btn" type="submit"></button>
+        <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
+      </div>
+      <div>
+        <ul class="places" data-bind="foreach: visibleLocations">
+            <li data-bind="text: name, click: $root.listClick"></li>
+        </ul>
+      </div>
     </div>
     <script src="js/jquery-2.2.0.min.js"></script>
     <script src="js/knockout-3.4.0.min.js"></script>

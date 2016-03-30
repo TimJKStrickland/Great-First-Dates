@@ -16,19 +16,18 @@
     <div>
       <a href="#" id="hamburger"><span></span></a>
     </div>
-    <hr>
-    <div class= "lower-container"> 
-      <div id="map"></div>
-      <div>
-        <button class="search" id="search-btn" type="submit"></button>
-        <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
-      </div>
-      <div class= "dropdown">
-        <ul class="places dropdown" data-bind="foreach: visibleLocations">
-            <li data-bind="text: name, click: $root.listClick"></li>
-        </ul>
-      </div>
+  </div>
+  <hr>
+  <div class= "lower-container"> 
+    <div id="map"></div>
+    <div>
+      <button class="search" id="search-btn" type="submit"></button>
+      <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
     </div>
+    <ul class="places dropdown" data-bind="foreach: visibleLocations">
+        <li data-bind="text: name, click: $root.listClick"></li>
+    </ul>
+  </div>
     <script src="js/jquery-2.2.0.min.js"></script>
     <script src="js/knockout-3.4.0.min.js"></script>
     <script src="js/app.js" type="text/javascript" async defer></script>

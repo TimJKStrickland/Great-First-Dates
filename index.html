@@ -24,8 +24,8 @@
       <button class="search" id="search-btn" type="submit"></button>
       <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
     </div>
-    <ul class="places dropdown hidden" data-bind="foreach: visibleLocations">
-        <li data-bind="text: name, click: $root.listClick"></li>
+    <ul class="places dropdown" data-bind="foreach: visibleLocations">
+        <li class="hidden" data-bind="text: name, click: $root.listClick"></li>
     </ul>
   </div>
     <script src="js/jquery-2.2.0.min.js"></script>

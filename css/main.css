@@ -80,43 +80,6 @@ hr {
 	color: #ee8833;
 }
 
-#hamburger{
-  float:right;
-  padding: 3em 3em 0 0;
-  margin: 0;
-}
-#hamburger span, #hamburger span:before, #hamburger span:after {
-  cursor: pointer;
-  border-radius: 1px;
-  height: 5px;
-  width: 35px;
-  background: black;
-  position: absolute;
-  display: block;
-  content: '';
-}
-#hamburger span:before {
-  top: -10px;
-}
-#hamburger span:after {
-  bottom: -10px; 
-}
-
-#hamburger span, #hamburger span:before, #hamburger span:after {
-  transition: all 500ms ease-in-out;
-}
-#hamburger.active span {
-  background-color: transparent;
-}
-#hamburger.active span:before, a.active span:after {
-  top: 0;
-}
-#hamburger.active span:before {
-  transform: rotate(45deg);
-}
-#hamburger.active span:after {
-  transform: rotate(-45deg);
-}
 
 .dropdown {
   list-style: none;
@@ -125,7 +88,7 @@ hr {
 
 #map {
 	height: 81vh;
-	width: 78.4%;
+	width: 100%;
 	float: left;
 	position: relative;
 }
@@ -186,7 +149,7 @@ hr {
 	}
 }
 
-@media all and (min-width: 601px) and (max-width: 980px) {
+@media all and (max-width: 800px) {
 	html {
 		font-size: 100%;
 	}
@@ -198,7 +161,7 @@ hr {
 		height: 3em;
 	}
 	#map {
-		width: 77%;
+		width: 100%;
 	}
 	#foursquare {
 		width: 50%;
@@ -219,9 +182,51 @@ hr {
 		color: #ee8833;
 		margin: 1em 0;
 		font-size: 1.25em;
+		position: fixed;
+		top: 12em;
+		z-index: 10000;
+		right:0;
 	}
 	.places li {
 		padding: 0.25em 0 0.25em;
+	}
+	
+	#hamburger{
+	  float:right;
+	  padding: 3em 3em 0 0;
+	  margin: 0;
+	}
+	#hamburger span, #hamburger span:before, #hamburger span:after {
+	  cursor: pointer;
+	  border-radius: 1px;
+	  height: 5px;
+	  width: 35px;
+	  background: black;
+	  position: absolute;
+	  display: block;
+	  content: '';
+	}
+	#hamburger span:before {
+	  top: -10px;
+	}
+	#hamburger span:after {
+	  bottom: -10px; 
+	}
+	
+	#hamburger span, #hamburger span:before, #hamburger span:after {
+	  transition: all 500ms ease-in-out;
+	}
+	#hamburger.active span {
+	  background-color: transparent;
+	}
+	#hamburger.active span:before, a.active span:after {
+	  top: 0;
+	}
+	#hamburger.active span:before {
+	  transform: rotate(45deg);
+	}
+	#hamburger.active span:after {
+	  transform: rotate(-45deg);
 	}
 
 }

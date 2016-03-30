@@ -119,9 +119,6 @@ hr {
 }
 
 .dropdown {
-  position: absolute;
-  top:70px;
-  right: 40px;
   list-style: none;
   z-index: 10000;
 }

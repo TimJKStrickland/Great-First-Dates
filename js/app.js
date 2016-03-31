@@ -274,7 +274,8 @@ var ViewModel = function(){
 function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: startCenter,
-    zoom: 12
+    zoom: 12,
+    scrollwheel:false
   });
   ko.applyBindings(new ViewModel());
 }

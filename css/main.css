@@ -11,22 +11,10 @@ html, body {
 	height: 8em;
 }
 
-img{
-	width: 30%;
-	display: block;
-}
-
 .header{
 	margin: 0;
 }
 
-.inner-container {
-	width: 50%;
-	padding: 0;
-	float: left;
-	height: 4.5em;
-	margin: 1.5em 0;
-}
 
 hr {
  	border:0.5em solid #ee8833;
@@ -43,9 +31,7 @@ hr {
 	background-color: #ee8833;
 	color: white;
 	border: 0;	
-    	width: 5em;
-    	border-bottom-right-radius: 0.5em;
-    	border-top-right-radius: 0.5em;
+    width: 5em;
 	margin-right: 4em;
 }
 
@@ -97,6 +83,7 @@ hr {
 	margin-left: 1rem;
 }
 
+/*
 @media all and (max-width: 600px){
 	html{
 		font-size: 100%;
@@ -148,6 +135,7 @@ hr {
 		font-size: 4em;
 	}
 }
+*/
 
 @media all and (max-width: 800px) {
 	html {

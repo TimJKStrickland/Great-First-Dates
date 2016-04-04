@@ -1,19 +1,73 @@
 html, body {
+	height: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	font-size: 100%;
 	font-family: "Varela Round", Arial, sans-serif;
 }
+#hamburger {
+	position: absolute;
+	float: right;
+	top: 20px;
+	right: 20px;
+	margin: 0 auto;
+	padding-right: 2em;
+}
+
+#hamburger span, #hamburger span:before, #hamburger span:after {
+  cursor: pointer;
+  border-radius: 1px;
+  height: 5px;
+  width: 35px;
+  background: black;
+  position: absolute;
+  display: block;
+  content: '';
+}
+#hamburger span:before {
+  top: -10px;
+}
+#hamburger span:after {
+  bottom: -10px; 
+}
+
+#hamburger span, #hamburger span:before, #hamburger span:after {
+  transition: all 500ms ease-in-out;
+}
+#hamburger.active span {
+  background-color: transparent;
+}
+#hamburger.active span:before, a.active span:after {
+  top: 0;
+}
+#hamburger.active span:before {
+  transform: rotate(45deg);
+}
+#hamburger.active span:after {
+  transform: rotate(-45deg);
+}
 
 .upper-container {
 	height: 8em;
-	padding: 1em;
+}
+
+img{
+	width: 30%;
+	display: block;
 }
 
 .header{
 	margin: 0;
 }
 
+.inner-container {
+	width: 50%;
+	padding: 0;
+	float: left;
+	height: 4.5em;
+	margin: 1.5em 0;
+}
 
 hr {
  	border:0.5em solid #ee8833;
@@ -30,16 +84,14 @@ hr {
 	background-color: #ee8833;
 	color: white;
 	border: 0;	
-    width: 5em;
+	width: 5em;
+	border-bottom-right-radius: 0.5em;
+	border-top-right-radius: 0.5em;
 	margin-right: 4em;
 }
 
 #search-btn:before {
 	content: "Find it!";
-}
-
-.hidden {
-	visibility: hidden;
 }
 
 #searchbar {
@@ -65,15 +117,9 @@ hr {
 	color: #ee8833;
 }
 
-
-.dropdown {
-  list-style: none;
-  z-index: 10000;
-}
-
 #map {
 	height: 81vh;
-	width: 100%;
+	width: 78.4%;
 	float: left;
 	position: relative;
 }
@@ -82,8 +128,7 @@ hr {
 	margin-left: 1rem;
 }
 
-/*
-@media all and (max-width: 600px){
+@media all and (max-width: 860px){
 	html{
 		font-size: 100%;
 	}
@@ -121,7 +166,6 @@ hr {
 		vertical-align: middle;
 	}
 	.places {
-		visibility: hidden;
 		position: absolute;
 		z-index: 100;
 		top: -10000px;
@@ -133,87 +177,4 @@ hr {
 	input[type ="text"] {
 		font-size: 4em;
 	}
-}
-*/
-
-@media all and (max-width: 800px) {
-	html {
-		font-size: 100%;
-	}
-	.upper-container {
-		float: left;
-		width: 100%;	
-	}
-	.search {
-		height: 3em;
-	}
-	#map {
-		width: 100%;
-	}
-	#foursquare {
-		width: 50%;
-		margin-left: -11;
-	}
-	#search-btn {
-		width: 3em;
-	}
-	#search-btn:before {
-		content: url('../assets/Magnifying_glass.svg');
-		vertical-align: middle;
-	}
-	.header {
-    		margin: 0.5rem 0 0 0.5rem;
-	}
-	.places {
-		width: 20%;
-		color: #ee8833;
-		margin: 1em 0;
-		font-size: 1.25em;
-		position: fixed;
-		top: 12em;
-		z-index: 10000;
-		right:0;
-	}
-	.places li {
-		padding: 0.25em 0 0.25em;
-	}
-	
-	#hamburger{
-	  float:right;
-	  padding: 3em 3em 0 0;
-	  margin: 0;
-	}
-	#hamburger span, #hamburger span:before, #hamburger span:after {
-	  cursor: pointer;
-	  border-radius: 1px;
-	  height: 5px;
-	  width: 35px;
-	  background: black;
-	  position: absolute;
-	  display: block;
-	  content: '';
-	}
-	#hamburger span:before {
-	  top: -10px;
-	}
-	#hamburger span:after {
-	  bottom: -10px; 
-	}
-	
-	#hamburger span, #hamburger span:before, #hamburger span:after {
-	  transition: all 500ms ease-in-out;
-	}
-	#hamburger.active span {
-	  background-color: transparent;
-	}
-	#hamburger.active span:before, a.active span:after {
-	  top: 0;
-	}
-	#hamburger.active span:before {
-	  transform: rotate(45deg);
-	}
-	#hamburger.active span:after {
-	  transform: rotate(-45deg);
-	}
-
 }

@@ -20,14 +20,13 @@
   <hr>
   <div class= "lower-container"> 
     <div id="map"></div>
-    <div>
+    <div id = "hamburger-menu" class = "hidden">
       <button class="search" id="search-btn" type="submit"></button>
       <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
+      <ul class="places dropdown" data-bind="foreach: visibleLocations">
+          <li data-bind="text: name, click: $root.listClick"></li>
+      </ul>
     </div>
-    <ul class="places dropdown" data-bind="foreach: visibleLocations">
-        <li data-bind="text: name, click: $root.listClick" class="hidden"></li>
-    </ul>
-  </div>
     <script src="js/jquery-2.2.0.min.js"></script>
     <script src="js/knockout-3.4.0.min.js"></script>
     <script src="js/app.js" type="text/javascript" async defer></script>
@@ -35,7 +34,7 @@
     <script>
       document.querySelector( "#hamburger" ).addEventListener( "click", function() {
         this.classList.toggle( "active" );
-        $(".dropdown li").toggleClass( "hidden" );
+        $("#hamburger-menu").toggleClass( "hidden" );
       });
     </script>
 </body>

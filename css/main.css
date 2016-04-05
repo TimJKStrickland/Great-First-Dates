@@ -106,15 +106,16 @@ hr {
 }
 
 .places{
-	width: 20%;
+	width: 100%;
 	float: left;
 	padding: 1em 0 0 1em;
 	margin: 0;
 	position: relative;
 	overflow: scroll;
-	height: 81vh;
+	height: 100%;
+	color: #fff;
 	}
-.tel, .places {
+.tel {
 	list-style: none;
 	text-decoration: none;
 	color: #ee8833;
@@ -179,5 +180,13 @@ hr {
 	}
 	input[type ="text"] {
 		font-size: 4em;
+	}
+	#hamburger-menu {
+		position: absolute;
+    		z-index: 0;
+    		top: 7.5em;
+    		right: 0;
+    		width: 16em;
+    		background-color: #ee8833;
 	}
 }

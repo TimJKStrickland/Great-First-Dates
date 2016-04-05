@@ -111,7 +111,6 @@ hr {
 	margin: 0;
 	position: relative;
 	overflow: scroll;
-	visibility: visible;
 	height: 81vh;
 	}
 .tel, .places {

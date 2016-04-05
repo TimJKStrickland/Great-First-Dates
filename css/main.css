@@ -8,8 +8,9 @@ html, body {
 }
 #hamburger {
 	position: absolute;
-	float: right;
 	top: 20px;
+	height: 40px;
+	width: 40px;
 	right: 20px;
 	margin: 0 auto;
 	padding-right: 2em;

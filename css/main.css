@@ -89,6 +89,9 @@ hr {
 	border-top-right-radius: 0.5em;
 	margin-right: 4em;
 }
+.hidden {
+	visibility: hidden;
+}
 
 #search-btn:before {
 	content: "Find it!";

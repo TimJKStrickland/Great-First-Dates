@@ -106,14 +106,13 @@ hr {
 }
 
 .places{
-	width: 100%;
-	float: left;
-	padding: 1em 0 0 1em;
 	margin: 0;
-	position: relative;
+	position: absolute;
 	overflow: scroll;
 	height: 100%;
 	color: #fff;
+	right: 0;
+	top: 12.5rem;
 	}
 .tel {
 	list-style: none;
@@ -168,11 +167,6 @@ hr {
 	#search-btn:before {
 		content: url('../assets/Magnifying_glass.svg');
 		vertical-align: middle;
-	}
-	.places {
-		position: absolute;
-		z-index: 100;
-		top: -10000px;
 	}
 	.header {
 		font-size: 1.25em;

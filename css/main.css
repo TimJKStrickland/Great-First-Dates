@@ -30,23 +30,19 @@ img{
 
 hr {
  	border:0.5em solid #ee8833;
- 	position: relative;
  	clear: both;
  	margin: 0;
  }
 
 .search{
 	height: 4em;
-	float: right;
+	float: left;
 }
 #search-btn {
 	background-color: #ee8833;
 	color: white;
 	border: 0;	
 	width: 5em;
-	border-bottom-right-radius: 0.5em;
-	border-top-right-radius: 0.5em;
-	margin-right: 4em;
 }
 .hidden {
 	visibility: hidden;
@@ -58,21 +54,22 @@ hr {
 
 #searchbar {
 	border: 0.15em solid #ee8833;
-	width: 10em;
-	border-bottom-left-radius: 0.5em;
-	border-top-left-radius: 0.5em;
+	width: 25em;
 }
 
 .places{
 	margin: 0;
-	position: absolute;
 	overflow: scroll;
-	height: 100%;
+	float: left;
 	color: #fff;
-	right: 0;
-	top: 12.5rem;
 	background-color: #ee8833;
 	}
+
+.places	li {
+	list-style: none;
+	
+}
+
 .tel {
 	list-style: none;
 	text-decoration: none;
@@ -80,10 +77,9 @@ hr {
 }
 
 #map {
-	height: 81vh;
-	width: 78.4%;
+	height: 80vh;
+	width: 73.4%;
 	float: left;
-	position: relative;
 }
 
 .header {

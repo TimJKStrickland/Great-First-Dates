@@ -275,7 +275,9 @@ function initMap(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: startCenter,
     zoom: 12,
-    scrollwheel:false
+    scrollwheel:false,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI: true
   });
   ko.applyBindings(new ViewModel());
 }

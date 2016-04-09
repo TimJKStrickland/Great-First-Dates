@@ -8,7 +8,12 @@ html, body {
 }
 
 .upper-container {
-	height: 8em;
+	height: 20%;
+}
+
+.lower-container {
+	height: 80%;
+	background-color: #ee8833;
 }
 
 img{
@@ -92,55 +97,54 @@ hr {
 	}
 	
 	#hamburger {
-	position: absolute;
-	top: 20px;
-	height: 40px;
-	width: 40px;
-	right: 20px;
-	margin: 0 auto;
-	padding-right: 2em;
+		position: absolute;
+		top: 20px;
+		height: 40px;
+		width: 40px;
+		right: 20px;
+		margin: 0 auto;
+		padding-right: 2em;
 }
 
-#hamburger span, #hamburger span:before, #hamburger span:after {
-  cursor: pointer;
-  border-radius: 1px;
-  height: 5px;
-  width: 35px;
-  background: black;
-  position: absolute;
-  display: block;
-  content: '';
-}
-#hamburger span:before {
-  top: -10px;
-}
-#hamburger span:after {
-  bottom: -10px; 
-}
+	#hamburger span, #hamburger span:before, #hamburger span:after {
+	  cursor: pointer;
+	  border-radius: 1px;
+	  height: 5px;
+	  width: 35px;
+	  background: black;
+	  position: absolute;
+	  display: block;
+	  content: '';
+	}
+	#hamburger span:before {
+	  top: -10px;
+	}
+	#hamburger span:after {
+	  bottom: -10px; 
+	}
 
-#hamburger span, #hamburger span:before, #hamburger span:after {
-  transition: all 500ms ease-in-out;
-}
-#hamburger.active span {
-  background-color: transparent;
-}
-#hamburger.active span:before, a.active span:after {
-  top: 0;
-}
-#hamburger.active span:before {
-  transform: rotate(45deg);
-}
-#hamburger.active span:after {
-  transform: rotate(-45deg);
-}
+	#hamburger span, #hamburger span:before, #hamburger span:after {
+	  transition: all 500ms ease-in-out;
+	}
+	#hamburger.active span {
+	  background-color: transparent;
+	}
+	#hamburger.active span:before, a.active span:after {
+	  top: 0;
+	}
+	#hamburger.active span:before {
+	  transform: rotate(45deg);
+	}
+	#hamburger.active span:after {
+	  transform: rotate(-45deg);
+	}
 
 	.upper-container {
-		height: 9em;
+		height: 5%;
 	}
 	.inner-container {
 		float: left;
-		width: 50%;	
-		font-size: 1em;
+		width: 100%;	
 		margin: 0;
 		padding: 0;
 	}

@@ -142,6 +142,9 @@ hr {
 	.upper-container {
 		height: 5%;
 	}
+	.lower-container{
+		height: 95%;
+	}
 	.inner-container {
 		float: left;
 		width: 100%;	
@@ -150,6 +153,7 @@ hr {
 	}
 	#map{
 		width: 100%;
+		height: 95%;
 	}
 	#searchbar {
 		width: 10em;

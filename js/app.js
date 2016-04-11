@@ -139,7 +139,7 @@ var ViewModel = function(){
   var resetMap = function(marker){
     map.panTo(startCenter);
     map.setZoom(12);
-  }
+  };
   var toggleBounceOffAll = function(){
     self.allLocations.forEach(function(location){
       if(location.marker.getAnimation() !== null){

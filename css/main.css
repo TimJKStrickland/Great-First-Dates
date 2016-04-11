@@ -72,7 +72,10 @@ hr {
 
 .places	li {
 	list-style: none;
-	
+}
+
+.places::-webkit-scrollbar {
+	visibility: hidden;
 }
 
 .tel {
@@ -104,7 +107,7 @@ hr {
 		right: 20px;
 		margin: 0 auto;
 		padding-right: 2em;
-}
+	}
 
 	#hamburger span, #hamburger span:before, #hamburger span:after {
 	  cursor: pointer;
@@ -116,6 +119,7 @@ hr {
 	  display: block;
 	  content: '';
 	}
+	
 	#hamburger span:before {
 	  top: -10px;
 	}
@@ -168,20 +172,21 @@ hr {
 		width: 2em;
 		margin: 0;
 	}
-	#foursquare {
-		width: 75%;
-	}
+	
 	#search-btn:before {
 		content: url('../assets/Magnifying_glass.svg');
 		vertical-align: middle;
 	}
+	
 	.header {
 		font-size: 1.25em;
 		margin: 0;
 	}
+	
 	input[type ="text"] {
 		font-size: 4em;
 	}
+	
 	#hamburger-menu {
 		position: absolute;
     		z-index: 0;

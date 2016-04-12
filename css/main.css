@@ -91,7 +91,7 @@ hr {
 }
 
 .header {
-	margin-left: 1rem;
+	margin-left: 2em;
 }
 
 @media all and (max-width: 860px){

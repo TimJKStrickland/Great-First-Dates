@@ -1,5 +1,5 @@
 var map;
-var startCenter = {lat: 37.7764823, lng: -122.42};
+var startCenter = { lat: 37.7764823, lng: -122.42 };
 contentString = "";
 var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data.";
 

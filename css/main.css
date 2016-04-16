@@ -68,10 +68,12 @@ hr {
 	float: left;
 	color: #fff;
 	background-color: #ee8833;
+	padding: 1.5em;
 	}
 
 .places	li {
 	list-style: none;
+
 }
 
 .places::-webkit-scrollbar {

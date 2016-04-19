@@ -34,7 +34,7 @@ img{
 }
 
 hr {
- 	border:0.5em solid #ee8833;
+ 	border:0.5rem solid #ee8833;
  	clear: both;
  	margin: 0;
  }
@@ -49,6 +49,7 @@ hr {
 	border: 0;	
 	width: 5em;
 }
+
 .hidden {
 	visibility: hidden;
 }
@@ -79,6 +80,9 @@ hr {
 .places::-webkit-scrollbar {
 	visibility: hidden;
 }
+.places::-webkit-scrollbar-corner {
+	visibility: hidden;
+}
 
 .tel {
 	list-style: none;
@@ -100,56 +104,24 @@ hr {
 	html{
 		font-size: 100%;
 	}
-	
-	#hamburger {
-		position: absolute;
-		top: 20px;
-		height: 40px;
-		width: 40px;
-		right: 20px;
-		margin: 0 auto;
-		padding-right: 2em;
-	}
 
-	#hamburger span, #hamburger span:before, #hamburger span:after {
-	  cursor: pointer;
-	  border-radius: 1px;
-	  height: 5px;
-	  width: 35px;
-	  background: black;
-	  position: absolute;
-	  display: block;
-	  content: '';
+	.header {
+		display: inline-block;
+		font-size: 1rem;
+		margin: 0;
+		padding: 0.15rem;
 	}
-	
-	#hamburger span:before {
-	  top: -10px;
-	}
-	#hamburger span:after {
-	  bottom: -10px; 
-	}
-
-	#hamburger span, #hamburger span:before, #hamburger span:after {
-	  transition: all 500ms ease-in-out;
-	}
-	#hamburger.active span {
-	  background-color: transparent;
-	}
-	#hamburger.active span:before, a.active span:after {
-	  top: 0;
-	}
-	#hamburger.active span:before {
-	  transform: rotate(45deg);
-	}
-	#hamburger.active span:after {
-	  transform: rotate(-45deg);
-	}
-
 	.upper-container {
-		height: 5%;
+		height: 10%;
 	}
-	.lower-container{
-		height: 95%;
+
+	#foursquare{
+		width: 50%;
+	}
+	.places{
+		position: absolute;
+		bottom: 0;
+		z-index: 100;
 	}
 	.inner-container {
 		float: left;
@@ -159,20 +131,37 @@ hr {
 	}
 	#map{
 		width: 100%;
-		height: 95%;
+		position: absolute;
 	}
+
+	div>span, h5>p, h5 {
+		font-size: 0.75rem;
+		margin: 0 0 0.15rem 0;
+	}
+
 	#searchbar {
-		width: 10em;
+		width: 90%;
+		margin: 0; 
+		left: 10%;
 	}
 
 	#search-btn {
-		width: 3em;
-		margin-right: 0em;
+		width: 10%;
+		margin: 0;
+		left: 0;
 	}
 	.search {
 		height: 3em;
 		width: 2em;
 		margin: 0;
+		position: absolute;
+		z-index: 1000;
+		bottom: 6rem;
+	}
+	.places {
+		clear: both;
+		height: 3.5rem;
+		overflow: scroll;
 	}
 	
 	#search-btn:before {
@@ -180,21 +169,7 @@ hr {
 		vertical-align: middle;
 	}
 	
-	.header {
-		font-size: 1.25em;
-		margin: 0;
-	}
-	
 	input[type ="text"] {
 		font-size: 4em;
-	}
-	
-	#hamburger-menu {
-		position: absolute;
-    		z-index: 0;
-    		top: 7.5em;
-    		right: 0;
-    		width: 16em;
-    		background-color: #ee8833;
 	}
 }

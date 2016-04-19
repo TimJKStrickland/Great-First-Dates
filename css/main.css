@@ -7,12 +7,8 @@ html, body {
 	font-family: "Varela Round", Arial, sans-serif;
 }
 
-.upper-container {
-	height: 20%;
-}
-
 .lower-container {
-	height: 80%;
+	height: 31em;
 	background-color: #ee8833;
 }
 
@@ -25,8 +21,7 @@ img{
 	margin: 0;
 }
 
-.inner-container {
-	width: 50%;
+.upper-container {
 	padding: 0;
 	float: left;
 	height: 4.5em;
@@ -39,19 +34,15 @@ hr {
  	margin: 0;
  }
 
-.search{
+.search, #search-btn{
 	height: 4em;
-	float: left;
 }
 #search-btn {
 	background-color: #ee8833;
 	color: white;
-	border: 0;	
-	width: 5em;
-}
-
-.hidden {
-	visibility: hidden;
+	border: 0;
+	width: 6%;	
+	float: left;
 }
 
 #search-btn:before {
@@ -59,29 +50,23 @@ hr {
 }
 
 #searchbar {
-	border: 0.15em solid #ee8833;
-	width: 25em;
+    border: 0.15em solid #ee8833;
+    width: 20.6%;
+    margin: 0;
+    padding: 0;
+    float: left;
 }
-
 .places{
 	margin: 0;
 	overflow: scroll;
-	float: left;
 	color: #fff;
 	background-color: #ee8833;
 	padding: 1.5em;
+	height: 22em;
 	}
 
 .places	li {
 	list-style: none;
-
-}
-
-.places::-webkit-scrollbar {
-	visibility: hidden;
-}
-.places::-webkit-scrollbar-corner {
-	visibility: hidden;
 }
 
 .tel {
@@ -94,13 +79,14 @@ hr {
 	height: 80vh;
 	width: 73.4%;
 	float: left;
+	margin: 0;
 }
 
 .header {
 	margin-left: 2rem;
 }
 
-@media all and (max-width: 860px){
+@media all and (max-width: 600px){
 	html{
 		font-size: 100%;
 	}
@@ -111,27 +97,32 @@ hr {
 		margin: 0;
 		padding: 0.15rem;
 	}
-	.upper-container {
-		height: 10%;
-	}
 
 	#foursquare{
-		width: 50%;
+		width: 30%;
+		float: right;
 	}
 	.places{
 		position: absolute;
 		bottom: 0;
 		z-index: 100;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		height: 5rem;
+		overflow: scroll;
 	}
-	.inner-container {
+	.upper-container {
 		float: left;
 		width: 100%;	
 		margin: 0;
 		padding: 0;
 	}
+
 	#map{
 		width: 100%;
 		position: absolute;
+		height: 33em;
 	}
 
 	div>span, h5>p, h5 {
@@ -140,28 +131,23 @@ hr {
 	}
 
 	#searchbar {
-		width: 90%;
+		width: 92%;
 		margin: 0; 
-		left: 10%;
+		bottom: 0;
 	}
 
 	#search-btn {
-		width: 10%;
+		width: 8%;
 		margin: 0;
-		left: 0;
+		bottom: 52px;
 	}
 	.search {
-		height: 3em;
-		width: 2em;
+		height: 3rem;
+		width: 100%;
 		margin: 0;
 		position: absolute;
 		z-index: 1000;
 		bottom: 6rem;
-	}
-	.places {
-		clear: both;
-		height: 3.5rem;
-		overflow: scroll;
 	}
 	
 	#search-btn:before {

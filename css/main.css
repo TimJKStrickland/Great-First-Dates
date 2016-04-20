@@ -9,6 +9,7 @@ html, body {
 
 .lower-container {
 	background-color: #ee8833;
+	height: 44rem;
 }
 
 div>span, h5>p, h5 {
@@ -37,14 +38,15 @@ hr {
  	margin: 0;
  }
 
-.search, #search-btn{
-	height: 4em;
+.search{
+	height: 4rem;
+	width: 30%;
 }
 #search-btn {
 	background-color: #ee8833;
 	color: white;
 	border: 0;
-	width: 6%;	
+	width: 12%;	
 	float: left;
 }
 
@@ -54,7 +56,7 @@ hr {
 
 #searchbar {
     border: 0.15em solid #ee8833;
-    width: 20.6%;
+    width: 88%;
     margin: 0;
     padding: 0;
     float: left;
@@ -65,7 +67,7 @@ hr {
 	color: #fff;
 	background-color: #ee8833;
 	padding: 1.5em;
-	height: 22em;
+	height: 100%;
 	}
 
 .places	li {
@@ -79,8 +81,8 @@ hr {
 }
 
 #map {
-	height: 80vh;
-	width: 73.4%;
+	100%
+	width: 70%;
 	float: left;
 	margin: 0;
 }

@@ -19,8 +19,8 @@
         <button id="search-btn" type="submit"></button>
         <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
       </div>
-      <div>
-        <ul class="places dropdown" data-bind="foreach: visibleLocations">
+      <div class="places-menu">
+        <ul class="places" data-bind="foreach: visibleLocations">
             <li data-bind="text: name, click: $root.listClick"></li>
         </ul>
       </div>

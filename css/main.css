@@ -56,7 +56,7 @@ hr {
 
 #searchbar {
     border: 0.15em solid #ee8833;
-    width: 88%;
+    /*width: 88%;*/
     margin: 0;
     padding: 0;
     float: left;
@@ -68,7 +68,11 @@ hr {
 	background-color: #ee8833;
 	padding: 1.5em;
 	height: 100%;
-	}
+}
+
+/*.places-menu {
+	width: 30%;
+}*/
 
 .places	li {
 	list-style: none;
@@ -81,7 +85,7 @@ hr {
 }
 
 #map {
-	100%
+	height: 100%;
 	width: 70%;
 	float: left;
 	margin: 0;
@@ -91,7 +95,7 @@ hr {
 	margin-left: 2rem;
 }
 
-@media all and (max-width: 600px){
+@media all and (max-width: 860px){
 	html{
 		font-size: 100%;
 	}
@@ -156,11 +160,11 @@ hr {
 	}
 }
 
-@media all and (max-width: 860px){
+/*@media all and (max-width: 860px){
 
 	#foursquare {
 		width: 10rem;
 		float: left;
 	}
 
-}
+}*/

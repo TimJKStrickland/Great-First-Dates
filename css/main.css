@@ -12,9 +12,17 @@ html, body {
 	height: 35rem;
 }
 
+.fa-cog {
+	color: #ee8833;
+}
+
 div>span, h5>p, h5 {
 	font-size: 0.75rem;
 	margin: 0 0 0.15rem 0;
+}
+
+div>h4 {
+	margin-bottom: 0;
 }
 
 #foursquare {
@@ -47,7 +55,7 @@ hr {
 	background-color: #ee8833;
 	color: white;
 	border: 0;
-	width: 15%;	
+	width: 20%;	
 	float: left;
 }
 
@@ -58,11 +66,11 @@ hr {
 
 #searchbar {
     border: 0.15em solid #ee8833;
-    /*width: 88%;*/
+
     margin: 0;
     padding: 0;
     float: left;
-    width: 85%;
+    width: 80%;
 }
 .places{
 	margin: 0;
@@ -72,10 +80,6 @@ hr {
 	padding: 1.5em;
 	height: 100%;
 }
-
-/*.places-menu {
-	width: 30%;
-}*/
 
 .places	li {
 	list-style: none;

@@ -1,7 +1,8 @@
-var map;
-var startCenter = { lat: 37.7764823, lng: -122.42 };
-contentString = "";
-var errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data.";
+var map,
+    startCenter = { lat: 37.7764823, lng: -122.42 },
+    contentString = "",
+    errorAjax = "Whoops. Better luck finding your date an Uber. Can't find any data.",
+    uiSpinner = "<i class='fa fa-cog fa-spin fa-3x fa-fw margin-bottom'></i>";
 
 /** VIEWMODEL **/
 var ViewModel = function(){
@@ -121,7 +122,7 @@ var ViewModel = function(){
     }
   ];
 
-// Place constructor
+  // Place constructor
   function Place(data) {
     this.name = data.name;
     this.pos = data.pos;
@@ -149,7 +150,7 @@ var ViewModel = function(){
   };
 
   var infoWindow = new google.maps.InfoWindow({
-    content: errorAjax,
+    content: uiSpinner,
     maxWidth: 200
   });
 
@@ -199,7 +200,7 @@ var ViewModel = function(){
       google.maps.event.trigger(place.marker, 'click');
     };
   var foursquareGet = function(marker){
-    infoWindow.setContent(errorAjax);
+    infoWindow.setContent(uiSpinner);
     $.ajax(fourSquareUrl, {
       datatype:"json",
       success: function (data){
@@ -236,7 +237,11 @@ var ViewModel = function(){
           var contentString = contentString0 + contentString1 + contentString2 + contentString3;
           infoWindow.setContent(contentString);
           })(data);
-        }
+      },
+      timeout: 1000,
+      error: function(){
+          infoWindow.setContent(errorAjax);
+      }
       });
     };
   });
@@ -253,10 +258,11 @@ var ViewModel = function(){
   // Credit: http://codepen.io/prather-mcs/pen/KpjbNN?editors=1010
   self.filterMarkers = function() {
     var searchInput = self.userInput().toLowerCase();
-
+    google.maps.event.trigger('closeclick');
     self.visibleLocations.removeAll();
     self.allLocations.forEach(function(location){
       location.marker.setVisible(false);
+
 
     if(location.name.toLowerCase().indexOf(searchInput) !== -1){
       self.visibleLocations.push(location);

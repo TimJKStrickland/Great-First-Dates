@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet'>
   </head>
   <body>
       <div class="upper-container">
         <h1 class='header'>First Date Spots</h1>
         <h3 class='header'>provided by Thrillist</h3>
-          <img class="header" id="foursquare" src="https://ss0.4sqi.net/img/poweredByFoursquare/poweredby-full-color-bf549c16c0ab3e1b04706ab5fcb422f1.png">
+          <img class="header foursquare" src="https://ss0.4sqi.net/img/poweredByFoursquare/poweredby-full-color-bf549c16c0ab3e1b04706ab5fcb422f1.png">
       </div>
     <hr>
-    <div class= "lower-container"> 
+    <div class="lower-container"> 
       <div id="map"></div>
       <div class="search">
-        <button id="search-btn" type="submit"></button>
-        <input id="searchbar" class="search" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
+        <button type="submit">Find it!</button>
+        <input class="searchbar" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
       </div>
       <div class="places-menu">
         <ul class="places" data-bind="foreach: visibleLocations">
@@ -28,7 +28,7 @@
     </div>
     <script src="js/jquery-2.2.0.min.js"></script>
     <script src="js/knockout-3.4.0.min.js"></script>
-    <script src="js/app.js" type="text/javascript" async defer></script>
-    <script  async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6VYNqBMNhrtNeqhadsougorKodr1BF44&callback=initMap" onerror="googleError()" type="text/javascript"></script>
+    <script src="js/app.js" async defer></script>
+    <script  async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6VYNqBMNhrtNeqhadsougorKodr1BF44&callback=initMap" onerror="googleError()"></script>
   </body>
 </html>

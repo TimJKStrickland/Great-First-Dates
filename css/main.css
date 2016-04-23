@@ -1,4 +1,5 @@
-html, body {
+html, 
+body {
 	height: 100%;
 	width: 100%;
 	margin: 0;
@@ -16,7 +17,9 @@ html, body {
 	color: #ee8833;
 }
 
-div>span, h5>p, h5 {
+div>span, 
+h5>p, 
+h5 {
 	font-size: 0.75rem;
 	margin: 0 0 0.15rem 0;
 }
@@ -25,7 +28,7 @@ div>h4 {
 	margin-bottom: 0;
 }
 
-#foursquare {
+.foursquare {
 	width: 10rem;
 }
 
@@ -51,26 +54,22 @@ hr {
 	width: 30%;
 	float: left;
 }
-#search-btn {
+button {
 	background-color: #ee8833;
 	color: white;
 	border: 0;
 	width: 20%;	
 	float: left;
-}
-
-#search-btn:before {
-	content: "Find it!";
 	line-height: 3rem;
 }
 
-#searchbar {
+.searchbar {
     border: 0.15em solid #ee8833;
-
     margin: 0;
     padding: 0;
     float: left;
     width: 80%;
+    height: 3rem;
 }
 .places{
 	margin: 0;
@@ -81,7 +80,7 @@ hr {
 	height: 100%;
 }
 
-.places	li {
+li {
 	list-style: none;
 }
 
@@ -110,11 +109,10 @@ hr {
 	.header {
 		display: inline-block;
 		font-size: 1rem;
-		margin: 0;
-		padding: 0.15rem;
+		margin: 0.15rem;
 	}
 
-	#foursquare{
+	.foursquare{
 		width: 30%;
 		float: right;
 	}
@@ -124,7 +122,7 @@ hr {
 		width: 100%;
 		margin: 0;
 		padding: 0;
-		height: 5rem;
+		height: 7rem;
 		overflow: scroll;
 	}
 	.upper-container {
@@ -132,6 +130,7 @@ hr {
 		width: 100%;	
 		margin: 0;
 		padding: 0;
+		height: 2.5rem;
 	}
 
 	#map{
@@ -139,13 +138,14 @@ hr {
 		height: 25rem;
 	}
 
-	#searchbar {
+	.searchbar {
 		width: 95%;
 		margin: 0; 
 		bottom: 0;
+		height: 3rem;
 	}
 
-	#search-btn {
+	button {
 		width: 5%;
 	}
 	.search {
@@ -157,7 +157,7 @@ hr {
 		z-index: 1000;
 	}
 	
-	#search-btn:before {
+	button:before {
 		content: url('../assets/Magnifying_glass.svg');
 		vertical-align: middle;
 	}

@@ -258,7 +258,7 @@ var ViewModel = function(){
   // Credit: http://codepen.io/prather-mcs/pen/KpjbNN?editors=1010
   self.filterMarkers = function() {
     var searchInput = self.userInput().toLowerCase();
-    google.maps.event.trigger('closeclick');
+    infoWindow.close();
     self.visibleLocations.removeAll();
     self.allLocations.forEach(function(location){
       location.marker.setVisible(false);

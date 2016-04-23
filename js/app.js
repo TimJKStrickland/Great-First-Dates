@@ -1,3 +1,4 @@
+'use strict';
 var map,
     startCenter = { lat: 37.7764823, lng: -122.42 },
     contentString = "",

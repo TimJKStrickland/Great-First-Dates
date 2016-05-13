@@ -200,6 +200,7 @@ var ViewModel = function(){
       google.maps.event.trigger(place.marker, 'click');
     };
   var foursquareGet = function(marker){
+    var contentString3;
     infoWindow.setContent(uiSpinner);
     $.ajax(fourSquareUrl, {
       datatype:"json",

@@ -10,7 +10,7 @@ body {
 
 .lower-container {
 	background-color: #ee8833;
-	height: 35rem;
+	height: 84.5%;
 }
 
 .fa-cog {
@@ -39,7 +39,7 @@ div>h4 {
 .upper-container {
 	padding: 0;
 	float: left;
-	height: 4.5em;
+	height: 8%;
 	margin: 1.5em 0;
 }
 
@@ -125,12 +125,17 @@ li {
 		height: 7rem;
 		overflow: scroll;
 	}
+	
+	.upper-container {
+		height: 90%;
+	}
+	
 	.upper-container {
 		float: left;
 		width: 100%;	
 		margin: 0;
 		padding: 0;
-		height: 2.5rem;
+		height: 10%;
 	}
 
 	#map {

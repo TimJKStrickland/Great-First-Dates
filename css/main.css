@@ -24,28 +24,12 @@ h5 {
 	margin: 0 0 0.15rem 0;
 }
 
-div>h4 {
-	margin-bottom: 0;
-}
-
-.foursquare {
-	width: 10rem;
-}
-
-.header {
-	margin: 0;
-}
-
 .upper-container {
 	padding: 0;
-	float: left;
-	height: 8%;
-	margin: 1.5em 0;
 }
 
 hr {
  	border:0.5rem solid #ee8833;
- 	clear: both;
  	margin: 0;
  }
 

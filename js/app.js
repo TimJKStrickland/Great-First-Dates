@@ -173,7 +173,7 @@ var ViewModel = function(){
 
     google.maps.event.addListener(location.marker, 'click', (function(markerCopy, infoWindowCopy){
       return function(){
-        map.panTo(markerCopy.getPosition());
+        map.panTo(markerCopy.getPosition() + 1);
         map.setZoom(13);
         infoWindowCopy.open(map, markerCopy);
         foursquareGet(location.marker);

@@ -20,11 +20,11 @@
         <div class="search">
           <button type="submit"></button>
           <input class="searchbar" placeholder="Type here..." type="search" autocomplete="off" data-bind="textInput: userInput, event: { keyup:filterMarkers }">
-          <div class="places-menu">
-            <ul class="places" data-bind="foreach: visibleLocations">
-              <li data-bind="text: name, click: $root.listClick"></li>
-            </ul>
-          </div>
+        </div>
+        <div class="places-menu">
+        <ul class="places" data-bind="foreach: visibleLocations">
+            <li data-bind="text: name, click: $root.listClick"></li>
+          </ul>
         </div>
     </div>
     <script src="js/jquery-2.2.0.min.js"></script>

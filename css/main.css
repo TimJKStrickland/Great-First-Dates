@@ -51,6 +51,7 @@ hr {
 	width: 30%;
 	float: left;
 }
+
 button {
 	background-color: #ee8833;
 	color: white;
@@ -58,6 +59,10 @@ button {
 	width: 20%;	
 	line-height: 3rem;
 	float: left;
+}
+
+button:before {
+	content: url('../assets/Magnifying_glass.svg');
 }
 
 .searchbar {
@@ -164,11 +169,7 @@ button:before {
 		display: none;
 		
 	}
-	
-	button:before {
-		content: url('../assets/Magnifying_glass.svg');
-	}
-	
+
 	input[type ="text"] {
 		font-size: 4rem;
 	}

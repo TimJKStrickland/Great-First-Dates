@@ -84,13 +84,13 @@ button:before {
 	overflow: scroll;
 	width: 30%;
 }
-.places-menu::-webkit-scrollbar { display: none; }
-.places-menu::-webkit-scrollbar-button { display: none; }
-.places-menu::-webkit-scrollbar-track { display: none; }
-.places-menu::-webkit-scrollbar-track-piece { display: none; }
-.places-menu::-webkit-scrollbar-thumb { display: none; }
-.places-menu::-webkit-scrollbar-corner { display: none; }
-.places-menu::-webkit-resizer { display: none; }
+.places::-webkit-scrollbar { display: none; }
+.places::-webkit-scrollbar-button { display: none; }
+.places::-webkit-scrollbar-track { display: none; }
+.places::-webkit-scrollbar-track-piece { display: none; }
+.places::-webkit-scrollbar-thumb { display: none; }
+.places::-webkit-scrollbar-corner { display: none; }
+.places::-webkit-resizer { display: none; }
 
 .foursquare {
 	max-width: 10rem;

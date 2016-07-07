@@ -20,7 +20,11 @@ h6 {
 
 .lower-container {
 	background-color: #ee8833;
-	height: 84.5%;
+	height: 87%;
+}
+
+.upper-container {
+	height: 13%;
 }
 
 .fa-cog {

@@ -11,6 +11,8 @@ body {
 .lower-container {
 	background-color: #ee8833;
 	height: 84.5%;
+	display: flex;
+	justify-content: space-between;
 }
 
 .fa-cog {
@@ -21,16 +23,14 @@ div>span,
 h5>p, 
 h5 {
 	font-size: 0.75rem;
-	margin: 0 0 0.15rem 0;
-}
-
-.upper-container {
-	padding: 0;
+	margin: 0;
 }
 
 hr {
  	border:0.5rem solid #ee8833;
  	margin: 0;
+ 	position: absolute;
+ 	width: 100%;
  }
 
 .search {
@@ -60,7 +60,7 @@ button {
 	padding: 1.5em;
 }
 .places-menu {
-	height: ;
+	height: 40em;
 	overflow: scroll;
 	width: 100%;
 }
@@ -96,7 +96,7 @@ button:before {
 
 	.header {
 		display: inline-block;
-		font-size: 1rem;
+		font-size: 1.571em;
 		margin: 0.15rem;
 	}
 
@@ -116,7 +116,14 @@ button:before {
 		width: 100%;
 		margin: 0;
 		padding: 0;
-    		height: 2.571em;
+    		height: 2.625em;
+	}
+	
+	.upper-container {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+    		height: 25em;
 	}
 
 	#map {

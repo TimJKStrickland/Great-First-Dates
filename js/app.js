@@ -213,7 +213,7 @@ var ViewModel = function(){
           if (venue.rating !== undefined) {
             contentString3 = '</h5><div><span>' + venue.location.formattedAddress[0] +
             '</span>, <span>' + venue.location.formattedAddress[1] + 
-            '</span></div><br><div>Rating: <span>' + venue.rating + '</span>/10 Based on <span>' +
+            '</span></div><div>Rating: <span>' + venue.rating + '</span>/10 Based on <span>' +
             venue.ratingSignals + '</span> votes</div></div>';
           } else {
             contentString3 = '</h5><div><span>' + venue.place.formattedAddress[0] +
@@ -283,6 +283,7 @@ function initMap(){
     center: startCenter,
     zoom: 12,
     scrollwheel:false,
+    draggable: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     disableDefaultUI: true
   });

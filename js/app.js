@@ -151,7 +151,7 @@ var ViewModel = function(){
 
   var infoWindow = new google.maps.InfoWindow({
     content: uiSpinner,
-    maxWidth: 200
+    maxWidth: 100
   });
 
   self.locations.forEach(function(location){

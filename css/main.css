@@ -124,7 +124,6 @@ button:before {
 		z-index: 100;
 		width: 100%;
 		margin: 0;
-		height: 10em;
 		padding: 0;
 		overflow: scroll;
 	}
@@ -139,7 +138,7 @@ button:before {
 
 	#map {
 		width: 100%;
-		height: 18em;
+		height: 25em;
 	}
 
 	.searchbar {
@@ -149,9 +148,6 @@ button:before {
 		height: 3rem;
 	}
 
-	button {
-		width: 5%;
-	}
 	.search {
 		margin: 0;
 		display: flex;
@@ -159,12 +155,12 @@ button:before {
 		width: 100%;
 		justify-content: space-between;
 		align-items: center;
+		height: inherit;
 		
 	}
 	
 	button:before {
 		content: url('../assets/Magnifying_glass.svg');
-		vertical-align: middle;
 	}
 	
 	input[type ="text"] {

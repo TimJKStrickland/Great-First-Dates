@@ -131,16 +131,10 @@ button:before {
 	
 	.upper-container {
 		width: 100%;
-		margin: 0;
-		padding: 0;
-    		height: 2.625em;
 	}
 	
 	.lower-container {
 		width: 100%;
-		margin: 0;
-		padding: 0;
-    		height: 25em;
 	}
 
 	#map {
